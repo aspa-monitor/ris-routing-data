@@ -14,11 +14,11 @@ Current source: collector `rrc00`, peer **AS7018** (AT&T), IPv4 + IPv6 sessions 
 ## Getting the data
 Latest snapshot (always overwritten):
 ```
-https://github.com/kansal15/ris-routing-data/releases/download/latest/manifest.json
-https://github.com/kansal15/ris-routing-data/releases/download/latest/rrc00_AS7018_routes.tsv.gz
-https://github.com/kansal15/ris-routing-data/releases/download/latest/rrc00_AS7018_paths.tsv.gz
-https://github.com/kansal15/ris-routing-data/releases/download/latest/rrc00_AS7018_adjacency.tsv.gz
-https://github.com/kansal15/ris-routing-data/releases/download/latest/rrc00_AS7018_meta.json
+https://github.com/aspa-monitor/ris-routing-data/releases/download/latest/manifest.json
+https://github.com/aspa-monitor/ris-routing-data/releases/download/latest/rrc00_AS7018_routes.tsv.gz
+https://github.com/aspa-monitor/ris-routing-data/releases/download/latest/rrc00_AS7018_paths.tsv.gz
+https://github.com/aspa-monitor/ris-routing-data/releases/download/latest/rrc00_AS7018_adjacency.tsv.gz
+https://github.com/aspa-monitor/ris-routing-data/releases/download/latest/rrc00_AS7018_meta.json
 ```
 Timestamped releases `snapshot-YYYYMMDD-HHMM` are kept for 7 days. `latest/` in this repo holds the newest
 `manifest.json` and meta files. `manifest.json` lists every asset with size and SHA-256, plus `schema_version`.
