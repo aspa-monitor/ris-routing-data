@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-11-23T18:10:13+00:00",
+  "as_of": "2026-11-23T18:05:00+00:00",
+  "sources": [
+    {
+      "name": "rrc00_AS7018",
+      "collector": "rrc00",
+      "peer_asn": 7018,
+      "as_of": "2026-11-23T18:05:00+00:00",
+      "meta": "rrc00_AS7018_meta.json",
+      "files": {
+        "routes": {
+          "asset": "rrc00_AS7018_routes.tsv.gz",
+          "bytes": 12965828,
+          "sha256": "7cb22b06cd2b708e61d03f4f0b3ef34be21656977410df9ad8366ca09287d153"
+        },
+        "paths": {
+          "asset": "rrc00_AS7018_paths.tsv.gz",
+          "bytes": 3846154,
+          "sha256": "6997d5a5f0175a4e8f42bdb3bf019f3fdaad474d04ab3e7953ffcdf9e9a2658a"
+        },
+        "adjacency": {
+          "asset": "rrc00_AS7018_adjacency.tsv.gz",
+          "bytes": 699359,
+          "sha256": "fc7912ece326b435bb9852d22389da335f7d0e7713088a613bc25defe878ed70"
+        }
+      }
+    }
+  ]
+}

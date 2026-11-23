@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-11-23T18:05:00+00:00",
+  "run": {
+    "mode": "continue",
+    "reason": "saved state as of 2026-11-23T17:50:00+00:00"
+  },
+  "source": {
+    "collector": "rrc00",
+    "peer_asn": 7018,
+    "peer_ips": [
+      "12.0.1.63",
+      "2001:1890:111d:1::63"
+    ],
+    "bview_url": "https://data.ris.ripe.net/rrc00/2026.11/bview.20261123.1600.gz",
+    "bview_time": "2026-11-23T16:00:00+00:00",
+    "bview_routes": 1322482
+  },
+  "updates": {
+    "first_file": "https://data.ris.ripe.net/rrc00/2026.11/updates.20261123.1750.gz",
+    "last_file": "https://data.ris.ripe.net/rrc00/2026.11/updates.20261123.1800.gz",
+    "files": 3,
+    "missing_files": [],
+    "stats": {
+      "announce_replace": 13197,
+      "announce_new_prefix": 3293,
+      "withdrawals": 3209,
+      "announce_duplicate": 121,
+      "files": 3
+    },
+    "applied": true
+  },
+  "self_check": null,
+  "notes": [
+    "BGP session resets are not detected: routes withdrawn while a session was down may linger until the next bview (at most 8 hours)."
+  ],
+  "timing_seconds": {
+    "download_updates_run": 3.5,
+    "apply_updates_run": 1.3,
+    "write": 11.2,
+    "save_state": 4.2,
+    "total": 31.0
+  },
+  "generated_at": "2026-11-23T18:10:06+00:00",
+  "counts": {
+    "routes": 1322604,
+    "routes_by_session": {
+      "12.0.1.63 (IPv4)": 1073200,
+      "2001:1890:111d:1::63 (IPv6)": 249404
+    },
+    "unique_raw_paths": 152895,
+    "unique_clean_paths": 141021,
+    "origin_asns": 86646,
+    "adjacencies": 130707,
+    "asns_with_observed_upstream": 86943,
+    "routes_with_any_flag": 637
+  },
+  "flags": {
+    "as_set": {
+      "paths": 88,
+      "routes": 187
+    },
+    "confed": {
+      "paths": 0,
+      "routes": 0
+    },
+    "loop": {
+      "paths": 119,
+      "routes": 454
+    },
+    "private": {
+      "paths": 0,
+      "routes": 0
+    },
+    "reserved": {
+      "paths": 0,
+      "routes": 0
+    },
+    "as_trans": {
+      "paths": 0,
+      "routes": 0
+    },
+    "peer_mismatch": {
+      "paths": 0,
+      "routes": 0
+    },
+    "empty": {
+      "paths": 0,
+      "routes": 0
+    }
+  },
+  "path_length_by_routes": {
+    "1": 636,
+    "2": 49646,
+    "3": 542410,
+    "4": 525203,
+    "5": 175553,
+    "6": 23227,
+    "7": 4531,
+    "8": 1204,
+    "9": 180,
+    "10": 12,
+    "25": 1,
+    "30": 1
+  },
+  "files_bytes": {
+    "routes.tsv.gz": 12965828,
+    "paths.tsv.gz": 3846154,
+    "adjacency.tsv.gz": 699359
+  }
+}
