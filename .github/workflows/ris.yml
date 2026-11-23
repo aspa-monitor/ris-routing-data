@@ -1,0 +1,123 @@
+name: RIS snapshot
+
+on:
+  schedule:
+    - cron: "20 * * * *"   # hourly, 20 min past (RIS files land a few minutes after each interval)
+  workflow_dispatch:
+    inputs:
+      fresh:
+        description: "Ignore saved state and start from the latest bview"
+        type: boolean
+        default: false
+
+concurrency:
+  group: ris-snapshot      # never two runs writing state at once
+  cancel-in-progress: false
+
+permissions:
+  contents: write          # releases + commit latest/
+  actions: write           # prune old caches
+
+env:
+  RETENTION_DAYS: 7        # timestamped snapshot releases older than this are deleted
+  KEEP_CACHES: 3
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Run tests
+        run: python -m unittest discover -s tests -t .
+
+      - name: Restore saved RIB state
+        if: ${{ !inputs.fresh }}
+        uses: actions/cache/restore@v4
+        with:
+          path: state
+          key: ris-state-${{ github.run_id }}
+          restore-keys: ris-state-
+
+      - name: Build snapshot
+        id: build
+        run: |
+          python -m pipeline.ris.build_snapshot --state-dir state | tee snapshots.txt
+          echo "dirs=$(tr '\n' ' ' < snapshots.txt)" >> "$GITHUB_OUTPUT"
+
+      - name: Save RIB state
+        uses: actions/cache/save@v4
+        with:
+          path: state
+          key: ris-state-${{ github.run_id }}
+
+      - name: Package and summarise
+        id: pkg
+        run: |
+          python -m pipeline.ris.publish ${{ steps.build.outputs.dirs }} --dist dist --latest latest | tee publish.log
+          as_of=$(grep '^as_of=' publish.log | cut -d= -f2)
+          echo "as_of=$as_of" >> "$GITHUB_OUTPUT"
+          echo "tag=snapshot-$(date -u -d "$as_of" +%Y%m%d-%H%M)" >> "$GITHUB_OUTPUT"
+
+      - name: Publish releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.pkg.outputs.tag }}
+          AS_OF: ${{ steps.pkg.outputs.as_of }}
+        run: |
+          notes="RIS routing snapshot as of ${AS_OF}. See manifest.json for sources and checksums."
+          # Timestamped release (skip if this as-of time was already published)
+          if ! gh release view "$TAG" >/dev/null 2>&1; then
+            gh release create "$TAG" dist/* --title "$TAG" --notes "$notes" --latest=false
+          fi
+          # Rolling "latest" release, overwritten every run
+          if ! gh release view latest >/dev/null 2>&1; then
+            gh release create latest --title "latest" --notes "$notes" --latest
+          fi
+          gh release edit latest --notes "$notes"
+          gh release upload latest dist/* --clobber
+
+      - name: Commit latest/ metadata
+        env:
+          AS_OF: ${{ steps.pkg.outputs.as_of }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add latest
+          if ! git diff --cached --quiet; then
+            git commit -m "snapshot ${AS_OF}"
+            git push
+          fi
+
+      - name: Prune old releases and caches
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cutoff=$(date -u -d "-${RETENTION_DAYS} days" +%Y%m%d-%H%M)
+          gh release list --limit 1000 --json tagName --jq '.[].tagName' | grep '^snapshot-' | while read -r tag; do
+            if [[ "${tag#snapshot-}" < "$cutoff" ]]; then
+              echo "deleting $tag"; gh release delete "$tag" --cleanup-tag --yes
+            fi
+          done
+          gh cache list --key ris-state- --sort created_at --order desc --limit 100 --json id --jq '.[].id' \
+            | tail -n +$((KEEP_CACHES + 1)) | xargs -r -n1 gh cache delete
+
+      - name: Upload run artifact (debugging)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: snapshot-${{ github.run_id }}
+          path: |
+            dist/manifest.json
+            dist/*_meta.json
+          retention-days: 7
+          if-no-files-found: ignore
