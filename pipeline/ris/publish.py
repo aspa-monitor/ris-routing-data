@@ -13,8 +13,10 @@ import hashlib
 import json
 import os
 import shutil
-from datetime import datetime, timezone
+from datetime import datetime
 from pathlib import Path
+
+from pipeline.ris.timefmt import ist_text, now_ist
 
 DATA_FILES = ("routes.tsv.gz", "paths.tsv.gz", "adjacency.tsv.gz")
 
@@ -48,8 +50,8 @@ def package(snapshots: list[Path], dist: Path, latest: Path) -> dict:
     manifest = {
         "schema_version": max(json.loads((s / "meta.json").read_text()).get("schema_version", 1)
                               for s in snapshots),
-        "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "as_of": min(s["as_of"] for s in sources),
+        "generated_at": now_ist(),
+        "as_of": min((s["as_of"] for s in sources), key=datetime.fromisoformat),
         "sources": sources,
     }
     for d in (dist, latest):
@@ -63,11 +65,11 @@ def summary_markdown(snapshots: list[Path]) -> str:
         m = json.loads((snap / "meta.json").read_text())
         c, u, sc = m["counts"], m["updates"], m.get("self_check")
         lines += [
-            f"### {snap.parent.name} — as of `{m['as_of']}`",
+            f"### {snap.parent.name} — as of {ist_text(m['as_of'])}",
             "",
             "| | |", "|---|---|",
             f"| Run mode | {m['run']['mode']} ({m['run']['reason']}) |",
-            f"| bview | `{m['source']['bview_time']}` |",
+            f"| bview | {ist_text(m['source']['bview_time'])} |",
             f"| Routes | {c['routes']:,} ({', '.join(f'{k}: {v:,}' for k, v in c['routes_by_session'].items())}) |",
             f"| Unique paths | {c['unique_raw_paths']:,} raw / {c['unique_clean_paths']:,} clean |",
             f"| Adjacencies | {c['adjacencies']:,} |",
@@ -87,7 +89,7 @@ def _self_check_text(sc: dict | None) -> str:
     if "skipped" in sc:
         return f"skipped: {sc['skipped']}"
     mark = "✅" if sc["identical_pct"] >= 99.9 else "⚠️"
-    return (f"{mark} {sc['identical_pct']}% identical vs bview {sc['compared_at']} "
+    return (f"{mark} {sc['identical_pct']}% identical vs bview {ist_text(sc['compared_at'])} "
             f"(missing {sc['only_in_bview']}, extra {sc['only_in_built']}, path diff {sc['path_differs']})")
 
 

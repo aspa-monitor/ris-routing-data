@@ -2,7 +2,7 @@ name: RIS snapshot
 
 on:
   schedule:
-    - cron: "20 * * * *"   # hourly, 20 min past (RIS files land a few minutes after each interval)
+    - cron: "20 * * * *"   # GitHub cron is always UTC: :20 UTC = :50 IST, hourly (RIS files land a few minutes after each interval)
   workflow_dispatch:
     inputs:
       fresh:
@@ -19,6 +19,7 @@ permissions:
   actions: write           # prune old caches
 
 env:
+  TZ: Asia/Kolkata        # every time shown in logs, tags and messages is IST
   RETENTION_DAYS: 7        # timestamped snapshot releases older than this are deleted
   KEEP_CACHES: 3
 
@@ -65,13 +66,14 @@ jobs:
           python -m pipeline.ris.publish ${{ steps.build.outputs.dirs }} --dist dist --latest latest | tee publish.log
           as_of=$(grep '^as_of=' publish.log | cut -d= -f2)
           echo "as_of=$as_of" >> "$GITHUB_OUTPUT"
-          echo "tag=snapshot-$(date -u -d "$as_of" +%Y%m%d-%H%M)" >> "$GITHUB_OUTPUT"
+          echo "tag=snapshot-$(date -d "$as_of" +%Y%m%d-%H%M)-IST" >> "$GITHUB_OUTPUT"
+          echo "as_of_text=$(date -d "$as_of" '+%Y-%m-%d %H:%M IST')" >> "$GITHUB_OUTPUT"
 
       - name: Publish releases
         env:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ steps.pkg.outputs.tag }}
-          AS_OF: ${{ steps.pkg.outputs.as_of }}
+          AS_OF: ${{ steps.pkg.outputs.as_of_text }}
         run: |
           notes="RIS routing snapshot as of ${AS_OF}. See manifest.json for sources and checksums."
           # Timestamped release (skip if this as-of time was already published)
@@ -87,7 +89,7 @@ jobs:
 
       - name: Commit latest/ metadata
         env:
-          AS_OF: ${{ steps.pkg.outputs.as_of }}
+          AS_OF: ${{ steps.pkg.outputs.as_of_text }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -102,9 +104,11 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          cutoff=$(date -u -d "-${RETENTION_DAYS} days" +%Y%m%d-%H%M)
+          # Tags are snapshot-YYYYMMDD-HHMM-IST (older ones without -IST were UTC); compare the date-time part.
+          cutoff=$(date -d "-${RETENTION_DAYS} days" +%Y%m%d-%H%M)
           gh release list --limit 1000 --json tagName --jq '.[].tagName' | grep '^snapshot-' | while read -r tag; do
-            if [[ "${tag#snapshot-}" < "$cutoff" ]]; then
+            stamp=${tag#snapshot-}; stamp=${stamp%-IST}
+            if [[ "$stamp" < "$cutoff" ]]; then
               echo "deleting $tag"; gh release delete "$tag" --cleanup-tag --yes
             fi
           done

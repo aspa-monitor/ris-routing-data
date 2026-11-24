@@ -20,7 +20,7 @@ https://github.com/aspa-monitor/ris-routing-data/releases/download/latest/rrc00_
 https://github.com/aspa-monitor/ris-routing-data/releases/download/latest/rrc00_AS7018_adjacency.tsv.gz
 https://github.com/aspa-monitor/ris-routing-data/releases/download/latest/rrc00_AS7018_meta.json
 ```
-Timestamped releases `snapshot-YYYYMMDD-HHMM` are kept for 7 days. `latest/` in this repo holds the newest
+Timestamped releases `snapshot-YYYYMMDD-HHMM-IST` are kept for 7 days. `latest/` in this repo holds the newest
 `manifest.json` and meta files. `manifest.json` lists every asset with size and SHA-256, plus `schema_version`.
 
 ## Files
@@ -29,8 +29,13 @@ Timestamped releases `snapshot-YYYYMMDD-HHMM` are kept for 7 days. `latest/` in 
 - `adjacency.tsv.gz`: asn, upstream_asn, paths, routes_v4, routes_v6. `upstream_asn` received the route directly from `asn` (provider **or peer**). Only from the ordered part of paths, between public ASNs, never from looped paths.
 - `meta.json`: run mode, source, update stats, self-check, counts, flags, path lengths, timings
 
-## How a run works (hourly, `:20` UTC)
-1. If a bview newer than the saved state exists (00/08/16 UTC) → start fresh from it. Before switching,
+**Times:** every time in `manifest.json`, `meta.json`, release names and logs is **IST** (UTC+05:30),
+written as ISO 8601 with the offset, e.g. `2026-11-24T19:55:00+05:30`. Parse it with the offset; do not
+compare the text. Exceptions: the `timestamp` column in `routes.tsv.gz` is Unix seconds (no time zone), and
+RIPE file URLs (`bview_url`, `first_file`, `last_file`) keep RIPE's own UTC names.
+
+## How a run works (hourly, `:50` IST)
+1. If a bview newer than the saved state exists (RIPE publishes one at 05:30, 13:30 and 21:30 IST) → start fresh from it. Before switching,
    the old state is brought up to the bview time and compared with it (**self-check**, reported in `meta.json`).
 2. Otherwise continue from the saved state (GitHub Actions cache).
 3. Apply all 5-minute update files published since, write the snapshot, save state, publish.

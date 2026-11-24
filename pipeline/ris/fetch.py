@@ -14,6 +14,8 @@ import urllib.request
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+from pipeline.ris.timefmt import ist_text
+
 DEFAULT_BASE = "https://data.ris.ripe.net"
 BVIEW_RE = re.compile(r"bview\.(\d{8})\.(\d{4})\.gz")
 
@@ -137,7 +139,7 @@ def main() -> None:
 
     url, ts = latest_bview(args.collector, args.base)
     dest = Path(args.raw_dir) / args.collector / url.rsplit("/", 1)[1]
-    print(f"latest bview: {url} ({ts.isoformat()})")
+    print(f"latest bview: {url} ({ist_text(ts)})")
     download(url, dest)
     print(dest)
 

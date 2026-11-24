@@ -24,6 +24,7 @@ from pathlib import Path
 from pipeline.ris.fetch import BVIEW_RE, UPDATE_INTERVAL, download, latest_bview, list_updates
 from pipeline.ris.normalize import FLAGS, CleanPath, normalize
 from pipeline.ris.rib import Rib, apply_updates, diff_ribs, load_bview, load_state, save_state, state_path
+from pipeline.ris.timefmt import IST, ist_iso, ist_text, now_ist
 
 ROUTE_COLUMNS = ["afi", "prefix", "peer_ip", "peer_asn", "path_id", "origin_asn", "communities",
                  "otc", "aggr_asn", "aggr_ip", "atomic", "timestamp"]
@@ -107,7 +108,7 @@ def write_snapshot(rib: Rib, out_dir: Path, peer_asn: int, meta: dict) -> Path:
             flag_routes[f] += r
 
     meta.update({
-        "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "generated_at": now_ist(),
         "counts": {
             "routes": n_routes,
             "routes_by_session": dict(sorted(session_routes.items())),
@@ -129,7 +130,13 @@ def write_snapshot(rib: Rib, out_dir: Path, peer_asn: int, meta: dict) -> Path:
 
 
 def _parse_ts(s: str) -> datetime:
+    """RIPE file time stamp (UTC)."""
     return datetime.strptime(s, TS_FMT).replace(tzinfo=timezone.utc)
+
+
+def _parse_ist(s: str) -> datetime:
+    """Time typed by a person (IST)."""
+    return datetime.strptime(s, TS_FMT).replace(tzinfo=IST).astimezone(timezone.utc)
 
 
 def plan_run(state_info: dict | None, latest_bview_ts: datetime, source: dict) -> tuple[str, str]:
@@ -141,8 +148,8 @@ def plan_run(state_info: dict | None, latest_bview_ts: datetime, source: dict) -
         return "fresh", "saved state is for a different peer"
     state_bview = datetime.fromisoformat(state_info["bview_time"])
     if latest_bview_ts > state_bview:
-        return "fresh", f"new bview {latest_bview_ts:%Y%m%d.%H%M}"
-    return "continue", f"saved state as of {state_info['as_of']}"
+        return "fresh", f"new bview {ist_text(latest_bview_ts)}"
+    return "continue", f"saved state as of {ist_text(state_info['as_of'])}"
 
 
 def fetch_and_apply(rib: Rib, cfg: dict, source: dict, start: datetime, end: datetime,
@@ -164,7 +171,7 @@ def fetch_and_apply(rib: Rib, cfg: dict, source: dict, start: datetime, end: dat
         "first_file": available[0][0] if available else None,
         "last_file": available[-1][0] if available else None,
         "files": len(available),
-        "missing_files": [f"{m:%Y%m%d.%H%M}" for m in gaps],
+        "missing_files": [ist_iso(m) for m in gaps],
         "stats": dict(stats),
     }
 
@@ -194,7 +201,7 @@ def run_source(cfg: dict, source: dict, mrt_arg: str | None, until: datetime | N
     mode, reason = plan_run(saved[1] if saved else None, bview_ts, source)
     if mrt_arg:
         mode, reason = "fresh", "bview given with --mrt"
-    print(f"{collector} AS{peer_asn}: {mode} ({reason})", file=sys.stderr)
+    print(f"{collector} AS{peer_asn}: {mode} ({reason}); updates up to {ist_text(end)}", file=sys.stderr)
 
     self_check = None
     if mode == "continue":
@@ -215,10 +222,10 @@ def run_source(cfg: dict, source: dict, mrt_arg: str | None, until: datetime | N
             old_as_of = datetime.fromisoformat(old_info["as_of"])
             reached, _ = fetch_and_apply(old_rib, cfg, source, old_as_of, bview_ts, timing, "self_check")
             if reached >= bview_ts:
-                self_check = {"previous_bview": old_info["bview_time"], "compared_at": bview_ts.isoformat(),
+                self_check = {"previous_bview": ist_iso(old_info["bview_time"]), "compared_at": ist_iso(bview_ts),
                               **diff_ribs(old_rib, rib)}
             else:
-                self_check = {"skipped": f"update files up to {bview_ts:%Y%m%d.%H%M} not all available"}
+                self_check = {"skipped": f"update files up to {ist_text(bview_ts)} not all available"}
             print(f"  self-check: {self_check}", file=sys.stderr)
             del old_rib
 
@@ -231,10 +238,10 @@ def run_source(cfg: dict, source: dict, mrt_arg: str | None, until: datetime | N
 
     meta = {
         "schema_version": SCHEMA_VERSION,
-        "as_of": as_of.isoformat(),
+        "as_of": ist_iso(as_of),
         "run": {"mode": mode, "reason": reason},
         "source": {"collector": collector, "peer_asn": peer_asn, "peer_ips": peer_ips,
-                   "bview_url": bview_url, "bview_time": bview_ts.isoformat(),
+                   "bview_url": bview_url, "bview_time": ist_iso(bview_ts),
                    "bview_routes": bview_routes},
         "updates": update_meta,
         "self_check": self_check,
@@ -260,7 +267,7 @@ def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--config", default="config/pipeline.toml")
     ap.add_argument("--mrt", help="local bview file to start from instead of the latest one")
-    ap.add_argument("--until", type=_parse_ts, help="apply updates up to this time (YYYYMMDD.HHMM UTC)")
+    ap.add_argument("--until", type=_parse_ist, help="apply updates up to this time (YYYYMMDD.HHMM IST)")
     ap.add_argument("--bview-only", action="store_true", help="do not apply update files")
     ap.add_argument("--output-dir", help="override [ris].output_dir")
     ap.add_argument("--state-dir", type=Path, help="keep the RIB here between runs (continue instead of re-reading the bview)")
