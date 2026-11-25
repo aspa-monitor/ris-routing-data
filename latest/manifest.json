@@ -1,29 +1,29 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-25T15:24:19+05:30",
-  "as_of": "2026-11-25T15:15:00+05:30",
+  "generated_at": "2026-11-26T01:30:53+05:30",
+  "as_of": "2026-11-26T01:25:00+05:30",
   "sources": [
     {
       "name": "rrc00_AS7018",
       "collector": "rrc00",
       "peer_asn": 7018,
-      "as_of": "2026-11-25T15:15:00+05:30",
+      "as_of": "2026-11-26T01:25:00+05:30",
       "meta": "rrc00_AS7018_meta.json",
       "files": {
         "routes": {
           "asset": "rrc00_AS7018_routes.tsv.gz",
-          "bytes": 13029848,
-          "sha256": "80576c5767ed83dedb71121edc1c955bcb5102a1cbe09ffd80433273bac94043"
+          "bytes": 13047558,
+          "sha256": "4fe7a55397c261d5694348a30370cb24b1decb8991c29d825e843b6657b175aa"
         },
         "paths": {
           "asset": "rrc00_AS7018_paths.tsv.gz",
-          "bytes": 3847406,
-          "sha256": "622d8fac3c83984b6196bc19f63fa978df4c63d063864d288b7be71bd698dda5"
+          "bytes": 3847276,
+          "sha256": "f5a46c93a4c3cc77392b80e6821c895171402207457d370a7c787b7277256f0e"
         },
         "adjacency": {
           "asset": "rrc00_AS7018_adjacency.tsv.gz",
-          "bytes": 699282,
-          "sha256": "36ffcc6126fdc0dd650153de61bfc20f11bc098de09d4d11c735fa4dcf507f3a"
+          "bytes": 699436,
+          "sha256": "f496c3ee0a4bafcbf63d908bc6a3fdd744ec38dd007c2b6e2f90acd6d555eb3b"
         }
       }
     }
