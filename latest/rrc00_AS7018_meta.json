@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-24T21:15:00+05:30",
+  "as_of": "2026-11-25T06:15:00+05:30",
   "run": {
-    "mode": "continue",
-    "reason": "saved state as of 2026-11-24 19:55 IST"
+    "mode": "fresh",
+    "reason": "new bview 2026-11-25 05:30 IST"
   },
   "source": {
     "collector": "rrc00",
@@ -12,61 +12,75 @@
       "12.0.1.63",
       "2001:1890:111d:1::63"
     ],
-    "bview_url": "https://data.ris.ripe.net/rrc00/2026.11/bview.20261124.0800.gz",
-    "bview_time": "2026-11-24T13:30:00+05:30",
-    "bview_routes": 1322510
+    "bview_url": "https://data.ris.ripe.net/rrc00/2026.11/bview.20261125.0000.gz",
+    "bview_time": "2026-11-25T05:30:00+05:30",
+    "bview_routes": 1322377
   },
   "updates": {
-    "first_file": "https://data.ris.ripe.net/rrc00/2026.11/updates.20261124.1425.gz",
-    "last_file": "https://data.ris.ripe.net/rrc00/2026.11/updates.20261124.1540.gz",
-    "files": 16,
+    "first_file": "https://data.ris.ripe.net/rrc00/2026.11/updates.20261125.0000.gz",
+    "last_file": "https://data.ris.ripe.net/rrc00/2026.11/updates.20261125.0040.gz",
+    "files": 9,
     "missing_files": [],
     "stats": {
-      "announce_replace": 77181,
-      "withdrawals": 15470,
-      "announce_new_prefix": 15392,
-      "announce_duplicate": 575,
-      "files": 16
+      "announce_replace": 59039,
+      "announce_duplicate": 243,
+      "withdrawals": 11252,
+      "announce_new_prefix": 11494,
+      "files": 9
     },
     "applied": true
   },
-  "self_check": null,
+  "self_check": {
+    "previous_bview": "2026-11-24T13:30:00+05:30",
+    "compared_at": "2026-11-25T05:30:00+05:30",
+    "routes_built": 1322377,
+    "routes_bview": 1322377,
+    "identical": 1322377,
+    "identical_pct": 100.0,
+    "only_in_built": 0,
+    "only_in_bview": 0,
+    "path_differs": 0,
+    "communities_differ": 0
+  },
   "notes": [
     "BGP session resets are not detected: routes withdrawn while a session was down may linger until the next bview (at most 8 hours)."
   ],
   "timing_seconds": {
-    "download_updates_run": 3.1,
-    "apply_updates_run": 10.4,
-    "write": 13.6,
-    "save_state": 4.5,
-    "total": 40.0
+    "load_bview": 85.4,
+    "download_updates_self_check": 27.6,
+    "apply_updates_self_check": 80.8,
+    "download_updates_run": 4.0,
+    "apply_updates_run": 7.1,
+    "write": 14.9,
+    "save_state": 4.7,
+    "total": 264.1
   },
-  "generated_at": "2026-11-24T21:22:39+05:30",
+  "generated_at": "2026-11-25T06:23:56+05:30",
   "counts": {
-    "routes": 1322299,
+    "routes": 1322619,
     "routes_by_session": {
-      "12.0.1.63 (IPv4)": 1072858,
-      "2001:1890:111d:1::63 (IPv6)": 249441
+      "12.0.1.63 (IPv4)": 1073053,
+      "2001:1890:111d:1::63 (IPv6)": 249566
     },
-    "unique_raw_paths": 152942,
-    "unique_clean_paths": 141083,
-    "origin_asns": 86651,
-    "adjacencies": 130722,
-    "asns_with_observed_upstream": 86941,
-    "routes_with_any_flag": 648
+    "unique_raw_paths": 152923,
+    "unique_clean_paths": 141047,
+    "origin_asns": 86641,
+    "adjacencies": 130699,
+    "asns_with_observed_upstream": 86928,
+    "routes_with_any_flag": 647
   },
   "flags": {
     "as_set": {
       "paths": 87,
-      "routes": 186
+      "routes": 187
     },
     "confed": {
       "paths": 0,
       "routes": 0
     },
     "loop": {
-      "paths": 120,
-      "routes": 466
+      "paths": 119,
+      "routes": 464
     },
     "private": {
       "paths": 0,
@@ -91,20 +105,20 @@
   },
   "path_length_by_routes": {
     "1": 636,
-    "2": 49663,
-    "3": 541488,
-    "4": 525632,
-    "5": 175492,
-    "6": 23201,
-    "7": 4780,
-    "8": 1213,
-    "9": 182,
+    "2": 49616,
+    "3": 541761,
+    "4": 526117,
+    "5": 175634,
+    "6": 22977,
+    "7": 4509,
+    "8": 1178,
+    "9": 179,
     "10": 11,
     "25": 1
   },
   "files_bytes": {
-    "routes.tsv.gz": 12994722,
-    "paths.tsv.gz": 3846945,
-    "adjacency.tsv.gz": 699370
+    "routes.tsv.gz": 13016812,
+    "paths.tsv.gz": 3845952,
+    "adjacency.tsv.gz": 699386
   }
 }
