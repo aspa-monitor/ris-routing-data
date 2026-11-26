@@ -23,6 +23,9 @@ location = "Amsterdam"
 [collectors.rrc06]
 location = "Tokyo"
 
+[collectors.rrc23]
+location = "Singapore"
+
 [[sources]]
 collector = "rrc00"
 peer_asn = 7018            # AT&T
@@ -60,3 +63,10 @@ collector = "rrc06"
 peer_asn = 4777            # APNIC-COLO
 display_name = "APNIC Colo"
 peer_ips = ["202.249.2.20", "2001:200:0:fe00::12a9:0"]
+
+# rrc23: Singapore
+[[sources]]
+collector = "rrc23"
+peer_asn = 3491            # PCCW Global (Hong Kong)
+display_name = "PCCW Global"
+peer_ips = ["27.111.228.43", "2001:de8:4::3491:1"]
