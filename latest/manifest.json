@@ -1,29 +1,173 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-26T12:51:41+05:30",
-  "as_of": "2026-11-26T12:50:00+05:30",
+  "generated_at": "2026-11-26T13:57:32+05:30",
+  "as_of": "2026-11-26T13:50:00+05:30",
   "sources": [
     {
       "name": "rrc00_AS7018",
       "collector": "rrc00",
       "peer_asn": 7018,
-      "as_of": "2026-11-26T12:50:00+05:30",
+      "as_of": "2026-11-26T13:50:00+05:30",
       "meta": "rrc00_AS7018_meta.json",
       "files": {
         "routes": {
           "asset": "rrc00_AS7018_routes.tsv.gz",
-          "bytes": 13058609,
-          "sha256": "6f56080b886d45a3eef00f257e09ab04ef73bc13e3f4b99373a29fb234b19761"
+          "bytes": 13060352,
+          "sha256": "201a6385856ea34a5b8413be87b6caccdb292e5afdf34010d138c16b44b6b383"
         },
         "paths": {
           "asset": "rrc00_AS7018_paths.tsv.gz",
-          "bytes": 3846871,
-          "sha256": "301cbab2f66090637845ac1c8d2d31f76013a7548cd797be144e812ddb7af02f"
+          "bytes": 3847534,
+          "sha256": "a067ead688146a5c0261bf868be723b333a5d40c318b293a2aa6f84dbfc9e377"
         },
         "adjacency": {
           "asset": "rrc00_AS7018_adjacency.tsv.gz",
-          "bytes": 699320,
-          "sha256": "6364aa3ee08efaaecc3927f4467e30867244053d8ccd6f60ae1bef45ead02365"
+          "bytes": 699429,
+          "sha256": "340f944f500def3529efdee41b332bf30148ad504fd191cbf2f7c155f8d4b3ea"
+        }
+      }
+    },
+    {
+      "name": "rrc00_AS3549",
+      "collector": "rrc00",
+      "peer_asn": 3549,
+      "as_of": "2026-11-26T13:50:00+05:30",
+      "meta": "rrc00_AS3549_meta.json",
+      "files": {
+        "routes": {
+          "asset": "rrc00_AS3549_routes.tsv.gz",
+          "bytes": 14872518,
+          "sha256": "1aa2afaebd03cbb47d724e00ecf395fa8a0cbed0b7803e66887b53e79c4b97dc"
+        },
+        "paths": {
+          "asset": "rrc00_AS3549_paths.tsv.gz",
+          "bytes": 3363017,
+          "sha256": "4189acbf3073f6a0d5a00d0e66a8b638add61df2191c7c2fdfe05c769c0eeb18"
+        },
+        "adjacency": {
+          "asset": "rrc00_AS3549_adjacency.tsv.gz",
+          "bytes": 598987,
+          "sha256": "438c2647223bb701feff14f2da74c954628e1c5fdc717b375ebf4d0d66eda7d4"
+        }
+      }
+    },
+    {
+      "name": "rrc00_AS3333",
+      "collector": "rrc00",
+      "peer_asn": 3333,
+      "as_of": "2026-11-26T13:50:00+05:30",
+      "meta": "rrc00_AS3333_meta.json",
+      "files": {
+        "routes": {
+          "asset": "rrc00_AS3333_routes.tsv.gz",
+          "bytes": 16360310,
+          "sha256": "1d3b65d89475ad83d83c7101962eead1e129ece8c311c1085fc735ddc3092b1e"
+        },
+        "paths": {
+          "asset": "rrc00_AS3333_paths.tsv.gz",
+          "bytes": 4274155,
+          "sha256": "6ed46bffdbb0c41f792e74ca37886fa0fa34b2409f12e24b4b5fad51a9eba9b4"
+        },
+        "adjacency": {
+          "asset": "rrc00_AS3333_adjacency.tsv.gz",
+          "bytes": 730847,
+          "sha256": "27b47ada5b00a84a6099a6524f3a6978a811ff4f9d3adb94022fdb0b52e7eb8f"
+        }
+      }
+    },
+    {
+      "name": "rrc00_AS4608",
+      "collector": "rrc00",
+      "peer_asn": 4608,
+      "as_of": "2026-11-26T13:50:00+05:30",
+      "meta": "rrc00_AS4608_meta.json",
+      "files": {
+        "routes": {
+          "asset": "rrc00_AS4608_routes.tsv.gz",
+          "bytes": 10246514,
+          "sha256": "50d65dab8aa69ba10ad4650b786bcbfe59f720a00326603c982931f0d0f691fa"
+        },
+        "paths": {
+          "asset": "rrc00_AS4608_paths.tsv.gz",
+          "bytes": 3507021,
+          "sha256": "f0b423e441d3684984fe011c8b5aa14f0510a66d6a4aa4d66390b0e872f2e726"
+        },
+        "adjacency": {
+          "asset": "rrc00_AS4608_adjacency.tsv.gz",
+          "bytes": 610518,
+          "sha256": "b67ee7b1e29274b15ffc70cf38430ee08f6a811a35442e81cac875d445dd75d3"
+        }
+      }
+    },
+    {
+      "name": "rrc00_AS24482",
+      "collector": "rrc00",
+      "peer_asn": 24482,
+      "as_of": "2026-11-26T13:50:00+05:30",
+      "meta": "rrc00_AS24482_meta.json",
+      "files": {
+        "routes": {
+          "asset": "rrc00_AS24482_routes.tsv.gz",
+          "bytes": 22181875,
+          "sha256": "06d89e020e9535ffd6288de1ab86ce969946397450c0af9609c9631ae666f0cf"
+        },
+        "paths": {
+          "asset": "rrc00_AS24482_paths.tsv.gz",
+          "bytes": 3755613,
+          "sha256": "36e39b17c59cac84863bece85de09db3a6f8e070e6b021251262e869dd82baec"
+        },
+        "adjacency": {
+          "asset": "rrc00_AS24482_adjacency.tsv.gz",
+          "bytes": 704824,
+          "sha256": "3ac97b5d5611017b5d8978bed3ef1f486ad2e8a6ca8a1d681a3c8344c944b899"
+        }
+      }
+    },
+    {
+      "name": "rrc06_AS2497",
+      "collector": "rrc06",
+      "peer_asn": 2497,
+      "as_of": "2026-11-26T13:55:00+05:30",
+      "meta": "rrc06_AS2497_meta.json",
+      "files": {
+        "routes": {
+          "asset": "rrc06_AS2497_routes.tsv.gz",
+          "bytes": 13565180,
+          "sha256": "b9a153babf2ecf1c081414c29b923a653916d3e28a225ea4c5bbd9cab0deb5e0"
+        },
+        "paths": {
+          "asset": "rrc06_AS2497_paths.tsv.gz",
+          "bytes": 3854336,
+          "sha256": "392a69f71478e980a54302fb0947b8e94aeb82c9cfa13e1c37f2f7a934b8e9f3"
+        },
+        "adjacency": {
+          "asset": "rrc06_AS2497_adjacency.tsv.gz",
+          "bytes": 695477,
+          "sha256": "d9d989cc62740ed323cec05615d29c2947105dcda7c833a0c0adfa3d389f30e7"
+        }
+      }
+    },
+    {
+      "name": "rrc06_AS4777",
+      "collector": "rrc06",
+      "peer_asn": 4777,
+      "as_of": "2026-11-26T13:55:00+05:30",
+      "meta": "rrc06_AS4777_meta.json",
+      "files": {
+        "routes": {
+          "asset": "rrc06_AS4777_routes.tsv.gz",
+          "bytes": 13644121,
+          "sha256": "c42ccdcb03db40eea8fe4280693cdb70dfabebe468f8ce4a091df03e30059298"
+        },
+        "paths": {
+          "asset": "rrc06_AS4777_paths.tsv.gz",
+          "bytes": 4376853,
+          "sha256": "53e73476264ab822e6b9f51fc2d9c9d2e496cb38b2448b1970601ec28b81bc5c"
+        },
+        "adjacency": {
+          "asset": "rrc06_AS4777_adjacency.tsv.gz",
+          "bytes": 709135,
+          "sha256": "e5a564c88293fdac566897be02f5dcd46f44b99484a058b434d742140103fd58"
         }
       }
     }
