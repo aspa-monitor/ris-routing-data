@@ -107,10 +107,15 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add latest
+          # latest/ is fully rewritten each run, so put it on top of the newest main: a run queued
+          # behind another one (or behind a push) would otherwise be rejected as out of date.
+          cp -a latest "$RUNNER_TEMP/latest"
+          git fetch -q origin main && git reset -q --hard origin/main
+          rm -rf latest && cp -a "$RUNNER_TEMP/latest" latest
+          git add -A latest
           if ! git diff --cached --quiet; then
             git commit -m "snapshot ${AS_OF}"
-            git push
+            git push origin HEAD:main
           fi
 
       - name: Prune old releases and caches
