@@ -1,29 +1,29 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-27T02:55:37+05:30",
-  "as_of": "2026-11-27T02:50:00+05:30",
+  "generated_at": "2026-11-27T03:54:16+05:30",
+  "as_of": "2026-11-27T03:45:00+05:30",
   "sources": [
     {
       "name": "rrc00_AS7018",
       "collector": "rrc00",
       "peer_asn": 7018,
-      "as_of": "2026-11-27T02:50:00+05:30",
+      "as_of": "2026-11-27T03:50:00+05:30",
       "meta": "rrc00_AS7018_meta.json",
       "files": {
         "routes": {
           "asset": "rrc00_AS7018_routes.tsv.gz",
-          "bytes": 13074290,
-          "sha256": "120da8592423a100bf41d2afcef895807dddc6783fbb568fa3b6483ef3033ef5"
+          "bytes": 13077848,
+          "sha256": "04856f2ee6081f9355c482cc07c7f9406ea85f93eb426d00be435d6c14b2742c"
         },
         "paths": {
           "asset": "rrc00_AS7018_paths.tsv.gz",
-          "bytes": 3846305,
-          "sha256": "f840b5723180c7dce09e2e536f5ac3149e17fedda8b9ccf4cd2d0e7a323729e2"
+          "bytes": 3846810,
+          "sha256": "16bcbc741e904b4c14c9fbff0579f32acff10da6e8e4a6f1b48f4a93dad6f439"
         },
         "adjacency": {
           "asset": "rrc00_AS7018_adjacency.tsv.gz",
-          "bytes": 699123,
-          "sha256": "e19916dadf69260e0570bab8b0c76342eba7ab86ff598708d69ad76d706574c0"
+          "bytes": 699281,
+          "sha256": "cd0819c8fb0e81afc98b78af9d63902752e54d92f2c0f1a543dd00b279143557"
         }
       },
       "display_name": "AT&T",
@@ -33,23 +33,23 @@
       "name": "rrc00_AS3549",
       "collector": "rrc00",
       "peer_asn": 3549,
-      "as_of": "2026-11-27T02:50:00+05:30",
+      "as_of": "2026-11-27T03:50:00+05:30",
       "meta": "rrc00_AS3549_meta.json",
       "files": {
         "routes": {
           "asset": "rrc00_AS3549_routes.tsv.gz",
-          "bytes": 14894352,
-          "sha256": "08e2872120c729ca33d495c902c6ed129d36c6173792be0d72c53897281798a8"
+          "bytes": 14895576,
+          "sha256": "84825361f5e20064c8f6fd7cad70435dd26a0060c9c91568accfcadc5ddc4d6a"
         },
         "paths": {
           "asset": "rrc00_AS3549_paths.tsv.gz",
-          "bytes": 3363081,
-          "sha256": "1d0169d90b172b0e152c768ff6d22005850a46db73dbcbaac08c5379e3c62655"
+          "bytes": 3363665,
+          "sha256": "04d5deb8e1716eb9364bcfbc560948283f1a1cb11704ca8687cca9a973adfd19"
         },
         "adjacency": {
           "asset": "rrc00_AS3549_adjacency.tsv.gz",
-          "bytes": 598854,
-          "sha256": "1f0098c0293101878cfbb979f7e1f81aed7f5ce60e5516f54f447ee51f389b27"
+          "bytes": 599019,
+          "sha256": "eb7f8667e9e1c5ba50012ed768f8c928e12762ed66369440ccebb9671024e6e2"
         }
       },
       "display_name": "Lumen / Level 3",
@@ -59,23 +59,23 @@
       "name": "rrc00_AS3333",
       "collector": "rrc00",
       "peer_asn": 3333,
-      "as_of": "2026-11-27T02:50:00+05:30",
+      "as_of": "2026-11-27T03:50:00+05:30",
       "meta": "rrc00_AS3333_meta.json",
       "files": {
         "routes": {
           "asset": "rrc00_AS3333_routes.tsv.gz",
-          "bytes": 16395572,
-          "sha256": "ee050a1c19b6dd2cf48fa83e3889fb5e588677b25132cf287ab62f4f1df1699b"
+          "bytes": 16395912,
+          "sha256": "855688bbb45b7130c04093cdc3719d7d91e67f01809020ea931399fbf5b5e7a9"
         },
         "paths": {
           "asset": "rrc00_AS3333_paths.tsv.gz",
-          "bytes": 4283871,
-          "sha256": "5f67e1367902734ed156f89ceb476124f43582a76013977129b7739af90b0817"
+          "bytes": 4283797,
+          "sha256": "065f23e4bb19a9f839f334be98dc4b7d7dbc8ef8ba6e34233dc84ca5a2730451"
         },
         "adjacency": {
           "asset": "rrc00_AS3333_adjacency.tsv.gz",
-          "bytes": 730631,
-          "sha256": "111909b732b01ae0a9c63160ea06550cba215dfaf85dfbaf47d78bd35acb941e"
+          "bytes": 730652,
+          "sha256": "784469c144e601844c659f8dc2c98ee570357da1e645cadd767cdb3d39ee80dc"
         }
       },
       "display_name": "RIPE NCC",
@@ -85,23 +85,23 @@
       "name": "rrc00_AS4608",
       "collector": "rrc00",
       "peer_asn": 4608,
-      "as_of": "2026-11-27T02:50:00+05:30",
+      "as_of": "2026-11-27T03:50:00+05:30",
       "meta": "rrc00_AS4608_meta.json",
       "files": {
         "routes": {
           "asset": "rrc00_AS4608_routes.tsv.gz",
-          "bytes": 10278635,
-          "sha256": "356140c340e1a610922886cdb1fb12ba6a6cbe3a1e0dcf8e87d4401b099c3938"
+          "bytes": 10282610,
+          "sha256": "e78a5298fad708af6e4524d9050b298077f4fc1ff4de30cd807f7a2336d26d4c"
         },
         "paths": {
           "asset": "rrc00_AS4608_paths.tsv.gz",
-          "bytes": 3504027,
-          "sha256": "4ab96885879798975de5dd672f2c4c64fff50f4f6dd467b22249c0daaa81630e"
+          "bytes": 3504871,
+          "sha256": "e3a8307e2160bca0adb2318f9e40d0120913622ebaaa485e350171fd35580e3a"
         },
         "adjacency": {
           "asset": "rrc00_AS4608_adjacency.tsv.gz",
-          "bytes": 610201,
-          "sha256": "3d09368831da90b23c87df08fe69de649de5afe58a1de5d22ad13d432c7ecf0c"
+          "bytes": 610302,
+          "sha256": "3c73e23b9f5730ec5161680388038c20543c7796ecee60b302456e66ee714492"
         }
       },
       "display_name": "APNIC",
@@ -111,23 +111,23 @@
       "name": "rrc00_AS24482",
       "collector": "rrc00",
       "peer_asn": 24482,
-      "as_of": "2026-11-27T02:50:00+05:30",
+      "as_of": "2026-11-27T03:50:00+05:30",
       "meta": "rrc00_AS24482_meta.json",
       "files": {
         "routes": {
           "asset": "rrc00_AS24482_routes.tsv.gz",
-          "bytes": 22177427,
-          "sha256": "f6632b80aa2a42e3908fe375464a7ce997f984f37f0ec835d04d07c55ec38164"
+          "bytes": 22179023,
+          "sha256": "9dce9b696cd66547a58d6fa2128ae5cd696b82aa9c07b1f8df5ee2323904f678"
         },
         "paths": {
           "asset": "rrc00_AS24482_paths.tsv.gz",
-          "bytes": 3756293,
-          "sha256": "f3b69e2dee802b4647184bda516db6fb0ee5a03de7ced6be119ef9adc2f35b19"
+          "bytes": 3756141,
+          "sha256": "3e131afae25b00922d7f5226383bb42b4d17a1fbf8ed3293585387fd338fb1c0"
         },
         "adjacency": {
           "asset": "rrc00_AS24482_adjacency.tsv.gz",
-          "bytes": 704658,
-          "sha256": "89ad3349d282df2f01967f668ecf2454e7ccd324d58a061eb350f874cbcc618e"
+          "bytes": 704784,
+          "sha256": "e73e3d195986c4f9b06c99ddd3257918d323a41973cb9112f0801f8e5aca5551"
         }
       },
       "display_name": "SG.GS",
@@ -137,23 +137,23 @@
       "name": "rrc06_AS4777",
       "collector": "rrc06",
       "peer_asn": 4777,
-      "as_of": "2026-11-27T02:50:00+05:30",
+      "as_of": "2026-11-27T03:50:00+05:30",
       "meta": "rrc06_AS4777_meta.json",
       "files": {
         "routes": {
           "asset": "rrc06_AS4777_routes.tsv.gz",
-          "bytes": 13648396,
-          "sha256": "ac72585f204e830d75582e9e83837325ac92915131a90306d9d97f5e6fbaa78c"
+          "bytes": 13650535,
+          "sha256": "e3923821848dac705e90f3e17d5827afe046990113bd8957a8b3194f359c93f5"
         },
         "paths": {
           "asset": "rrc06_AS4777_paths.tsv.gz",
-          "bytes": 4375212,
-          "sha256": "f54e470b16b52a855c6778dc421e4a4dee53b2924f7c7513e97b98173ca305b5"
+          "bytes": 4376179,
+          "sha256": "4600ded179ae783b6709b12792ec613e3b2e86484df99743327672f7e48fb1b0"
         },
         "adjacency": {
           "asset": "rrc06_AS4777_adjacency.tsv.gz",
-          "bytes": 709119,
-          "sha256": "c193dce73d9c52a7cc2e1ee1e0b556794b54116bc46c6b0fe51c9588ed270185"
+          "bytes": 709141,
+          "sha256": "971fbeea5a028c34f035d18c44987ea8e9dd20e585cb9675d66a8baa12309fd1"
         }
       },
       "display_name": "APNIC Colo",
@@ -163,23 +163,23 @@
       "name": "rrc23_AS3491",
       "collector": "rrc23",
       "peer_asn": 3491,
-      "as_of": "2026-11-27T02:50:00+05:30",
+      "as_of": "2026-11-27T03:45:00+05:30",
       "meta": "rrc23_AS3491_meta.json",
       "files": {
         "routes": {
           "asset": "rrc23_AS3491_routes.tsv.gz",
-          "bytes": 17353318,
-          "sha256": "20b04deb887ca1cdcf0a5b60af4628d73c6eb90ee685dcecfee66ab0622d9aeb"
+          "bytes": 17356026,
+          "sha256": "a91fef28d3183ce03780f90746dd571645056a9e6d950721b303021529a8c726"
         },
         "paths": {
           "asset": "rrc23_AS3491_paths.tsv.gz",
-          "bytes": 3948016,
-          "sha256": "d023d0b0aaee97c4a3eee068556b00df1d6cfd29a23e5858946fae7f2bf93e60"
+          "bytes": 3948773,
+          "sha256": "dda49107bca86399d6b43e29670f2193392dcc7007a307fd985edb8a50c17c2c"
         },
         "adjacency": {
           "asset": "rrc23_AS3491_adjacency.tsv.gz",
-          "bytes": 706140,
-          "sha256": "1962483cf9f8889e5d2d2928b197496c92364b35fc2c2ffc74297d1f0c6eee74"
+          "bytes": 706362,
+          "sha256": "52caacc90d338440622edbc20d7b5b3fde66bae20b229cb7343568d8dc189f78"
         }
       },
       "display_name": "PCCW Global",
@@ -189,23 +189,23 @@
       "name": "rrc03_AS6453",
       "collector": "rrc03",
       "peer_asn": 6453,
-      "as_of": "2026-11-27T02:50:00+05:30",
+      "as_of": "2026-11-27T03:50:00+05:30",
       "meta": "rrc03_AS6453_meta.json",
       "files": {
         "routes": {
           "asset": "rrc03_AS6453_routes.tsv.gz",
-          "bytes": 13617885,
-          "sha256": "e3a50ff4c2f72969f45698c5ee10ec794bb3f9635f503c1dca93f9e62f7dcedd"
+          "bytes": 13616451,
+          "sha256": "cd35a6417f210b1b81c82e42861c73adc7404fe14055afef71d90b8770153494"
         },
         "paths": {
           "asset": "rrc03_AS6453_paths.tsv.gz",
-          "bytes": 4023684,
-          "sha256": "78003c27b54259f145faf750425f47d101919b8bcba3114452b57405c300edf7"
+          "bytes": 4024381,
+          "sha256": "48f8e821d73ec8c8eb12cb87a03a74d7fbee09b757b6383eae38919f485d87c5"
         },
         "adjacency": {
           "asset": "rrc03_AS6453_adjacency.tsv.gz",
-          "bytes": 707669,
-          "sha256": "13b3078cf6d4eae2cb09993a2f18082555c705f52731457c758799253ae4277d"
+          "bytes": 707730,
+          "sha256": "cda1834a91df6465173de175ebc57f1e4eec523bbfaf04f6e1c123b06ac53a40"
         }
       },
       "display_name": "Tata Communications",
@@ -215,23 +215,23 @@
       "name": "rrc25_AS1221",
       "collector": "rrc25",
       "peer_asn": 1221,
-      "as_of": "2026-11-27T02:50:00+05:30",
+      "as_of": "2026-11-27T03:45:00+05:30",
       "meta": "rrc25_AS1221_meta.json",
       "files": {
         "routes": {
           "asset": "rrc25_AS1221_routes.tsv.gz",
-          "bytes": 12854183,
-          "sha256": "04c1f637b3202981fb2ceae6a0c3b5c4b91708c987f0dc55003d05fb3c67248c"
+          "bytes": 12856839,
+          "sha256": "045928fe461cec5c529e056552281dd1f5c1857cd950b19f5cdc972613a778dd"
         },
         "paths": {
           "asset": "rrc25_AS1221_paths.tsv.gz",
-          "bytes": 4360863,
-          "sha256": "1e3affc8ae23ba1b031674ecea61fb959093df387596eea91e3c697ea774f5a9"
+          "bytes": 4362179,
+          "sha256": "2ae7033faf2986383f9134aa8a9d76e0b1e2598f3ecd827cca9ab854d12b5ece"
         },
         "adjacency": {
           "asset": "rrc25_AS1221_adjacency.tsv.gz",
-          "bytes": 725627,
-          "sha256": "c629ddd5c45e536b8b1a80ec0df928f9a3398dad9d7c43f5d80cd0f6d69979d9"
+          "bytes": 725679,
+          "sha256": "797e952e1063783ffdeb387b46ea6da38c38befd586728a4602145870452bf47"
         }
       },
       "display_name": "Telstra",
