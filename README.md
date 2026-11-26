@@ -7,9 +7,24 @@ Part of the ASPA validation project:
 |---|---|
 | **ris-routing-data** (this) | RIS bview + 5-minute updates → routes / paths / adjacency |
 | rpki-aspa-data | Validated RPKI ASPA objects |
-| aspa-validation | Combines both, finds ASPA invalids, website |
+| aspa-validation | Combines both, finds ASPA invalids |
+| aspa-monitor.github.io | The web portal |
 
-Current source: collector `rrc00`, peer **AS7018** (AT&T), IPv4 + IPv6 sessions (`config/pipeline.toml`).
+## Sources
+Each source is one peer AS on one RIS collector, named `<collector>_AS<peer>` (`config/pipeline.toml`):
+
+| Source | Peer | Sessions |
+|---|---|---|
+| `rrc00_AS7018` | AT&T | IPv4 + IPv6 |
+| `rrc00_AS3549` | Lumen (Level 3) | IPv4 only |
+| `rrc00_AS3333` | RIPE NCC | IPv4 + IPv6 (one session) |
+| `rrc00_AS4608` | APNIC Services | IPv4 only |
+| `rrc00_AS24482` | SG.GS (Singapore) | IPv4 + IPv6 |
+| `rrc06_AS2497` | IIJ (Japan) | IPv4 + IPv6 |
+| `rrc06_AS4777` | APNIC-COLO (Japan) | IPv4 + IPv6 |
+
+`rrc00` is RIPE's multihop collector in Amsterdam; `rrc06` is in Tokyo. Read the list of sources from
+`manifest.json`, not from this table: sources may be added.
 
 ## Getting the data
 Latest snapshot (always overwritten):
@@ -20,7 +35,9 @@ https://github.com/aspa-monitor/ris-routing-data/releases/download/latest/rrc00_
 https://github.com/aspa-monitor/ris-routing-data/releases/download/latest/rrc00_AS7018_adjacency.tsv.gz
 https://github.com/aspa-monitor/ris-routing-data/releases/download/latest/rrc00_AS7018_meta.json
 ```
-Timestamped releases `snapshot-YYYYMMDD-HHMM-IST` are kept for 7 days. `latest/` in this repo holds the newest
+(and the same four files for every other source in `manifest.json`).
+Timestamped releases `snapshot-YYYYMMDD-HHMM-IST` are made once per bview (the first hourly snapshot after
+05:30, 13:30 and 21:30 IST, so 3 a day) and kept for 7 days; only `latest` is updated every hour. `latest/` in this repo holds the newest
 `manifest.json` and meta files. `manifest.json` lists every asset with size and SHA-256, plus `schema_version`.
 
 ## Files
@@ -40,12 +57,17 @@ RIPE file URLs (`bview_url`, `first_file`, `last_file`) keep RIPE's own UTC name
 2. Otherwise continue from the saved state (GitHub Actions cache).
 3. Apply all 5-minute update files published since, write the snapshot, save state, publish.
 
+Sources on the same collector share one pass: the bview and each update file are downloaded and read
+once, and every source's RIB is filled from it (MRT files have no index, so reading a bview costs the same
+for one peer as for all of them). Each source still decides fresh/continue and keeps its own state.
+
 Known limitation: BGP session resets are not detected; stale routes can survive until the next bview (≤ 8 h).
 
 ## Local use
 ```bash
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
-.venv/bin/python -m pipeline.ris.build_snapshot --state-dir state     # one run
+.venv/bin/python -m pipeline.ris.build_snapshot --state-dir state     # one run, all collectors
+.venv/bin/python -m pipeline.ris.build_snapshot --collector rrc06 --mrt data/raw/rrc06/bview.YYYYMMDD.HHMM.gz
 .venv/bin/python -m pipeline.ris.list_peers rrc00                     # peers of a collector
 .venv/bin/python -m pipeline.ris.compare <snapshot_a> <snapshot_b>    # compare two snapshots
 .venv/bin/python -m unittest discover -s tests -t .

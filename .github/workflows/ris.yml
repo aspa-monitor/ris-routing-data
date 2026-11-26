@@ -65,7 +65,9 @@ jobs:
         run: |
           python -m pipeline.ris.publish ${{ steps.build.outputs.dirs }} --dist dist --latest latest | tee publish.log
           as_of=$(grep '^as_of=' publish.log | cut -d= -f2)
+          bview=$(grep '^bview_time=' publish.log | cut -d= -f2)
           echo "as_of=$as_of" >> "$GITHUB_OUTPUT"
+          echo "bview_stamp=$(date -d "$bview" +%Y%m%d-%H%M)" >> "$GITHUB_OUTPUT"
           echo "tag=snapshot-$(date -d "$as_of" +%Y%m%d-%H%M)-IST" >> "$GITHUB_OUTPUT"
           echo "as_of_text=$(date -d "$as_of" '+%Y-%m-%d %H:%M IST')" >> "$GITHUB_OUTPUT"
 
@@ -74,11 +76,19 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ steps.pkg.outputs.tag }}
           AS_OF: ${{ steps.pkg.outputs.as_of_text }}
+          BVIEW_STAMP: ${{ steps.pkg.outputs.bview_stamp }}
         run: |
           notes="RIS routing snapshot as of ${AS_OF}. See manifest.json for sources and checksums."
-          # Timestamped release (skip if this as-of time was already published)
-          if ! gh release view "$TAG" >/dev/null 2>&1; then
-            gh release create "$TAG" dist/* --title "$TAG" --notes "$notes" --latest=false
+          # Timestamped release: only the first snapshot after each new bview (3 a day), so 7 days of
+          # history stay small. "latest" below is still updated every hour.
+          newest=$(gh release list --limit 1000 --json tagName --jq '.[].tagName' | grep '^snapshot-' \
+                   | sed -e 's/^snapshot-//' -e 's/-IST$//' | sort | tail -n 1)
+          if [[ -z "$newest" || "$newest" < "$BVIEW_STAMP" ]]; then
+            if ! gh release view "$TAG" >/dev/null 2>&1; then
+              gh release create "$TAG" dist/* --title "$TAG" --notes "$notes" --latest=false
+            fi
+          else
+            echo "snapshot-$newest already covers the bview of $BVIEW_STAMP IST; only updating latest"
           fi
           # Rolling "latest" release, overwritten every run
           if ! gh release view latest >/dev/null 2>&1; then

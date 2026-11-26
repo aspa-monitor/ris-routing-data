@@ -1,11 +1,14 @@
 """Build a routing snapshot for each configured (collector, peer) source.
 
-Steps: latest bview (or --mrt) -> apply 5-minute update files up to --until (default: newest
-published) -> write, in output/<collector>_AS<peer>/<as-of YYYYMMDD.HHMM>/:
+Steps, per collector: latest bview (or --mrt) -> apply 5-minute update files up to --until
+(default: newest published) -> write, in output/<collector>_AS<peer>/<as-of YYYYMMDD.HHMM>/:
   routes.tsv.gz     one row per route (prefix as seen from the peer)
   paths.tsv.gz      one row per unique raw AS_PATH, with cleaned form and flags
   adjacency.tsv.gz  (asn, upstream_asn) pairs seen in cleaned paths
   meta.json         source, update stats, counts, flag statistics
+
+All sources on one collector share the work that does not depend on the peer: the bview and
+each update file are downloaded and read once, and every source's RIB is filled from that pass.
 """
 from __future__ import annotations
 
@@ -23,7 +26,8 @@ from pathlib import Path
 
 from pipeline.ris.fetch import BVIEW_RE, UPDATE_INTERVAL, download, latest_bview, list_updates
 from pipeline.ris.normalize import FLAGS, CleanPath, normalize
-from pipeline.ris.rib import Rib, apply_updates, diff_ribs, load_bview, load_state, save_state, state_path
+from pipeline.ris.rib import (Rib, Target, apply_updates_multi, diff_ribs, load_bview_multi, load_state,
+                             reset_interning, rib_digest, save_state, state_path)
 from pipeline.ris.timefmt import IST, ist_iso, ist_text, now_ist
 
 ROUTE_COLUMNS = ["afi", "prefix", "peer_ip", "peer_asn", "path_id", "origin_asn", "communities",
@@ -152,39 +156,65 @@ def plan_run(state_info: dict | None, latest_bview_ts: datetime, source: dict) -
     return "continue", f"saved state as of {ist_text(state_info['as_of'])}"
 
 
-def fetch_and_apply(rib: Rib, cfg: dict, source: dict, start: datetime, end: datetime,
-                    timing: dict, label: str) -> tuple[datetime, dict]:
-    """Download update files covering [start, end) and apply them. Returns (as_of, meta)."""
-    base, raw_dir = cfg["ris"]["base_url"], Path(cfg["ris"]["raw_dir"])
-    collector, peer_asn, peer_ips = source["collector"], source["peer_asn"], source["peer_ips"]
-    available, gaps = list_updates(collector, start, end, base)
-    upd_dir = raw_dir / collector / "updates"
-    t0 = time.time()
-    with ThreadPoolExecutor(max_workers=8) as pool:
-        files = list(pool.map(lambda u: download(u[0], upd_dir / u[0].rsplit("/", 1)[1]), available))
-    timing[f"download_updates_{label}"] = round(time.time() - t0, 1)
-    print(f"  [{label}] applying {len(files)} update files ({len(gaps)} missing)", file=sys.stderr)
-    stats = apply_updates(rib, files, peer_ips, peer_asn)
-    timing[f"apply_updates_{label}"] = stats.pop("seconds")
-    as_of = available[-1][1] + UPDATE_INTERVAL if available else start
-    return as_of, {
-        "first_file": available[0][0] if available else None,
-        "last_file": available[-1][0] if available else None,
-        "files": len(available),
-        "missing_files": [ist_iso(m) for m in gaps],
-        "stats": dict(stats),
+def source_name(source: dict) -> str:
+    return f"{source['collector']}_AS{source['peer_asn']}"
+
+
+def group_by_collector(sources: list[dict]) -> dict[str, list[dict]]:
+    """Sources grouped by collector, keeping config order. Each (collector, AS) may appear once,
+    because output, asset and state names are <collector>_AS<peer>."""
+    groups: dict[str, list[dict]] = {}
+    seen = set()
+    for src in sources:
+        name = source_name(src)
+        if name in seen:
+            raise ValueError(f"{name} is configured twice; list all its sessions in one entry")
+        seen.add(name)
+        groups.setdefault(src["collector"], []).append(src)
+    return groups
+
+
+def update_meta(target: Target, available: list[tuple[str, datetime]], gaps: list[datetime]) -> dict:
+    """What one target got from the shared update pass (same shape as before the shared pass)."""
+    mine = set(target.applied)
+    files = [(u, ts) for u, ts in available if ts in mine]
+    last = files[-1][1] if files else target.start
+    return {
+        "first_file": files[0][0] if files else None,
+        "last_file": files[-1][0] if files else None,
+        "files": len(files),
+        "missing_files": [ist_iso(m) for m in gaps
+                          if m >= target.start and m < last and (target.end is None or m < target.end)],
+        "stats": dict(target.stats),
     }
 
 
-def run_source(cfg: dict, source: dict, mrt_arg: str | None, until: datetime | None,
-               bview_only: bool, state_dir: Path | None = None) -> Path:
+def _update_pass(cfg: dict, collector: str, targets: list[Target], timing: dict,
+                 label: str) -> tuple[list[tuple[str, datetime]], list[datetime]]:
+    """Download the update files covering all targets' windows and apply them in one pass."""
     base, raw_dir = cfg["ris"]["base_url"], Path(cfg["ris"]["raw_dir"])
-    collector, peer_asn, peer_ips = source["collector"], source["peer_asn"], source["peer_ips"]
+    available, gaps = list_updates(collector, min(t.start for t in targets), max(t.end for t in targets), base)
+    upd_dir = raw_dir / collector / "updates"
+    t0 = time.time()
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        paths = list(pool.map(lambda u: download(u[0], upd_dir / u[0].rsplit("/", 1)[1]), available))
+    timing[f"download_updates_{label}"] = round(time.time() - t0, 1)
+    print(f"  {collector} [{label}]: applying {len(paths)} update files ({len(gaps)} missing) "
+          f"to {len(targets)} RIBs", file=sys.stderr)
+    timing[f"apply_updates_{label}"] = apply_updates_multi(
+        [(pth, ts, ts + UPDATE_INTERVAL) for pth, (_, ts) in zip(paths, available)], targets)
+    return available, gaps
+
+
+def run_collector(cfg: dict, collector: str, sources: list[dict], mrt_arg: str | None,
+                  until: datetime | None, bview_only: bool, state_dir: Path | None = None) -> list[Path]:
+    base, raw_dir = cfg["ris"]["base_url"], Path(cfg["ris"]["raw_dir"])
     t_start = time.time()
     end = until or datetime.now(timezone.utc)
-    timing: dict = {}
+    timing: dict = {}  # shared by all sources of this collector
+    reset_interning()
 
-    # 1. Where to start: an explicit bview, the latest bview, or the saved state.
+    # 1. Where each source starts: an explicit bview, the latest bview, or its saved state.
     if mrt_arg:
         mrt = Path(mrt_arg)
         d, t = BVIEW_RE.search(mrt.name).groups()
@@ -194,79 +224,124 @@ def run_source(cfg: dict, source: dict, mrt_arg: str | None, until: datetime | N
         bview_url, bview_ts = latest_bview(collector, base, now=end)
         mrt = None
 
-    saved = None
-    spath = state_path(state_dir, collector, peer_asn) if state_dir else None
-    if spath and not mrt_arg:
-        saved = load_state(spath)
-    mode, reason = plan_run(saved[1] if saved else None, bview_ts, source)
-    if mrt_arg:
-        mode, reason = "fresh", "bview given with --mrt"
-    print(f"{collector} AS{peer_asn}: {mode} ({reason}); updates up to {ist_text(end)}", file=sys.stderr)
+    jobs = []
+    for source in sources:
+        saved = None
+        spath = state_path(state_dir, collector, source["peer_asn"]) if state_dir else None
+        if spath and not mrt_arg:
+            saved = load_state(spath)
+        mode, reason = plan_run(saved[1] if saved else None, bview_ts, source)
+        if mrt_arg:
+            mode, reason = "fresh", "bview given with --mrt"
+        print(f"{source_name(source)}: {mode} ({reason}); updates up to {ist_text(end)}", file=sys.stderr)
+        run = Target(source["peer_asn"], list(source["peer_ips"]), end=end)
+        job = {"source": source, "spath": spath, "mode": mode, "reason": reason, "run": run, "check": None}
+        if mode == "continue":
+            run.rib, info = saved
+            run.start = datetime.fromisoformat(info["as_of"])
+            job["bview_routes"] = info.get("bview_routes")
+        else:
+            run.start = bview_ts
+            if saved and reason.startswith("new bview"):
+                # Self-check: bring the previous state up to this bview's time and compare.
+                old_rib, old_info = saved
+                job["check"] = Target(source["peer_asn"], list(source["peer_ips"]), rib=old_rib,
+                                      start=datetime.fromisoformat(old_info["as_of"]), end=bview_ts)
+                job["previous_bview"] = old_info["bview_time"]
+        del saved
+        jobs.append(job)
 
-    self_check = None
-    if mode == "continue":
-        rib, info = saved
-        start = datetime.fromisoformat(info["as_of"])
-        bview_routes = info.get("bview_routes")
-    else:
+    # 2. Self-check: bring each previous state up to the new bview's time (one pass over those
+    #    update files), then keep only a compact digest so old and new RIBs are never in memory together.
+    checks = [j for j in jobs if j["check"]]
+    if checks:
+        _update_pass(cfg, collector, [j["check"] for j in checks], timing, "self_check")
+        for j in checks:
+            chk = j["check"]
+            j["check_reached"] = chk.applied[-1] + UPDATE_INTERVAL if chk.applied else chk.start
+            j["check_digest"] = rib_digest(chk.rib)
+            j["check"] = None
+        del chk
+
+    # 3. One pass over the bview for every source that starts fresh.
+    fresh = [j for j in jobs if j["mode"] == "fresh"]
+    if fresh:
         if mrt is None:
             mrt = download(bview_url, raw_dir / collector / bview_url.rsplit("/", 1)[1])
-        rib, bview_stats = load_bview(mrt, peer_ips, peer_asn)
-        timing["load_bview"] = bview_stats["seconds"]
-        bview_routes = bview_stats["routes"]
-        print(f"  {bview_routes:,} routes from {mrt.name}", file=sys.stderr)
-        start = bview_ts
-        # Self-check: bring the previous state up to this bview's time and compare.
-        if saved and reason.startswith("new bview"):
-            old_rib, old_info = saved
-            old_as_of = datetime.fromisoformat(old_info["as_of"])
-            reached, _ = fetch_and_apply(old_rib, cfg, source, old_as_of, bview_ts, timing, "self_check")
-            if reached >= bview_ts:
-                self_check = {"previous_bview": ist_iso(old_info["bview_time"]), "compared_at": ist_iso(bview_ts),
-                              **diff_ribs(old_rib, rib)}
-            else:
-                self_check = {"skipped": f"update files up to {ist_text(bview_ts)} not all available"}
-            print(f"  self-check: {self_check}", file=sys.stderr)
-            del old_rib
+        timing["load_bview"] = load_bview_multi(mrt, [j["run"] for j in fresh])
+        for j in fresh:
+            j["bview_routes"] = j["run"].stats.pop("routes")
+            j["bview_stats"] = dict(j["run"].stats)
+            j["run"].stats.clear()
+            if "check_digest" in j:  # compare with the bview itself, before this run's updates
+                if j["check_reached"] >= bview_ts:
+                    j["self_check"] = {"previous_bview": ist_iso(j["previous_bview"]),
+                                       "compared_at": ist_iso(bview_ts),
+                                       **diff_ribs(j.pop("check_digest"), j["run"].rib)}
+                else:
+                    j.pop("check_digest")
+                    j["self_check"] = {"skipped": f"update files up to {ist_text(bview_ts)} not all available"}
+                print(f"  {source_name(j['source'])} self-check: {j['self_check']}", file=sys.stderr)
+            print(f"  {source_name(j['source'])}: {j['bview_routes']:,} routes from {mrt.name}", file=sys.stderr)
 
-    # 2. Apply updates up to `end`.
-    update_meta = {"applied": False}
-    as_of = start
+    # 4. One pass over the update files since then, each applied to every RIB whose time window needs it.
+    available, gaps = [], []
     if not bview_only:
-        as_of, update_meta = fetch_and_apply(rib, cfg, source, start, end, timing, "run")
-        update_meta["applied"] = True
+        available, gaps = _update_pass(cfg, collector, [j["run"] for j in jobs], timing, "run")
 
-    meta = {
-        "schema_version": SCHEMA_VERSION,
-        "as_of": ist_iso(as_of),
-        "run": {"mode": mode, "reason": reason},
-        "source": {"collector": collector, "peer_asn": peer_asn, "peer_ips": peer_ips,
-                   "bview_url": bview_url, "bview_time": ist_iso(bview_ts),
-                   "bview_routes": bview_routes},
-        "updates": update_meta,
-        "self_check": self_check,
-        "notes": ["BGP session resets are not detected: routes withdrawn while a session was down "
-                  "may linger until the next bview (at most 8 hours)."],
-        "timing_seconds": timing,
-    }
-    out_dir = Path(cfg["ris"]["output_dir"]) / f"{collector}_AS{peer_asn}" / as_of.strftime(TS_FMT)
-    write_snapshot(rib, out_dir, peer_asn, meta)
+    # 5. Per source: self-check result, snapshot, state.
+    names = [source_name(s) for s in sources]
+    out_dirs = []
+    for j in jobs:
+        source, run = j["source"], j["run"]
+        peer_asn, peer_ips = source["peer_asn"], source["peer_ips"]
+        self_check = j.get("self_check")
 
-    # 3. Save state for the next run.
-    if spath:
-        t0 = time.time()
-        save_state(spath, rib, {"peer_asn": peer_asn, "peer_ips": peer_ips, "bview_time": bview_ts.isoformat(),
-                                "as_of": as_of.isoformat(), "bview_routes": bview_routes})
-        meta["timing_seconds"]["save_state"] = round(time.time() - t0, 1)
-    meta["timing_seconds"]["total"] = round(time.time() - t_start, 1)
-    (out_dir / "meta.json").write_text(json.dumps(meta, indent=2))
-    return out_dir
+        as_of = run.start
+        upd = {"applied": False}
+        if not bview_only:
+            if run.applied:
+                as_of = run.applied[-1] + UPDATE_INTERVAL
+            upd = {**update_meta(run, available, gaps), "applied": True}
+
+        meta = {
+            "schema_version": SCHEMA_VERSION,
+            "as_of": ist_iso(as_of),
+            "run": {"mode": j["mode"], "reason": j["reason"], "collector_sources": names},
+            "source": {"collector": collector, "peer_asn": peer_asn, "peer_ips": peer_ips,
+                       "bview_url": bview_url, "bview_time": ist_iso(bview_ts),
+                       "bview_routes": j.get("bview_routes")},
+            "updates": upd,
+            "self_check": self_check,
+            "notes": ["BGP session resets are not detected: routes withdrawn while a session was down "
+                      "may linger until the next bview (at most 8 hours).",
+                      "load_bview, download_updates_* and apply_updates_* timings cover all collector_sources "
+                      "(one shared pass); write and save_state are for this source."],
+            "timing_seconds": dict(timing),
+        }
+        if j.get("bview_stats"):
+            meta["source"]["bview_stats"] = j["bview_stats"]
+        out_dir = Path(cfg["ris"]["output_dir"]) / source_name(source) / as_of.strftime(TS_FMT)
+        write_snapshot(run.rib, out_dir, peer_asn, meta)
+
+        if j["spath"]:
+            t0 = time.time()
+            save_state(j["spath"], run.rib, {"peer_asn": peer_asn, "peer_ips": peer_ips,
+                                             "bview_time": bview_ts.isoformat(), "as_of": as_of.isoformat(),
+                                             "bview_routes": j.get("bview_routes")})
+            meta["timing_seconds"]["save_state"] = round(time.time() - t0, 1)
+        meta["timing_seconds"]["total"] = round(time.time() - t_start, 1)
+        (out_dir / "meta.json").write_text(json.dumps(meta, indent=2))
+        out_dirs.append(out_dir)
+        j["run"] = run = None  # free this RIB before writing the next one
+    return out_dirs
 
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--config", default="config/pipeline.toml")
-    ap.add_argument("--mrt", help="local bview file to start from instead of the latest one")
+    ap.add_argument("--collector", action="append", help="only build sources on this collector (repeatable)")
+    ap.add_argument("--mrt", help="local bview file to start from instead of the latest one (needs one collector)")
     ap.add_argument("--until", type=_parse_ist, help="apply updates up to this time (YYYYMMDD.HHMM IST)")
     ap.add_argument("--bview-only", action="store_true", help="do not apply update files")
     ap.add_argument("--output-dir", help="override [ris].output_dir")
@@ -276,8 +351,18 @@ def main() -> None:
     cfg = tomllib.loads(Path(args.config).read_text())
     if args.output_dir:
         cfg["ris"]["output_dir"] = args.output_dir
-    for source in cfg["sources"]:
-        print(run_source(cfg, source, args.mrt, args.until, args.bview_only, args.state_dir))
+    groups = group_by_collector(cfg["sources"])
+    if args.collector:
+        unknown = set(args.collector) - groups.keys()
+        if unknown:
+            ap.error(f"no sources configured on {', '.join(sorted(unknown))}")
+        groups = {c: s for c, s in groups.items() if c in args.collector}
+    if args.mrt and len(groups) != 1:
+        ap.error("--mrt is one collector's bview: choose the collector with --collector")
+    for collector, sources in groups.items():
+        for out_dir in run_collector(cfg, collector, sources, args.mrt, args.until, args.bview_only,
+                                     args.state_dir):
+            print(out_dir, flush=True)
 
 
 if __name__ == "__main__":

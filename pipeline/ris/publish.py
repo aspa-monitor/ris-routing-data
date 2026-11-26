@@ -101,12 +101,15 @@ def main() -> None:
     args = ap.parse_args()
 
     manifest = package(args.snapshots, args.dist, args.latest)
+    bview = max((json.loads((s / "meta.json").read_text())["source"]["bview_time"] for s in args.snapshots),
+                key=datetime.fromisoformat)
     md = summary_markdown(args.snapshots)
     if summary := os.environ.get("GITHUB_STEP_SUMMARY"):
         with open(summary, "a") as f:
             f.write(md + "\n")
     print(md)
     print(f"as_of={manifest['as_of']}")
+    print(f"bview_time={bview}")
 
 
 if __name__ == "__main__":

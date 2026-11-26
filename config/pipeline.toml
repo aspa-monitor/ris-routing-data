@@ -1,5 +1,8 @@
 # RIS pipeline configuration.
-# Phase 1: one collector, one peer. Add more [[sources]] entries to scale up.
+# One [[sources]] entry per (collector, peer AS), listing all of that AS's sessions there.
+# Sources on the same collector share one read of each bview and update file, so an extra
+# peer on an existing collector is cheap; a new collector adds a whole bview (~400 MB) per fresh run.
+# Session IPs and prefix counts: python -m pipeline.ris.list_peers <collector>
 
 [ris]
 base_url = "https://data.ris.ripe.net"
@@ -16,3 +19,34 @@ collector = "rrc00"
 peer_asn = 7018            # AT&T
 # AT&T uses separate sessions per address family.
 peer_ips = ["12.0.1.63", "2001:1890:111d:1::63"]
+
+[[sources]]
+collector = "rrc00"
+peer_asn = 3549            # Lumen (Level 3)
+peer_ips = ["208.51.134.248"]            # no full IPv6 feed to rrc00
+
+[[sources]]
+collector = "rrc00"
+peer_asn = 3333            # RIPE NCC
+peer_ips = ["193.0.0.56"]                # one session carries IPv4 and IPv6
+
+[[sources]]
+collector = "rrc00"
+peer_asn = 4608            # APNIC Services
+peer_ips = ["203.119.104.1"]             # no full IPv6 feed to rrc00
+
+[[sources]]
+collector = "rrc00"
+peer_asn = 24482           # SG.GS (Singapore)
+peer_ips = ["203.175.175.15", "2405:4200:100::15"]
+
+# rrc06: Tokyo (DIX-IE)
+[[sources]]
+collector = "rrc06"
+peer_asn = 2497            # IIJ
+peer_ips = ["202.249.2.169", "2001:200:0:fe00::9c1:0"]
+
+[[sources]]
+collector = "rrc06"
+peer_asn = 4777            # APNIC-COLO
+peer_ips = ["202.249.2.20", "2001:200:0:fe00::12a9:0"]
