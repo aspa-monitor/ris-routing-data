@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-11-26T17:55:00+05:30",
+  "run": {
+    "mode": "continue",
+    "reason": "saved state as of 2026-11-26 17:50 IST",
+    "collector_sources": [
+      "rrc23_AS3491"
+    ]
+  },
+  "source": {
+    "collector": "rrc23",
+    "peer_asn": 3491,
+    "peer_ips": [
+      "27.111.228.43",
+      "2001:de8:4::3491:1"
+    ],
+    "display_name": "PCCW Global",
+    "collector_location": "Singapore",
+    "bview_url": "https://data.ris.ripe.net/rrc23/2026.11/bview.20261126.0800.gz",
+    "bview_time": "2026-11-26T13:30:00+05:30",
+    "bview_routes": 1324802
+  },
+  "updates": {
+    "first_file": "https://data.ris.ripe.net/rrc23/2026.11/updates.20261126.1220.gz",
+    "last_file": "https://data.ris.ripe.net/rrc23/2026.11/updates.20261126.1220.gz",
+    "files": 1,
+    "missing_files": [],
+    "stats": {
+      "withdrawals": 617,
+      "announce_replace": 2964,
+      "announce_new_prefix": 605,
+      "announce_duplicate": 255,
+      "files": 1
+    },
+    "applied": true
+  },
+  "self_check": null,
+  "notes": [
+    "BGP session resets are not detected: routes withdrawn while a session was down may linger until the next bview (at most 8 hours).",
+    "load_bview, download_updates_* and apply_updates_* timings cover all collector_sources (one shared pass); write and save_state are for this source."
+  ],
+  "timing_seconds": {
+    "download_updates_run": 2.1,
+    "apply_updates_run": 0.2,
+    "write": 15.6,
+    "save_state": 2.2,
+    "total": 31.0
+  },
+  "generated_at": "2026-11-26T18:02:04+05:30",
+  "counts": {
+    "routes": 1324949,
+    "routes_by_session": {
+      "2001:de8:4::3491:1 (IPv6)": 250164,
+      "27.111.228.43 (IPv4)": 1074785
+    },
+    "unique_raw_paths": 158083,
+    "unique_clean_paths": 144926,
+    "origin_asns": 86734,
+    "adjacencies": 131321,
+    "asns_with_observed_upstream": 87022,
+    "routes_with_any_flag": 656
+  },
+  "flags": {
+    "as_set": {
+      "paths": 88,
+      "routes": 188
+    },
+    "confed": {
+      "paths": 0,
+      "routes": 0
+    },
+    "loop": {
+      "paths": 132,
+      "routes": 472
+    },
+    "private": {
+      "paths": 0,
+      "routes": 0
+    },
+    "reserved": {
+      "paths": 0,
+      "routes": 0
+    },
+    "as_trans": {
+      "paths": 0,
+      "routes": 0
+    },
+    "peer_mismatch": {
+      "paths": 0,
+      "routes": 0
+    },
+    "empty": {
+      "paths": 0,
+      "routes": 0
+    }
+  },
+  "path_length_by_routes": {
+    "1": 543,
+    "2": 95756,
+    "3": 612658,
+    "4": 462859,
+    "5": 126433,
+    "6": 20289,
+    "7": 4792,
+    "8": 1466,
+    "9": 129,
+    "10": 23,
+    "25": 1
+  },
+  "files_bytes": {
+    "routes.tsv.gz": 17338643,
+    "paths.tsv.gz": 3949485,
+    "adjacency.tsv.gz": 706570
+  }
+}
