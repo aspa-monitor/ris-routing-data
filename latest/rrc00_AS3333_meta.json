@@ -3,7 +3,7 @@
   "as_of": "2026-11-26T18:50:00+05:30",
   "run": {
     "mode": "continue",
-    "reason": "saved state as of 2026-11-26 18:10 IST",
+    "reason": "saved state as of 2026-11-26 18:50 IST",
     "collector_sources": [
       "rrc00_AS7018",
       "rrc00_AS3549",
@@ -25,17 +25,11 @@
     "bview_routes": 1345964
   },
   "updates": {
-    "first_file": "https://data.ris.ripe.net/rrc00/2026.11/updates.20261126.1240.gz",
-    "last_file": "https://data.ris.ripe.net/rrc00/2026.11/updates.20261126.1315.gz",
-    "files": 8,
+    "first_file": null,
+    "last_file": null,
+    "files": 0,
     "missing_files": [],
-    "stats": {
-      "announce_replace": 102486,
-      "announce_new_prefix": 4769,
-      "withdrawals": 4722,
-      "announce_duplicate": 2379,
-      "files": 8
-    },
+    "stats": {},
     "applied": true
   },
   "self_check": null,
@@ -44,13 +38,13 @@
     "load_bview, download_updates_* and apply_updates_* timings cover all collector_sources (one shared pass); write and save_state are for this source."
   ],
   "timing_seconds": {
-    "download_updates_run": 1.8,
-    "apply_updates_run": 9.1,
-    "write": 17.7,
-    "save_state": 2.2,
-    "total": 100.1
+    "download_updates_run": 0.0,
+    "apply_updates_run": 0.0,
+    "write": 12.3,
+    "save_state": 1.7,
+    "total": 63.1
   },
-  "generated_at": "2026-11-26T18:52:41+05:30",
+  "generated_at": "2026-11-26T18:55:41+05:30",
   "counts": {
     "routes": 1346129,
     "routes_by_session": {
