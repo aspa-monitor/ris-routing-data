@@ -23,7 +23,7 @@ Each source is one peer AS on one RIS collector, named `<collector>_AS<peer>` (`
 | `rrc06_AS2497` | IIJ (Japan) | IPv4 + IPv6 |
 | `rrc06_AS4777` | APNIC-COLO (Japan) | IPv4 + IPv6 |
 
-`rrc00` is RIPE's multihop collector in Amsterdam; `rrc06` is in Tokyo. Read the list of sources from
+`rrc00` is RIPE's multihop collector in Amsterdam; `rrc06` is in Tokyo (`[collectors]` in the config). Read the list of sources from
 `manifest.json`, not from this table: sources may be added.
 
 ## Getting the data
@@ -39,6 +39,9 @@ https://github.com/aspa-monitor/ris-routing-data/releases/download/latest/rrc00_
 Timestamped releases `snapshot-YYYYMMDD-HHMM-IST` are made once per bview (the first hourly snapshot after
 05:30, 13:30 and 21:30 IST, so 3 a day) and kept for 7 days; only `latest` is updated every hour. `latest/` in this repo holds the newest
 `manifest.json` and meta files. `manifest.json` lists every asset with size and SHA-256, plus `schema_version`.
+Each `sources[]` entry also has `display_name` (short peer name, e.g. `AT&T`) and `collector_location`
+(the collector's city, e.g. `Amsterdam`), both from `config/pipeline.toml`. They are optional and for display
+only: fall back to the collector and peer AS if either is missing. The same two fields are in each `meta.json` `source`.
 
 ## Files
 - `routes.tsv.gz`: afi, prefix, peer_ip, peer_asn, path_id, origin_asn, communities, otc, aggr_asn, aggr_ip, atomic, timestamp (last change)

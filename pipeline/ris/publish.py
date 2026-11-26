@@ -44,9 +44,13 @@ def package(snapshots: list[Path], dist: Path, latest: Path) -> dict:
         meta_name = f"{name}_meta.json"
         shutil.copyfile(snap / "meta.json", dist / meta_name)
         shutil.copyfile(snap / "meta.json", latest / meta_name)
-        sources.append({"name": name, "collector": meta["source"]["collector"],
-                        "peer_asn": meta["source"]["peer_asn"], "as_of": meta["as_of"],
-                        "meta": meta_name, "files": files})
+        entry = {"name": name, "collector": meta["source"]["collector"],
+                 "peer_asn": meta["source"]["peer_asn"], "as_of": meta["as_of"],
+                 "meta": meta_name, "files": files}
+        for key in ("display_name", "collector_location"):  # optional, for display only
+            if meta["source"].get(key):
+                entry[key] = meta["source"][key]
+        sources.append(entry)
     manifest = {
         "schema_version": max(json.loads((s / "meta.json").read_text()).get("schema_version", 1)
                               for s in snapshots),

@@ -1,4 +1,6 @@
 """One pass over each MRT file feeds the RIBs of every source on a collector."""
+import json
+import tempfile
 import tomllib
 import unittest
 from datetime import datetime, timedelta, timezone
@@ -7,6 +9,7 @@ from unittest import mock
 
 from pipeline.ris import rib as ribmod
 from pipeline.ris.build_snapshot import group_by_collector, update_meta
+from pipeline.ris.publish import package
 from pipeline.ris.rib import Target, apply_updates_multi, load_bview_multi
 
 T0 = datetime(2026, 11, 23, 8, 0, tzinfo=timezone.utc)
@@ -124,6 +127,36 @@ class ConfigTest(unittest.TestCase):
         groups = group_by_collector(cfg["sources"])
         for sources in groups.values():
             ribmod._PeerIndex([Target(s["peer_asn"], s["peer_ips"]) for s in sources])  # no shared sessions
+
+    def test_every_source_has_a_display_name_and_location(self):
+        cfg = tomllib.loads(Path("config/pipeline.toml").read_text())
+        for s in cfg["sources"]:
+            self.assertTrue(s.get("display_name"), s)
+            self.assertTrue(cfg["collectors"][s["collector"]]["location"], s)
+
+
+class ManifestTest(unittest.TestCase):
+    def _snap(self, root, name, source):
+        snap = root / name / "20261126T0850Z"
+        snap.mkdir(parents=True)
+        for fn in ("routes.tsv.gz", "paths.tsv.gz", "adjacency.tsv.gz"):
+            (snap / fn).write_bytes(b"x")
+        (snap / "meta.json").write_text(json.dumps(
+            {"schema_version": 1, "as_of": "2026-11-26T14:20:00+05:30", "source": source}))
+        return snap
+
+    def test_display_fields_copied_only_when_present(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            a = self._snap(root, "rrc00_AS7018", {"collector": "rrc00", "peer_asn": 7018,
+                                                 "display_name": "AT&T", "collector_location": "Amsterdam"})
+            b = self._snap(root, "rrc06_AS2497", {"collector": "rrc06", "peer_asn": 2497})  # older meta
+            m = package([a, b], root / "dist", root / "latest")
+        self.assertEqual(m["schema_version"], 1)
+        first, second = m["sources"]
+        self.assertEqual((first["display_name"], first["collector_location"]), ("AT&T", "Amsterdam"))
+        self.assertNotIn("display_name", second)
+        self.assertNotIn("collector_location", second)
 
 
 if __name__ == "__main__":

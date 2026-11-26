@@ -3,6 +3,8 @@
 # Sources on the same collector share one read of each bview and update file, so an extra
 # peer on an existing collector is cheap; a new collector adds a whole bview (~400 MB) per fresh run.
 # Session IPs and prefix counts: python -m pipeline.ris.list_peers <collector>
+# display_name (short peer name) and the collector location are copied into meta.json and
+# manifest.json for display; a new source should bring its own display_name.
 
 [ris]
 base_url = "https://data.ris.ripe.net"
@@ -14,39 +16,53 @@ output_dir = "output"
 min_ipv4_prefixes = 800000
 min_ipv6_prefixes = 150000
 
+# Where each RIS collector is (shown by the portal).
+[collectors.rrc00]
+location = "Amsterdam"
+
+[collectors.rrc06]
+location = "Tokyo"
+
 [[sources]]
 collector = "rrc00"
 peer_asn = 7018            # AT&T
+display_name = "AT&T"
 # AT&T uses separate sessions per address family.
 peer_ips = ["12.0.1.63", "2001:1890:111d:1::63"]
 
 [[sources]]
 collector = "rrc00"
 peer_asn = 3549            # Lumen (Level 3)
+display_name = "Lumen / Level 3"
 peer_ips = ["208.51.134.248"]            # no full IPv6 feed to rrc00
 
 [[sources]]
 collector = "rrc00"
 peer_asn = 3333            # RIPE NCC
+display_name = "RIPE NCC"
 peer_ips = ["193.0.0.56"]                # one session carries IPv4 and IPv6
 
 [[sources]]
 collector = "rrc00"
 peer_asn = 4608            # APNIC Services
+display_name = "APNIC"
 peer_ips = ["203.119.104.1"]             # no full IPv6 feed to rrc00
 
 [[sources]]
 collector = "rrc00"
 peer_asn = 24482           # SG.GS (Singapore)
+display_name = "SG.GS"
 peer_ips = ["203.175.175.15", "2405:4200:100::15"]
 
 # rrc06: Tokyo (DIX-IE)
 [[sources]]
 collector = "rrc06"
 peer_asn = 2497            # IIJ
+display_name = "IIJ"
 peer_ips = ["202.249.2.169", "2001:200:0:fe00::9c1:0"]
 
 [[sources]]
 collector = "rrc06"
 peer_asn = 4777            # APNIC-COLO
+display_name = "APNIC Colo"
 peer_ips = ["202.249.2.20", "2001:200:0:fe00::12a9:0"]

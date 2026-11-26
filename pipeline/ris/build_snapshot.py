@@ -309,6 +309,8 @@ def run_collector(cfg: dict, collector: str, sources: list[dict], mrt_arg: str |
             "as_of": ist_iso(as_of),
             "run": {"mode": j["mode"], "reason": j["reason"], "collector_sources": names},
             "source": {"collector": collector, "peer_asn": peer_asn, "peer_ips": peer_ips,
+                       "display_name": source.get("display_name"),
+                       "collector_location": cfg.get("collectors", {}).get(collector, {}).get("location"),
                        "bview_url": bview_url, "bview_time": ist_iso(bview_ts),
                        "bview_routes": j.get("bview_routes")},
             "updates": upd,
