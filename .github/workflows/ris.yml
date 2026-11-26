@@ -51,6 +51,7 @@ jobs:
       - name: Build snapshot
         id: build
         run: |
+          set -o pipefail
           python -m pipeline.ris.build_snapshot --state-dir state | tee snapshots.txt
           echo "dirs=$(tr '\n' ' ' < snapshots.txt)" >> "$GITHUB_OUTPUT"
 
@@ -63,6 +64,7 @@ jobs:
       - name: Package and summarise
         id: pkg
         run: |
+          set -o pipefail
           python -m pipeline.ris.publish ${{ steps.build.outputs.dirs }} --dist dist --latest latest | tee publish.log
           as_of=$(grep '^as_of=' publish.log | cut -d= -f2)
           bview=$(grep '^bview_time=' publish.log | cut -d= -f2)

@@ -344,7 +344,8 @@ def prune_states(state_dir: Path, sources: list[dict]) -> None:
     keep = {state_path(state_dir, s["collector"], s["peer_asn"]).name for s in sources}
     for f in state_dir.glob("*.state.pkl.gz"):
         if f.name not in keep:
-            print(f"removing state of a source no longer configured: {f.name}", flush=True)
+            # stderr: stdout is the list of snapshot dirs the workflow publishes
+            print(f"removing state of a source no longer configured: {f.name}", file=sys.stderr)
             f.unlink()
 
 

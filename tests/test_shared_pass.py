@@ -1,5 +1,7 @@
 """One pass over each MRT file feeds the RIBs of every source on a collector."""
+import io
 import json
+from contextlib import redirect_stdout
 import tempfile
 import tomllib
 import unittest
@@ -173,7 +175,10 @@ class ManifestTest(unittest.TestCase):
             sd = Path(d)
             for n in ("rrc00_AS7018", "rrc06_AS2497"):
                 (sd / f"{n}.state.pkl.gz").write_bytes(b"x")
-            prune_states(sd, [{"collector": "rrc00", "peer_asn": 7018}])
+            out = io.StringIO()
+            with redirect_stdout(out):  # stdout is the snapshot list the workflow publishes
+                prune_states(sd, [{"collector": "rrc00", "peer_asn": 7018}])
+            self.assertEqual(out.getvalue(), "")
             self.assertEqual([f.name for f in sd.iterdir()], ["rrc00_AS7018.state.pkl.gz"])
 
 
