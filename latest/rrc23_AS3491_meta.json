@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-26T20:50:00+05:30",
+  "as_of": "2026-11-26T21:55:00+05:30",
   "run": {
-    "mode": "continue",
-    "reason": "saved state as of 2026-11-26 19:50 IST",
+    "mode": "fresh",
+    "reason": "new bview 2026-11-26 21:30 IST",
     "collector_sources": [
       "rrc23_AS3491"
     ]
@@ -17,49 +17,63 @@
     ],
     "display_name": "PCCW Global",
     "collector_location": "Singapore",
-    "bview_url": "https://data.ris.ripe.net/rrc23/2026.11/bview.20261126.0800.gz",
-    "bview_time": "2026-11-26T13:30:00+05:30",
-    "bview_routes": 1324802
+    "bview_url": "https://data.ris.ripe.net/rrc23/2026.11/bview.20261126.1600.gz",
+    "bview_time": "2026-11-26T21:30:00+05:30",
+    "bview_routes": 1324930
   },
   "updates": {
-    "first_file": "https://data.ris.ripe.net/rrc23/2026.11/updates.20261126.1420.gz",
-    "last_file": "https://data.ris.ripe.net/rrc23/2026.11/updates.20261126.1515.gz",
-    "files": 12,
+    "first_file": "https://data.ris.ripe.net/rrc23/2026.11/updates.20261126.1600.gz",
+    "last_file": "https://data.ris.ripe.net/rrc23/2026.11/updates.20261126.1620.gz",
+    "files": 5,
     "missing_files": [],
     "stats": {
-      "withdrawals": 8119,
-      "announce_replace": 22440,
-      "announce_duplicate": 6158,
-      "announce_new_prefix": 8360,
-      "files": 12
+      "withdrawals": 3605,
+      "announce_replace": 11820,
+      "announce_duplicate": 1861,
+      "announce_new_prefix": 3768,
+      "files": 5
     },
     "applied": true
   },
-  "self_check": null,
+  "self_check": {
+    "previous_bview": "2026-11-26T13:30:00+05:30",
+    "compared_at": "2026-11-26T21:30:00+05:30",
+    "routes_built": 1324930,
+    "routes_bview": 1324930,
+    "identical": 1324930,
+    "identical_pct": 100.0,
+    "only_in_built": 0,
+    "only_in_bview": 0,
+    "path_differs": 0,
+    "communities_differ": 0
+  },
   "notes": [
     "BGP session resets are not detected: routes withdrawn while a session was down may linger until the next bview (at most 8 hours).",
     "load_bview, download_updates_* and apply_updates_* timings cover all collector_sources (one shared pass); write and save_state are for this source."
   ],
   "timing_seconds": {
-    "download_updates_run": 2.1,
-    "apply_updates_run": 1.0,
-    "write": 9.5,
-    "save_state": 1.7,
-    "total": 21.8
+    "download_updates_self_check": 2.1,
+    "apply_updates_self_check": 1.1,
+    "load_bview": 34.4,
+    "download_updates_run": 1.9,
+    "apply_updates_run": 0.8,
+    "write": 17.1,
+    "save_state": 2.7,
+    "total": 86.6
   },
-  "generated_at": "2026-11-26T20:53:21+05:30",
+  "generated_at": "2026-11-26T21:59:55+05:30",
   "counts": {
-    "routes": 1325169,
+    "routes": 1325093,
     "routes_by_session": {
-      "2001:de8:4::3491:1 (IPv6)": 250362,
-      "27.111.228.43 (IPv4)": 1074807
+      "2001:de8:4::3491:1 (IPv6)": 250340,
+      "27.111.228.43 (IPv4)": 1074753
     },
-    "unique_raw_paths": 158110,
-    "unique_clean_paths": 144944,
-    "origin_asns": 86736,
+    "unique_raw_paths": 158145,
+    "unique_clean_paths": 144961,
+    "origin_asns": 86737,
     "adjacencies": 131317,
     "asns_with_observed_upstream": 87026,
-    "routes_with_any_flag": 652
+    "routes_with_any_flag": 654
   },
   "flags": {
     "as_set": {
@@ -71,8 +85,8 @@
       "routes": 0
     },
     "loop": {
-      "paths": 129,
-      "routes": 468
+      "paths": 130,
+      "routes": 470
     },
     "private": {
       "paths": 0,
@@ -97,20 +111,21 @@
   },
   "path_length_by_routes": {
     "1": 543,
-    "2": 95744,
-    "3": 612813,
-    "4": 463155,
-    "5": 126237,
-    "6": 20248,
-    "7": 4797,
-    "8": 1479,
+    "2": 95684,
+    "3": 612801,
+    "4": 463132,
+    "5": 126266,
+    "6": 20237,
+    "7": 4795,
+    "8": 1481,
     "9": 129,
     "10": 23,
+    "11": 1,
     "25": 1
   },
   "files_bytes": {
-    "routes.tsv.gz": 17343072,
-    "paths.tsv.gz": 3950031,
-    "adjacency.tsv.gz": 706488
+    "routes.tsv.gz": 17349095,
+    "paths.tsv.gz": 3950823,
+    "adjacency.tsv.gz": 706496
   }
 }
