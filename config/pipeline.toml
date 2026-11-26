@@ -20,11 +20,17 @@ min_ipv6_prefixes = 150000
 [collectors.rrc00]
 location = "Amsterdam"
 
+[collectors.rrc03]
+location = "Amsterdam"
+
 [collectors.rrc06]
 location = "Tokyo"
 
 [collectors.rrc23]
 location = "Singapore"
+
+[collectors.rrc25]
+location = "Amsterdam"
 
 [[sources]]
 collector = "rrc00"
@@ -70,3 +76,17 @@ collector = "rrc23"
 peer_asn = 3491            # PCCW Global (Hong Kong)
 display_name = "PCCW Global"
 peer_ips = ["27.111.228.43", "2001:de8:4::3491:1"]
+
+# rrc03: Amsterdam (AMS-IX)
+[[sources]]
+collector = "rrc03"
+peer_asn = 6453            # Tata Communications (hands Indian routes to Tata India AS4755 and Bharti)
+display_name = "Tata Communications"
+peer_ips = ["80.249.209.167", "2001:7f8:1::a500:6453:1"]
+
+# rrc25: Amsterdam (multihop)
+[[sources]]
+collector = "rrc25"
+peer_asn = 1221            # Telstra (Australia)
+display_name = "Telstra"
+peer_ips = ["203.62.252.13", "2001:8000:100::30:136"]

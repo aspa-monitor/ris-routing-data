@@ -22,8 +22,10 @@ Each source is one peer AS on one RIS collector, named `<collector>_AS<peer>` (`
 | `rrc00_AS24482` | SG.GS (Singapore) | IPv4 + IPv6 |
 | `rrc06_AS4777` | APNIC-COLO (Japan) | IPv4 + IPv6 |
 | `rrc23_AS3491` | PCCW Global (Hong Kong) | IPv4 + IPv6 |
+| `rrc03_AS6453` | Tata Communications | IPv4 + IPv6 |
+| `rrc25_AS1221` | Telstra (Australia) | IPv4 + IPv6 |
 
-`rrc00` is RIPE's multihop collector in Amsterdam; `rrc06` is in Tokyo; `rrc23` is in Singapore (`[collectors]` in the config). Read the list of sources from
+`rrc00` and `rrc25` are RIPE's multihop collectors in Amsterdam; `rrc03` is at AMS-IX (Amsterdam), `rrc06` in Tokyo, `rrc23` in Singapore (`[collectors]` in the config). Read the list of sources from
 `manifest.json`, not from this table: sources may be added.
 
 ## Getting the data
