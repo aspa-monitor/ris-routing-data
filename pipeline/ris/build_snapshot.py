@@ -339,6 +339,15 @@ def run_collector(cfg: dict, collector: str, sources: list[dict], mrt_arg: str |
     return out_dirs
 
 
+def prune_states(state_dir: Path, sources: list[dict]) -> None:
+    """Delete saved states of sources no longer in the config, so the cache does not keep them."""
+    keep = {state_path(state_dir, s["collector"], s["peer_asn"]).name for s in sources}
+    for f in state_dir.glob("*.state.pkl.gz"):
+        if f.name not in keep:
+            print(f"removing state of a source no longer configured: {f.name}", flush=True)
+            f.unlink()
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--config", default="config/pipeline.toml")
@@ -361,6 +370,8 @@ def main() -> None:
         groups = {c: s for c, s in groups.items() if c in args.collector}
     if args.mrt and len(groups) != 1:
         ap.error("--mrt is one collector's bview: choose the collector with --collector")
+    if args.state_dir and not args.collector:
+        prune_states(args.state_dir, cfg["sources"])
     for collector, sources in groups.items():
         for out_dir in run_collector(cfg, collector, sources, args.mrt, args.until, args.bview_only,
                                      args.state_dir):

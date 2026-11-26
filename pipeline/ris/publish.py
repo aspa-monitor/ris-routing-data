@@ -58,7 +58,11 @@ def package(snapshots: list[Path], dist: Path, latest: Path) -> dict:
         "as_of": min((s["as_of"] for s in sources), key=datetime.fromisoformat),
         "sources": sources,
     }
-    for d in (dist, latest):
+    current = {s["meta"] for s in sources}
+    for d in (dist, latest):  # a source removed from the config leaves no files behind
+        for stale in d.glob("*_meta.json"):
+            if stale.name not in current:
+                stale.unlink()
         (d / "manifest.json").write_text(json.dumps(manifest, indent=2))
     return manifest
 

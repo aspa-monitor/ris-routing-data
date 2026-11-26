@@ -96,6 +96,10 @@ jobs:
           fi
           gh release edit latest --notes "$notes"
           gh release upload latest dist/* --clobber
+          # Remove assets of sources no longer published (manifest.json is the list)
+          for asset in $(gh release view latest --json assets --jq '.assets[].name'); do
+            [[ -e "dist/$asset" ]] || { echo "removing $asset from latest"; gh release delete-asset latest "$asset" --yes; }
+          done
 
       - name: Commit latest/ metadata
         env:

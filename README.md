@@ -20,7 +20,6 @@ Each source is one peer AS on one RIS collector, named `<collector>_AS<peer>` (`
 | `rrc00_AS3333` | RIPE NCC | IPv4 + IPv6 (one session) |
 | `rrc00_AS4608` | APNIC Services | IPv4 only |
 | `rrc00_AS24482` | SG.GS (Singapore) | IPv4 + IPv6 |
-| `rrc06_AS2497` | IIJ (Japan) | IPv4 + IPv6 |
 | `rrc06_AS4777` | APNIC-COLO (Japan) | IPv4 + IPv6 |
 
 `rrc00` is RIPE's multihop collector in Amsterdam; `rrc06` is in Tokyo (`[collectors]` in the config). Read the list of sources from

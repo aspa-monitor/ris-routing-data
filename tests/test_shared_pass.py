@@ -8,7 +8,7 @@ from pathlib import Path
 from unittest import mock
 
 from pipeline.ris import rib as ribmod
-from pipeline.ris.build_snapshot import group_by_collector, update_meta
+from pipeline.ris.build_snapshot import group_by_collector, prune_states, update_meta
 from pipeline.ris.publish import package
 from pipeline.ris.rib import Target, apply_updates_multi, load_bview_multi
 
@@ -157,6 +157,24 @@ class ManifestTest(unittest.TestCase):
         self.assertEqual((first["display_name"], first["collector_location"]), ("AT&T", "Amsterdam"))
         self.assertNotIn("display_name", second)
         self.assertNotIn("collector_location", second)
+
+    def test_removed_source_leaves_no_meta(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            (root / "latest").mkdir()
+            (root / "latest" / "rrc06_AS2497_meta.json").write_text("{}")
+            a = self._snap(root, "rrc00_AS7018", {"collector": "rrc00", "peer_asn": 7018})
+            package([a], root / "dist", root / "latest")
+            self.assertEqual(sorted(f.name for f in (root / "latest").iterdir()),
+                             ["manifest.json", "rrc00_AS7018_meta.json"])
+
+    def test_prune_states(self):
+        with tempfile.TemporaryDirectory() as d:
+            sd = Path(d)
+            for n in ("rrc00_AS7018", "rrc06_AS2497"):
+                (sd / f"{n}.state.pkl.gz").write_bytes(b"x")
+            prune_states(sd, [{"collector": "rrc00", "peer_asn": 7018}])
+            self.assertEqual([f.name for f in sd.iterdir()], ["rrc00_AS7018.state.pkl.gz"])
 
 
 if __name__ == "__main__":
