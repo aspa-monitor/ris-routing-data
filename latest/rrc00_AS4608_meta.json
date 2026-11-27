@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-27T04:50:00+05:30",
+  "as_of": "2026-11-27T05:50:00+05:30",
   "run": {
-    "mode": "continue",
-    "reason": "saved state as of 2026-11-27 03:50 IST",
+    "mode": "fresh",
+    "reason": "new bview 2026-11-27 05:30 IST",
     "collector_sources": [
       "rrc00_AS7018",
       "rrc00_AS3549",
@@ -20,47 +20,61 @@
     ],
     "display_name": "APNIC",
     "collector_location": "Amsterdam",
-    "bview_url": "https://data.ris.ripe.net/rrc00/2026.11/bview.20261126.1600.gz",
-    "bview_time": "2026-11-26T21:30:00+05:30",
-    "bview_routes": 1085127
+    "bview_url": "https://data.ris.ripe.net/rrc00/2026.11/bview.20261127.0000.gz",
+    "bview_time": "2026-11-27T05:30:00+05:30",
+    "bview_routes": 1085122
   },
   "updates": {
-    "first_file": "https://data.ris.ripe.net/rrc00/2026.11/updates.20261126.2220.gz",
-    "last_file": "https://data.ris.ripe.net/rrc00/2026.11/updates.20261126.2315.gz",
-    "files": 12,
+    "first_file": "https://data.ris.ripe.net/rrc00/2026.11/updates.20261127.0000.gz",
+    "last_file": "https://data.ris.ripe.net/rrc00/2026.11/updates.20261127.0015.gz",
+    "files": 4,
     "missing_files": [],
     "stats": {
-      "announce_duplicate": 3070,
-      "announce_replace": 11705,
-      "announce_new_prefix": 999,
-      "withdrawals": 1202,
-      "files": 12
+      "announce_replace": 3244,
+      "announce_new_prefix": 293,
+      "withdrawals": 294,
+      "announce_duplicate": 939,
+      "files": 4
     },
     "applied": true
   },
-  "self_check": null,
+  "self_check": {
+    "previous_bview": "2026-11-26T21:30:00+05:30",
+    "compared_at": "2026-11-27T05:30:00+05:30",
+    "routes_built": 1085122,
+    "routes_bview": 1085122,
+    "identical": 1085122,
+    "identical_pct": 100.0,
+    "only_in_built": 0,
+    "only_in_bview": 0,
+    "path_differs": 0,
+    "communities_differ": 0
+  },
   "notes": [
     "BGP session resets are not detected: routes withdrawn while a session was down may linger until the next bview (at most 8 hours).",
     "load_bview, download_updates_* and apply_updates_* timings cover all collector_sources (one shared pass); write and save_state are for this source."
   ],
   "timing_seconds": {
-    "download_updates_run": 3.2,
-    "apply_updates_run": 11.7,
-    "write": 12.7,
-    "save_state": 1.7,
-    "total": 114.4
+    "download_updates_self_check": 2.5,
+    "apply_updates_self_check": 8.6,
+    "load_bview": 141.1,
+    "download_updates_run": 2.2,
+    "apply_updates_run": 4.2,
+    "write": 13.6,
+    "save_state": 1.8,
+    "total": 311.2
   },
-  "generated_at": "2026-11-27T04:52:57+05:30",
+  "generated_at": "2026-11-27T05:56:13+05:30",
   "counts": {
-    "routes": 1084986,
+    "routes": 1085121,
     "routes_by_session": {
-      "203.119.104.1 (IPv4)": 1084986
+      "203.119.104.1 (IPv4)": 1085121
     },
-    "unique_raw_paths": 134536,
-    "unique_clean_paths": 125028,
-    "origin_asns": 79305,
-    "adjacencies": 117762,
-    "asns_with_observed_upstream": 79890,
+    "unique_raw_paths": 134558,
+    "unique_clean_paths": 125069,
+    "origin_asns": 79307,
+    "adjacencies": 117792,
+    "asns_with_observed_upstream": 79893,
     "routes_with_any_flag": 585
   },
   "flags": {
@@ -73,7 +87,7 @@
       "routes": 0
     },
     "loop": {
-      "paths": 116,
+      "paths": 117,
       "routes": 381
     },
     "private": {
@@ -99,22 +113,22 @@
   },
   "path_length_by_routes": {
     "1": 6,
-    "2": 11153,
-    "3": 88324,
-    "4": 280401,
-    "5": 419495,
-    "6": 209826,
-    "7": 62427,
-    "8": 9344,
-    "9": 3284,
-    "10": 685,
-    "11": 37,
+    "2": 11154,
+    "3": 88146,
+    "4": 280511,
+    "5": 420005,
+    "6": 209749,
+    "7": 62210,
+    "8": 9332,
+    "9": 3278,
+    "10": 690,
+    "11": 36,
     "12": 3,
     "13": 1
   },
   "files_bytes": {
-    "routes.tsv.gz": 10283711,
-    "paths.tsv.gz": 3504264,
-    "adjacency.tsv.gz": 610162
+    "routes.tsv.gz": 10288609,
+    "paths.tsv.gz": 3504823,
+    "adjacency.tsv.gz": 610321
   }
 }
