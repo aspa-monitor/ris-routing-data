@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-11-27T16:45:00+05:30",
+  "run": {
+    "mode": "fresh",
+    "reason": "no saved state",
+    "collector_sources": [
+      "route-views.napafrica_AS37468",
+      "route-views.napafrica_AS30844"
+    ]
+  },
+  "source": {
+    "collector": "route-views.napafrica",
+    "archive": "routeviews",
+    "peer_asn": 30844,
+    "peer_ips": [
+      "196.60.8.215",
+      "2001:43f8:6d0::215"
+    ],
+    "display_name": "Liquid Telecom",
+    "note": null,
+    "collector_location": "Johannesburg (NAPAfrica)",
+    "bview_url": "https://archive.routeviews.org/route-views.napafrica/bgpdata/2026.11/RIBS/rib.20261127.0800.bz2",
+    "bview_time": "2026-11-27T13:30:00+05:30",
+    "bview_routes": 1335324
+  },
+  "updates": {
+    "first_file": "https://archive.routeviews.org/route-views.napafrica/bgpdata/2026.11/UPDATES/updates.20261127.0800.bz2",
+    "last_file": "https://archive.routeviews.org/route-views.napafrica/bgpdata/2026.11/UPDATES/updates.20261127.1100.bz2",
+    "files": 13,
+    "missing_files": [],
+    "stats": {
+      "withdrawals": 9104,
+      "announce_replace": 96624,
+      "announce_new_prefix": 9089,
+      "announce_duplicate": 35917,
+      "files": 13
+    },
+    "applied": true
+  },
+  "self_check": null,
+  "notes": [
+    "BGP session resets are not detected: routes withdrawn while a session was down may linger until the next bview (at most 8 hours).",
+    "load_bview, download_updates_* and apply_updates_* timings cover all collector_sources (one shared pass); write and save_state are for this source."
+  ],
+  "timing_seconds": {
+    "load_bview": 62.2,
+    "download_updates_run": 5.3,
+    "apply_updates_run": 29.7,
+    "write": 11.8,
+    "save_state": 1.9,
+    "total": 152.2
+  },
+  "generated_at": "2026-11-27T16:56:55+05:30",
+  "counts": {
+    "routes": 1335309,
+    "routes_by_session": {
+      "196.60.8.215 (IPv4)": 1079955,
+      "2001:43f8:6d0::215 (IPv6)": 255354
+    },
+    "unique_raw_paths": 169152,
+    "unique_clean_paths": 155163,
+    "origin_asns": 86851,
+    "adjacencies": 134124,
+    "asns_with_observed_upstream": 87120,
+    "routes_with_any_flag": 862
+  },
+  "flags": {
+    "as_set": {
+      "paths": 108,
+      "routes": 208
+    },
+    "confed": {
+      "paths": 0,
+      "routes": 0
+    },
+    "loop": {
+      "paths": 150,
+      "routes": 533
+    },
+    "private": {
+      "paths": 39,
+      "routes": 111
+    },
+    "reserved": {
+      "paths": 18,
+      "routes": 24
+    },
+    "as_trans": {
+      "paths": 0,
+      "routes": 0
+    },
+    "peer_mismatch": {
+      "paths": 0,
+      "routes": 0
+    },
+    "empty": {
+      "paths": 0,
+      "routes": 0
+    }
+  },
+  "path_length_by_routes": {
+    "1": 318,
+    "2": 103216,
+    "3": 556021,
+    "4": 475819,
+    "5": 156441,
+    "6": 32417,
+    "7": 7973,
+    "8": 2733,
+    "9": 342,
+    "10": 24,
+    "11": 4,
+    "26": 1
+  },
+  "files_bytes": {
+    "routes.tsv.gz": 13034778,
+    "paths.tsv.gz": 4262151,
+    "adjacency.tsv.gz": 723463
+  }
+}

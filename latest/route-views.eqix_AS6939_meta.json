@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-27T16:30:00+05:30",
+  "as_of": "2026-11-27T16:45:00+05:30",
   "run": {
-    "mode": "fresh",
-    "reason": "no saved state",
+    "mode": "continue",
+    "reason": "saved state as of 2026-11-27 16:30 IST",
     "collector_sources": [
       "route-views.eqix_AS6939"
     ]
@@ -17,22 +17,23 @@
       "2001:504:0:2::6939:1"
     ],
     "display_name": "Hurricane Electric",
+    "note": null,
     "collector_location": "Ashburn (Equinix)",
     "bview_url": "https://archive.routeviews.org/route-views.eqix/bgpdata/2026.11/RIBS/rib.20261127.0800.bz2",
     "bview_time": "2026-11-27T13:30:00+05:30",
     "bview_routes": 1354432
   },
   "updates": {
-    "first_file": "https://archive.routeviews.org/route-views.eqix/bgpdata/2026.11/UPDATES/updates.20261127.0800.bz2",
-    "last_file": "https://archive.routeviews.org/route-views.eqix/bgpdata/2026.11/UPDATES/updates.20261127.1045.bz2",
-    "files": 12,
+    "first_file": "https://archive.routeviews.org/route-views.eqix/bgpdata/2026.11/UPDATES/updates.20261127.1100.bz2",
+    "last_file": "https://archive.routeviews.org/route-views.eqix/bgpdata/2026.11/UPDATES/updates.20261127.1100.bz2",
+    "files": 1,
     "missing_files": [],
     "stats": {
-      "announce_replace": 120856,
-      "announce_new_prefix": 39047,
-      "withdrawals": 39073,
-      "announce_duplicate": 9922,
-      "files": 12
+      "announce_new_prefix": 2900,
+      "announce_replace": 16749,
+      "announce_duplicate": 934,
+      "withdrawals": 2968,
+      "files": 1
     },
     "applied": true
   },
@@ -42,25 +43,24 @@
     "load_bview, download_updates_* and apply_updates_* timings cover all collector_sources (one shared pass); write and save_state are for this source."
   ],
   "timing_seconds": {
-    "load_bview": 82.5,
-    "download_updates_run": 7.1,
-    "apply_updates_run": 24.0,
-    "write": 12.7,
-    "save_state": 2.2,
-    "total": 169.6
+    "download_updates_run": 1.6,
+    "apply_updates_run": 1.3,
+    "write": 8.5,
+    "save_state": 1.6,
+    "total": 17.2
   },
-  "generated_at": "2026-11-27T16:43:39+05:30",
+  "generated_at": "2026-11-27T16:54:23+05:30",
   "counts": {
-    "routes": 1354406,
+    "routes": 1354338,
     "routes_by_session": {
-      "2001:504:0:2::6939:1 (IPv6)": 253284,
-      "206.126.236.37 (IPv4)": 1101122
+      "2001:504:0:2::6939:1 (IPv6)": 253256,
+      "206.126.236.37 (IPv4)": 1101082
     },
-    "unique_raw_paths": 158962,
-    "unique_clean_paths": 145549,
-    "origin_asns": 86855,
-    "adjacencies": 133575,
-    "asns_with_observed_upstream": 87139,
+    "unique_raw_paths": 158943,
+    "unique_clean_paths": 145537,
+    "origin_asns": 86853,
+    "adjacencies": 133566,
+    "asns_with_observed_upstream": 87137,
     "routes_with_any_flag": 786
   },
   "flags": {
@@ -99,20 +99,20 @@
   },
   "path_length_by_routes": {
     "1": 277,
-    "2": 351213,
-    "3": 621411,
-    "4": 292406,
-    "5": 72901,
-    "6": 12584,
-    "7": 2977,
-    "8": 606,
-    "9": 28,
+    "2": 351417,
+    "3": 621074,
+    "4": 292556,
+    "5": 72782,
+    "6": 12582,
+    "7": 2996,
+    "8": 621,
+    "9": 30,
     "10": 2,
     "24": 1
   },
   "files_bytes": {
-    "routes.tsv.gz": 13759371,
-    "paths.tsv.gz": 3926399,
-    "adjacency.tsv.gz": 712329
+    "routes.tsv.gz": 13758531,
+    "paths.tsv.gz": 3925883,
+    "adjacency.tsv.gz": 712261
   }
 }
