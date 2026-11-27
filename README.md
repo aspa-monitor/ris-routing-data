@@ -1,6 +1,6 @@
 # ris-routing-data
 
-Hourly snapshots of BGP routing as seen by RIPE RIS (and one RouteViews collector), published as GitHub Releases.
+Hourly snapshots of BGP routing as seen by RIPE RIS (and RouteViews), published as GitHub Releases.
 Part of the ASPA validation project:
 
 | Repo | Role |
@@ -25,11 +25,16 @@ Each source is one peer AS on one collector, named `<collector>_AS<peer>` (`conf
 | `rrc03_AS6453` | Tata Communications | IPv4 + IPv6 |
 | `rrc25_AS1221` | Telstra (Australia) | IPv4 + IPv6 |
 | `route-views.eqix_AS6939` | Hurricane Electric | IPv4 + IPv6 |
+| `route-views.napafrica_AS37468` | Angola Cables | IPv4 + IPv6 |
+| `route-views.napafrica_AS30844` | Liquid Telecom | IPv4 + IPv6 |
+| `route-views8_AS151704` | Bharat Datacenter (India; ~91% of routes via Bharti Airtel) | IPv4 + IPv6 |
 
 `rrc00` and `rrc25` are RIPE's multihop collectors in Amsterdam (peers connect to them over the Internet from
 anywhere); `rrc03` is at AMS-IX / NL-IX in Amsterdam, `rrc06` at DIX-IE / JPIX in Tokyo and `rrc23` at Equinix Singapore
-(`[collectors]` in the config). `route-views.eqix` is a RouteViews collector at Equinix Ashburn: Hurricane
-Electric is taken from there because on RIS collectors it sends only its IPv4 peering routes (~170k).
+(`[collectors]` in the config). The `route-views*` collectors are RouteViews: `route-views.eqix` at Equinix
+Ashburn, `route-views.napafrica` at NAPAfrica Johannesburg, and `route-views8`, multihop in Eugene, Oregon.
+Hurricane Electric and Liquid are taken from RouteViews because on RIS collectors they send only part of their
+table (HE ~170k IPv4 peering routes, Liquid ~4k).
 Read the list of sources from
 `manifest.json`, not from this table: sources may be added.
 

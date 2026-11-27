@@ -43,6 +43,14 @@ location = "Amsterdam (multihop)"
 archive = "routeviews"
 location = "Ashburn (Equinix)"
 
+[collectors."route-views.napafrica"]
+archive = "routeviews"
+location = "Johannesburg (NAPAfrica)"
+
+[collectors."route-views8"]
+archive = "routeviews"
+location = "Eugene, Oregon (multihop)"
+
 [[sources]]
 collector = "rrc00"
 peer_asn = 7018            # AT&T
@@ -108,3 +116,23 @@ peer_asn = 6939            # Hurricane Electric
 display_name = "Hurricane Electric"
 # Full IPv4 + IPv6 here; on RIS collectors HE sends only its ~170k IPv4 peering routes.
 peer_ips = ["206.126.236.37", "2001:504:0:2::6939:1"]
+
+[[sources]]
+collector = "route-views.napafrica"
+peer_asn = 37468           # Angola Cables
+display_name = "Angola Cables"
+peer_ips = ["196.60.8.60", "2001:43f8:6d0::60"]
+
+[[sources]]
+collector = "route-views.napafrica"
+peer_asn = 30844           # Liquid Telecom
+display_name = "Liquid Telecom"
+# On RIS rrc19 the same session sends only ~4k customer routes; RouteViews gets the full table.
+peer_ips = ["196.60.8.215", "2001:43f8:6d0::215"]
+
+[[sources]]
+collector = "route-views8"
+peer_asn = 151704          # Bharat Datacenter (India)
+display_name = "Bharat Datacenter"
+# About 91% of its routes go through Bharti Airtel (AS9498): the closest to an Airtel view.
+peer_ips = ["85.209.161.5", "2a0b:4e07:1c00:2::1"]
