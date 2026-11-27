@@ -1,17 +1,17 @@
 # ris-routing-data
 
-Hourly snapshots of BGP routing as seen by RIPE RIS, published as GitHub Releases.
+Hourly snapshots of BGP routing as seen by RIPE RIS (and one RouteViews collector), published as GitHub Releases.
 Part of the ASPA validation project:
 
 | Repo | Role |
 |---|---|
-| **ris-routing-data** (this) | RIS bview + 5-minute updates → routes / paths / adjacency |
+| **ris-routing-data** (this) | RIS / RouteViews table dumps + updates → routes / paths / adjacency |
 | rpki-aspa-data | Validated RPKI ASPA objects |
 | aspa-validation | Combines both, finds ASPA invalids |
 | aspa-monitor.github.io | The web portal |
 
 ## Sources
-Each source is one peer AS on one RIS collector, named `<collector>_AS<peer>` (`config/pipeline.toml`):
+Each source is one peer AS on one collector, named `<collector>_AS<peer>` (`config/pipeline.toml`):
 
 | Source | Peer | Sessions |
 |---|---|---|
@@ -24,10 +24,13 @@ Each source is one peer AS on one RIS collector, named `<collector>_AS<peer>` (`
 | `rrc23_AS3491` | PCCW Global (Hong Kong) | IPv4 + IPv6 |
 | `rrc03_AS6453` | Tata Communications | IPv4 + IPv6 |
 | `rrc25_AS1221` | Telstra (Australia) | IPv4 + IPv6 |
+| `route-views.eqix_AS6939` | Hurricane Electric | IPv4 + IPv6 |
 
 `rrc00` and `rrc25` are RIPE's multihop collectors in Amsterdam (peers connect to them over the Internet from
 anywhere); `rrc03` is at AMS-IX / NL-IX in Amsterdam, `rrc06` at DIX-IE / JPIX in Tokyo and `rrc23` at Equinix Singapore
-(`[collectors]` in the config). Read the list of sources from
+(`[collectors]` in the config). `route-views.eqix` is a RouteViews collector at Equinix Ashburn: Hurricane
+Electric is taken from there because on RIS collectors it sends only its IPv4 peering routes (~170k).
+Read the list of sources from
 `manifest.json`, not from this table: sources may be added.
 
 ## Getting the data
@@ -42,7 +45,8 @@ https://github.com/aspa-monitor/ris-routing-data/releases/download/latest/rrc00_
 (and the same four files for every other source in `manifest.json`).
 Timestamped releases `snapshot-YYYYMMDD-HHMM-IST` are made once per bview (the first hourly snapshot after
 05:30, 13:30 and 21:30 IST, so 3 a day) and kept for 7 days; only `latest` is updated every hour. `latest/` in this repo holds the newest
-`manifest.json` and meta files. `manifest.json` lists every asset with size and SHA-256, plus `schema_version`.
+`manifest.json` and meta files. `manifest.json` lists every asset with size and SHA-256, plus `schema_version`. Its top-level `as_of` is the
+oldest source's; each source has its own `as_of` (RouteViews sources usually lag RIS by 15–30 minutes).
 Each `sources[]` entry also has `display_name` (short peer name, e.g. `AT&T`) and `collector_location`
 (the collector's city and exchange point, e.g. `Amsterdam (AMS-IX / NL-IX)`, or `multihop`), both from `config/pipeline.toml`. They are optional and for display
 only: fall back to the collector and peer AS if either is missing. The same two fields are in each `meta.json` `source`.
@@ -56,13 +60,15 @@ only: fall back to the collector and peer AS if either is missing. The same two 
 **Times:** every time in `manifest.json`, `meta.json`, release names and logs is **IST** (UTC+05:30),
 written as ISO 8601 with the offset, e.g. `2026-11-24T19:55:00+05:30`. Parse it with the offset; do not
 compare the text. Exceptions: the `timestamp` column in `routes.tsv.gz` is Unix seconds (no time zone), and
-RIPE file URLs (`bview_url`, `first_file`, `last_file`) keep RIPE's own UTC names.
+archive file URLs (`bview_url`, `first_file`, `last_file`) keep the archive's own UTC names. `meta.json`
+`source.archive` is `ris` or `routeviews`.
 
 ## How a run works (hourly, `:50` IST)
-1. If a bview newer than the saved state exists (RIPE publishes one at 05:30, 13:30 and 21:30 IST) → start fresh from it. Before switching,
+1. If a bview newer than the saved state exists (RIPE publishes one at 05:30, 13:30 and 21:30 IST; for RouteViews,
+   the RIB of the same times is used and the 2-hourly ones in between are skipped) → start fresh from it. Before switching,
    the old state is brought up to the bview time and compared with it (**self-check**, reported in `meta.json`).
 2. Otherwise continue from the saved state (GitHub Actions cache).
-3. Apply all 5-minute update files published since, write the snapshot, save state, publish.
+3. Apply all update files published since (5-minute on RIS, 15-minute on RouteViews), write the snapshot, save state, publish.
 
 Sources on the same collector share one pass: the bview and each update file are downloaded and read
 once, and every source's RIB is filled from it (MRT files have no index, so reading a bview costs the same

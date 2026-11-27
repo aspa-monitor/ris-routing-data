@@ -1,6 +1,7 @@
 """Build a routing snapshot for each configured (collector, peer) source.
 
-Steps, per collector: latest bview (or --mrt) -> apply 5-minute update files up to --until
+Collectors are RIPE RIS (default) or RouteViews ([collectors.<name>] archive = "routeviews").
+Steps, per collector: latest bview / RIB (or --mrt) -> apply update files (5 min RIS, 15 min RouteViews) up to --until
 (default: newest published) -> write, in output/<collector>_AS<peer>/<as-of YYYYMMDD.HHMM>/:
   routes.tsv.gz     one row per route (prefix as seen from the peer)
   paths.tsv.gz      one row per unique raw AS_PATH, with cleaned form and flags
@@ -24,7 +25,7 @@ from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from pathlib import Path
 
-from pipeline.ris.fetch import BVIEW_RE, UPDATE_INTERVAL, download, latest_bview, list_updates
+from pipeline.ris.fetch import BVIEW_RE, archive_for, download, latest_bview, list_updates
 from pipeline.ris.normalize import FLAGS, CleanPath, normalize
 from pipeline.ris.rib import (Rib, Target, apply_updates_multi, diff_ribs, load_bview_multi, load_state,
                              reset_interning, rib_digest, save_state, state_path)
@@ -134,7 +135,7 @@ def write_snapshot(rib: Rib, out_dir: Path, peer_asn: int, meta: dict) -> Path:
 
 
 def _parse_ts(s: str) -> datetime:
-    """RIPE file time stamp (UTC)."""
+    """Archive file time stamp (UTC)."""
     return datetime.strptime(s, TS_FMT).replace(tzinfo=timezone.utc)
 
 
@@ -192,8 +193,10 @@ def update_meta(target: Target, available: list[tuple[str, datetime]], gaps: lis
 def _update_pass(cfg: dict, collector: str, targets: list[Target], timing: dict,
                  label: str) -> tuple[list[tuple[str, datetime]], list[datetime]]:
     """Download the update files covering all targets' windows and apply them in one pass."""
-    base, raw_dir = cfg["ris"]["base_url"], Path(cfg["ris"]["raw_dir"])
-    available, gaps = list_updates(collector, min(t.start for t in targets), max(t.end for t in targets), base)
+    archive, base = archive_for(cfg, collector)
+    raw_dir = Path(cfg["ris"]["raw_dir"])
+    available, gaps = list_updates(collector, min(t.start for t in targets), max(t.end for t in targets), base,
+                                   archive=archive)
     upd_dir = raw_dir / collector / "updates"
     t0 = time.time()
     with ThreadPoolExecutor(max_workers=8) as pool:
@@ -202,13 +205,15 @@ def _update_pass(cfg: dict, collector: str, targets: list[Target], timing: dict,
     print(f"  {collector} [{label}]: applying {len(paths)} update files ({len(gaps)} missing) "
           f"to {len(targets)} RIBs", file=sys.stderr)
     timing[f"apply_updates_{label}"] = apply_updates_multi(
-        [(pth, ts, ts + UPDATE_INTERVAL) for pth, (_, ts) in zip(paths, available)], targets)
+        [(pth, ts, ts + archive.update_interval) for pth, (_, ts) in zip(paths, available)], targets)
     return available, gaps
 
 
 def run_collector(cfg: dict, collector: str, sources: list[dict], mrt_arg: str | None,
                   until: datetime | None, bview_only: bool, state_dir: Path | None = None) -> list[Path]:
-    base, raw_dir = cfg["ris"]["base_url"], Path(cfg["ris"]["raw_dir"])
+    archive, base = archive_for(cfg, collector)
+    step = archive.update_interval
+    raw_dir = Path(cfg["ris"]["raw_dir"])
     t_start = time.time()
     end = until or datetime.now(timezone.utc)
     timing: dict = {}  # shared by all sources of this collector
@@ -219,9 +224,9 @@ def run_collector(cfg: dict, collector: str, sources: list[dict], mrt_arg: str |
         mrt = Path(mrt_arg)
         d, t = BVIEW_RE.search(mrt.name).groups()
         bview_ts = _parse_ts(f"{d}.{t}")
-        bview_url = f"{base}/{collector}/{bview_ts:%Y.%m}/{mrt.name}"
+        bview_url = archive.dump_dir(base, collector, f"{bview_ts:%Y.%m}") + mrt.name
     else:
-        bview_url, bview_ts = latest_bview(collector, base, now=end)
+        bview_url, bview_ts = latest_bview(collector, base, now=end, archive=archive)
         mrt = None
 
     jobs = []
@@ -258,7 +263,7 @@ def run_collector(cfg: dict, collector: str, sources: list[dict], mrt_arg: str |
         _update_pass(cfg, collector, [j["check"] for j in checks], timing, "self_check")
         for j in checks:
             chk = j["check"]
-            j["check_reached"] = chk.applied[-1] + UPDATE_INTERVAL if chk.applied else chk.start
+            j["check_reached"] = chk.applied[-1] + step if chk.applied else chk.start
             j["check_digest"] = rib_digest(chk.rib)
             j["check"] = None
         del chk
@@ -301,14 +306,14 @@ def run_collector(cfg: dict, collector: str, sources: list[dict], mrt_arg: str |
         upd = {"applied": False}
         if not bview_only:
             if run.applied:
-                as_of = run.applied[-1] + UPDATE_INTERVAL
+                as_of = run.applied[-1] + step
             upd = {**update_meta(run, available, gaps), "applied": True}
 
         meta = {
             "schema_version": SCHEMA_VERSION,
             "as_of": ist_iso(as_of),
             "run": {"mode": j["mode"], "reason": j["reason"], "collector_sources": names},
-            "source": {"collector": collector, "peer_asn": peer_asn, "peer_ips": peer_ips,
+            "source": {"collector": collector, "archive": archive.kind, "peer_asn": peer_asn, "peer_ips": peer_ips,
                        "display_name": source.get("display_name"),
                        "collector_location": cfg.get("collectors", {}).get(collector, {}).get("location"),
                        "bview_url": bview_url, "bview_time": ist_iso(bview_ts),

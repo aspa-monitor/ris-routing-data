@@ -2,6 +2,7 @@
 # One [[sources]] entry per (collector, peer AS), listing all of that AS's sessions there.
 # Sources on the same collector share one read of each bview and update file, so an extra
 # peer on an existing collector is cheap; a new collector adds a whole bview (~400 MB) per fresh run.
+# Collectors are RIPE RIS unless [collectors.<name>] says archive = "routeviews".
 # Session IPs and prefix counts: python -m pipeline.ris.list_peers <collector>
 # display_name (short peer name) and the collector location are copied into meta.json and
 # manifest.json for display; a new source should bring its own display_name.
@@ -10,6 +11,9 @@
 base_url = "https://data.ris.ripe.net"
 raw_dir = "data/raw"
 output_dir = "output"
+
+[routeviews]
+base_url = "https://archive.routeviews.org"
 
 [full_feed]
 # A peer counts as full-feed if it meets either threshold.
@@ -32,6 +36,12 @@ location = "Singapore (Equinix)"
 
 [collectors.rrc25]
 location = "Amsterdam (multihop)"
+
+# RouteViews (University of Oregon): RIBs every 2 hours (only 00, 08 and 16 UTC are used, like RIS bviews)
+# and 15-minute update files, bzip2.
+[collectors."route-views.eqix"]
+archive = "routeviews"
+location = "Ashburn (Equinix)"
 
 [[sources]]
 collector = "rrc00"
@@ -91,3 +101,10 @@ collector = "rrc25"
 peer_asn = 1221            # Telstra (Australia)
 display_name = "Telstra"
 peer_ips = ["203.62.252.13", "2001:8000:100::30:136"]
+
+[[sources]]
+collector = "route-views.eqix"
+peer_asn = 6939            # Hurricane Electric
+display_name = "Hurricane Electric"
+# Full IPv4 + IPv6 here; on RIS collectors HE sends only its ~170k IPv4 peering routes.
+peer_ips = ["206.126.236.37", "2001:504:0:2::6939:1"]

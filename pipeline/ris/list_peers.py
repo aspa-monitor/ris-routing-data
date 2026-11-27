@@ -16,7 +16,7 @@ from pathlib import Path
 
 import pybgpkit_parser as bgpkit
 
-from pipeline.ris.fetch import download, latest_bview
+from pipeline.ris.fetch import archive_for, download, latest_bview
 
 
 def count_prefixes(mrt_path: Path) -> dict[tuple[str, int], list[int]]:
@@ -65,7 +65,8 @@ def main() -> None:
         mrt = Path(args.mrt)
         source = str(mrt)
     else:
-        url, _ = latest_bview(args.collector, cfg["ris"]["base_url"])
+        archive, base = archive_for(cfg, args.collector)
+        url, _ = latest_bview(args.collector, base, archive=archive)
         mrt = download(url, Path(cfg["ris"]["raw_dir"]) / args.collector / url.rsplit("/", 1)[1])
         source = url
 
