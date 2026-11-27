@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-27T20:45:00+05:30",
+  "as_of": "2026-11-27T22:00:00+05:30",
   "run": {
-    "mode": "continue",
-    "reason": "saved state as of 2026-11-27 20:30 IST",
+    "mode": "fresh",
+    "reason": "new bview 2026-11-27 21:30 IST",
     "collector_sources": [
       "route-views.eqix_AS6939"
     ]
@@ -19,61 +19,75 @@
     "display_name": "Hurricane Electric",
     "note": null,
     "collector_location": "Ashburn (Equinix)",
-    "bview_url": "https://archive.routeviews.org/route-views.eqix/bgpdata/2026.11/RIBS/rib.20261127.0800.bz2",
-    "bview_time": "2026-11-27T13:30:00+05:30",
-    "bview_routes": 1354432
+    "bview_url": "https://archive.routeviews.org/route-views.eqix/bgpdata/2026.11/RIBS/rib.20261127.1600.bz2",
+    "bview_time": "2026-11-27T21:30:00+05:30",
+    "bview_routes": 1354134
   },
   "updates": {
-    "first_file": "https://archive.routeviews.org/route-views.eqix/bgpdata/2026.11/UPDATES/updates.20261127.1500.bz2",
-    "last_file": "https://archive.routeviews.org/route-views.eqix/bgpdata/2026.11/UPDATES/updates.20261127.1500.bz2",
-    "files": 1,
+    "first_file": "https://archive.routeviews.org/route-views.eqix/bgpdata/2026.11/UPDATES/updates.20261127.1600.bz2",
+    "last_file": "https://archive.routeviews.org/route-views.eqix/bgpdata/2026.11/UPDATES/updates.20261127.1615.bz2",
+    "files": 2,
     "missing_files": [],
     "stats": {
-      "withdrawals": 3327,
-      "announce_new_prefix": 3403,
-      "announce_replace": 10836,
-      "announce_duplicate": 669,
-      "files": 1
+      "announce_new_prefix": 6465,
+      "announce_replace": 32345,
+      "announce_duplicate": 2683,
+      "withdrawals": 6402,
+      "files": 2
     },
     "applied": true
   },
-  "self_check": null,
+  "self_check": {
+    "previous_bview": "2026-11-27T13:30:00+05:30",
+    "compared_at": "2026-11-27T21:30:00+05:30",
+    "routes_built": 1354134,
+    "routes_bview": 1354134,
+    "identical": 1354133,
+    "identical_pct": 99.9999,
+    "only_in_built": 0,
+    "only_in_bview": 0,
+    "path_differs": 1,
+    "communities_differ": 0
+  },
   "notes": [
     "BGP session resets are not detected: routes withdrawn while a session was down may linger until the next bview (at most 8 hours).",
     "load_bview, download_updates_* and apply_updates_* timings cover all collector_sources (one shared pass); write and save_state are for this source."
   ],
   "timing_seconds": {
-    "download_updates_run": 1.2,
-    "apply_updates_run": 1.1,
-    "write": 8.3,
-    "save_state": 1.6,
-    "total": 16.4
+    "download_updates_self_check": 2.8,
+    "apply_updates_self_check": 5.3,
+    "load_bview": 81.3,
+    "download_updates_run": 2.5,
+    "apply_updates_run": 3.7,
+    "write": 14.5,
+    "save_state": 2.2,
+    "total": 162.8
   },
-  "generated_at": "2026-11-27T20:54:13+05:30",
+  "generated_at": "2026-11-27T22:06:28+05:30",
   "counts": {
-    "routes": 1354089,
+    "routes": 1354197,
     "routes_by_session": {
-      "2001:504:0:2::6939:1 (IPv6)": 253105,
-      "206.126.236.37 (IPv4)": 1100984
+      "2001:504:0:2::6939:1 (IPv6)": 253146,
+      "206.126.236.37 (IPv4)": 1101051
     },
-    "unique_raw_paths": 158911,
-    "unique_clean_paths": 145513,
-    "origin_asns": 86853,
-    "adjacencies": 133559,
-    "asns_with_observed_upstream": 87139,
-    "routes_with_any_flag": 789
+    "unique_raw_paths": 158951,
+    "unique_clean_paths": 145558,
+    "origin_asns": 86846,
+    "adjacencies": 133606,
+    "asns_with_observed_upstream": 87132,
+    "routes_with_any_flag": 790
   },
   "flags": {
     "as_set": {
-      "paths": 90,
-      "routes": 186
+      "paths": 91,
+      "routes": 187
     },
     "confed": {
       "paths": 0,
       "routes": 0
     },
     "loop": {
-      "paths": 134,
+      "paths": 133,
       "routes": 491
     },
     "private": {
@@ -99,20 +113,20 @@
   },
   "path_length_by_routes": {
     "1": 277,
-    "2": 352802,
-    "3": 619377,
-    "4": 292668,
-    "5": 72826,
-    "6": 12482,
-    "7": 2993,
-    "8": 632,
+    "2": 352493,
+    "3": 619513,
+    "4": 292270,
+    "5": 73454,
+    "6": 12568,
+    "7": 2972,
+    "8": 619,
     "9": 28,
-    "10": 3,
+    "10": 2,
     "24": 1
   },
   "files_bytes": {
-    "routes.tsv.gz": 13757722,
-    "paths.tsv.gz": 3924838,
-    "adjacency.tsv.gz": 712389
+    "routes.tsv.gz": 13756760,
+    "paths.tsv.gz": 3925866,
+    "adjacency.tsv.gz": 712584
   }
 }

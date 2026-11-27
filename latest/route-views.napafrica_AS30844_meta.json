@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-27T20:45:00+05:30",
+  "as_of": "2026-11-27T22:00:00+05:30",
   "run": {
-    "mode": "continue",
-    "reason": "saved state as of 2026-11-27 20:30 IST",
+    "mode": "fresh",
+    "reason": "new bview 2026-11-27 21:30 IST",
     "collector_sources": [
       "route-views.napafrica_AS37468",
       "route-views.napafrica_AS30844"
@@ -20,62 +20,76 @@
     "display_name": "Liquid Telecom",
     "note": null,
     "collector_location": "Johannesburg (NAPAfrica)",
-    "bview_url": "https://archive.routeviews.org/route-views.napafrica/bgpdata/2026.11/RIBS/rib.20261127.0800.bz2",
-    "bview_time": "2026-11-27T13:30:00+05:30",
-    "bview_routes": 1335324
+    "bview_url": "https://archive.routeviews.org/route-views.napafrica/bgpdata/2026.11/RIBS/rib.20261127.1600.bz2",
+    "bview_time": "2026-11-27T21:30:00+05:30",
+    "bview_routes": 1335566
   },
   "updates": {
-    "first_file": "https://archive.routeviews.org/route-views.napafrica/bgpdata/2026.11/UPDATES/updates.20261127.1500.bz2",
-    "last_file": "https://archive.routeviews.org/route-views.napafrica/bgpdata/2026.11/UPDATES/updates.20261127.1500.bz2",
-    "files": 1,
+    "first_file": "https://archive.routeviews.org/route-views.napafrica/bgpdata/2026.11/UPDATES/updates.20261127.1600.bz2",
+    "last_file": "https://archive.routeviews.org/route-views.napafrica/bgpdata/2026.11/UPDATES/updates.20261127.1615.bz2",
+    "files": 2,
     "missing_files": [],
     "stats": {
-      "announce_replace": 23096,
-      "announce_new_prefix": 721,
-      "announce_duplicate": 1988,
-      "withdrawals": 699,
-      "files": 1
+      "withdrawals": 1452,
+      "announce_new_prefix": 1064,
+      "announce_replace": 14495,
+      "announce_duplicate": 2532,
+      "files": 2
     },
     "applied": true
   },
-  "self_check": null,
+  "self_check": {
+    "previous_bview": "2026-11-27T13:30:00+05:30",
+    "compared_at": "2026-11-27T21:30:00+05:30",
+    "routes_built": 1335566,
+    "routes_bview": 1335566,
+    "identical": 1335565,
+    "identical_pct": 99.9999,
+    "only_in_built": 0,
+    "only_in_bview": 0,
+    "path_differs": 1,
+    "communities_differ": 0
+  },
   "notes": [
     "BGP session resets are not detected: routes withdrawn while a session was down may linger until the next bview (at most 8 hours).",
     "load_bview, download_updates_* and apply_updates_* timings cover all collector_sources (one shared pass); write and save_state are for this source."
   ],
   "timing_seconds": {
-    "download_updates_run": 1.5,
-    "apply_updates_run": 2.4,
-    "write": 9.2,
-    "save_state": 1.5,
-    "total": 36.8
+    "download_updates_self_check": 3.3,
+    "apply_updates_self_check": 11.0,
+    "load_bview": 100.6,
+    "download_updates_run": 3.6,
+    "apply_updates_run": 8.2,
+    "write": 16.7,
+    "save_state": 2.4,
+    "total": 230.3
   },
-  "generated_at": "2026-11-27T20:54:50+05:30",
+  "generated_at": "2026-11-27T22:10:18+05:30",
   "counts": {
-    "routes": 1334983,
+    "routes": 1335178,
     "routes_by_session": {
-      "196.60.8.215 (IPv4)": 1079783,
-      "2001:43f8:6d0::215 (IPv6)": 255200
+      "196.60.8.215 (IPv4)": 1079922,
+      "2001:43f8:6d0::215 (IPv6)": 255256
     },
-    "unique_raw_paths": 169107,
-    "unique_clean_paths": 155114,
-    "origin_asns": 86842,
-    "adjacencies": 134112,
-    "asns_with_observed_upstream": 87112,
+    "unique_raw_paths": 169162,
+    "unique_clean_paths": 155169,
+    "origin_asns": 86830,
+    "adjacencies": 134156,
+    "asns_with_observed_upstream": 87100,
     "routes_with_any_flag": 862
   },
   "flags": {
     "as_set": {
-      "paths": 108,
-      "routes": 208
+      "paths": 109,
+      "routes": 209
     },
     "confed": {
       "paths": 0,
       "routes": 0
     },
     "loop": {
-      "paths": 151,
-      "routes": 533
+      "paths": 150,
+      "routes": 532
     },
     "private": {
       "paths": 39,
@@ -100,21 +114,21 @@
   },
   "path_length_by_routes": {
     "1": 318,
-    "2": 103261,
-    "3": 555946,
-    "4": 475767,
-    "5": 156298,
-    "6": 32245,
-    "7": 8061,
-    "8": 2712,
-    "9": 346,
-    "10": 24,
+    "2": 103341,
+    "3": 555217,
+    "4": 474166,
+    "5": 159010,
+    "6": 32020,
+    "7": 8020,
+    "8": 2709,
+    "9": 347,
+    "10": 25,
     "11": 4,
     "26": 1
   },
   "files_bytes": {
-    "routes.tsv.gz": 13037516,
-    "paths.tsv.gz": 4261007,
-    "adjacency.tsv.gz": 723361
+    "routes.tsv.gz": 13041426,
+    "paths.tsv.gz": 4261645,
+    "adjacency.tsv.gz": 723560
   }
 }
