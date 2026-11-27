@@ -1,241 +1,241 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-27T09:56:05+05:30",
-  "as_of": "2026-11-27T09:45:00+05:30",
+  "generated_at": "2026-11-27T10:40:22+05:30",
+  "as_of": "2026-11-27T10:30:00+05:30",
   "sources": [
     {
       "name": "rrc00_AS7018",
       "collector": "rrc00",
       "peer_asn": 7018,
-      "as_of": "2026-11-27T09:50:00+05:30",
+      "as_of": "2026-11-27T10:35:00+05:30",
       "meta": "rrc00_AS7018_meta.json",
       "files": {
         "routes": {
           "asset": "rrc00_AS7018_routes.tsv.gz",
-          "bytes": 13082598,
-          "sha256": "6b4dbe1c8eb1ef9fe7cc9dde1a5f55640d18f6d6413d02d0ec0ed559dac5f4a9"
+          "bytes": 13082897,
+          "sha256": "688f49746f9a0f5f31e701ad5f4783f95e721104b884bd0913010aafa44cdb17"
         },
         "paths": {
           "asset": "rrc00_AS7018_paths.tsv.gz",
-          "bytes": 3847806,
-          "sha256": "2e471efc68277cf1b7c93aa1993598641d7ce3a3b61ce123e47bfdc7baa53e95"
+          "bytes": 3847829,
+          "sha256": "e588e705e008af7d655dc70e2d18717fbcb1abd71b2b394537723f17d8eb038a"
         },
         "adjacency": {
           "asset": "rrc00_AS7018_adjacency.tsv.gz",
-          "bytes": 699250,
-          "sha256": "38dd0c14c57e01a80857a00f3c54b6bf7d95be48b55c0e95130df6f5079594fc"
+          "bytes": 699192,
+          "sha256": "be99ae60cf624c91b4a8e3ffdab7218d96c0eb5c73c166a2c9343112804a84a3"
         }
       },
       "display_name": "AT&T",
-      "collector_location": "Amsterdam"
+      "collector_location": "Amsterdam (multihop)"
     },
     {
       "name": "rrc00_AS3549",
       "collector": "rrc00",
       "peer_asn": 3549,
-      "as_of": "2026-11-27T09:50:00+05:30",
+      "as_of": "2026-11-27T10:35:00+05:30",
       "meta": "rrc00_AS3549_meta.json",
       "files": {
         "routes": {
           "asset": "rrc00_AS3549_routes.tsv.gz",
-          "bytes": 14901988,
-          "sha256": "e05fcbd4e149e1c6202401f96b26c4206a889474412e3aeb2f588344d23bc980"
+          "bytes": 14901810,
+          "sha256": "a72db94d99f9bb52ba85458c53650762d5bb2446b63504654af3c1ff4bc1d050"
         },
         "paths": {
           "asset": "rrc00_AS3549_paths.tsv.gz",
-          "bytes": 3363614,
-          "sha256": "065c9bb51716ab256efa77b980d71122d2719bb936fdf884a5b2b669ca516caf"
+          "bytes": 3363298,
+          "sha256": "18ea7c99f7665ee46c7f1d3fb4cc0025fc184586ac5d66709f1fc99f92153b75"
         },
         "adjacency": {
           "asset": "rrc00_AS3549_adjacency.tsv.gz",
-          "bytes": 598933,
-          "sha256": "dfafb90bd7724c1aa9d98d8c385b67bf9a5394cf022ac3263703921aff74f646"
+          "bytes": 598875,
+          "sha256": "e3696330c171bf969d30b90e9e7db91c80b29db98070db04761ea506ad7fc06d"
         }
       },
       "display_name": "Lumen / Level 3",
-      "collector_location": "Amsterdam"
+      "collector_location": "Amsterdam (multihop)"
     },
     {
       "name": "rrc00_AS3333",
       "collector": "rrc00",
       "peer_asn": 3333,
-      "as_of": "2026-11-27T09:50:00+05:30",
+      "as_of": "2026-11-27T10:35:00+05:30",
       "meta": "rrc00_AS3333_meta.json",
       "files": {
         "routes": {
           "asset": "rrc00_AS3333_routes.tsv.gz",
-          "bytes": 16415516,
-          "sha256": "ee4935963d56df61e8e7dca1ec191e69154c9b777e54a0be0f3470aef3721f86"
+          "bytes": 16415549,
+          "sha256": "1eedf9bea24bbd6e41ca6b6e874cc91b88777e3c140b4fa91e2de0bc7cfe3cbe"
         },
         "paths": {
           "asset": "rrc00_AS3333_paths.tsv.gz",
-          "bytes": 4274947,
-          "sha256": "43e594ac3bad6f327a1fce358ccfc373e8aabc6b47d4373d6f76d8d95884a595"
+          "bytes": 4274839,
+          "sha256": "c8140074461e73f4d16109f20c12f440d396846c0e369d873dba93d484fe45c1"
         },
         "adjacency": {
           "asset": "rrc00_AS3333_adjacency.tsv.gz",
-          "bytes": 730765,
-          "sha256": "91edffe79edfd3821aa4e79d1965c9966db18bd481785d9ff2e23c7351b9f405"
+          "bytes": 730790,
+          "sha256": "ef7f58155283b6e48ff651302e0d6facdb6a4b9b2dfd7bbcf1f72c823863f557"
         }
       },
       "display_name": "RIPE NCC",
-      "collector_location": "Amsterdam"
+      "collector_location": "Amsterdam (multihop)"
     },
     {
       "name": "rrc00_AS4608",
       "collector": "rrc00",
       "peer_asn": 4608,
-      "as_of": "2026-11-27T09:50:00+05:30",
+      "as_of": "2026-11-27T10:35:00+05:30",
       "meta": "rrc00_AS4608_meta.json",
       "files": {
         "routes": {
           "asset": "rrc00_AS4608_routes.tsv.gz",
-          "bytes": 10294178,
-          "sha256": "eb06ec14b17d50ccb5cd50ce40e17b98bd4cfc9634f27d0e168be5528f9ed5f4"
+          "bytes": 10295746,
+          "sha256": "b2c844cc99ea6538f80268030c82b824c2d926afbd0d063fee52dba26f869ef6"
         },
         "paths": {
           "asset": "rrc00_AS4608_paths.tsv.gz",
-          "bytes": 3505368,
-          "sha256": "104b95a8644b5680e2585337f1ccb82bd95864488627380f52d631d03c969cde"
+          "bytes": 3505700,
+          "sha256": "538725fa2bb62d614c45a123a03988edb03b448024e7a7997e519a63c15058a3"
         },
         "adjacency": {
           "asset": "rrc00_AS4608_adjacency.tsv.gz",
-          "bytes": 610262,
-          "sha256": "f4b05e9bb667b45e064d58c55add82cc245034f517fa19c10a61456de88b1647"
+          "bytes": 610300,
+          "sha256": "605c0cbe3f1de86d3f4453421ea757fca86c30c76e2d6ccc5c360e8d0b15d7c3"
         }
       },
       "display_name": "APNIC",
-      "collector_location": "Amsterdam"
+      "collector_location": "Amsterdam (multihop)"
     },
     {
       "name": "rrc00_AS24482",
       "collector": "rrc00",
       "peer_asn": 24482,
-      "as_of": "2026-11-27T09:50:00+05:30",
+      "as_of": "2026-11-27T10:35:00+05:30",
       "meta": "rrc00_AS24482_meta.json",
       "files": {
         "routes": {
           "asset": "rrc00_AS24482_routes.tsv.gz",
-          "bytes": 22202254,
-          "sha256": "ea8f58e5937bba8e5bc0f2c360b596d718b14b205086bd220514bec7841deee3"
+          "bytes": 22204195,
+          "sha256": "5d2f7a0db27d2ca1596d1321614f7eac98a87bc17cea1394c7e556dd384f69f7"
         },
         "paths": {
           "asset": "rrc00_AS24482_paths.tsv.gz",
-          "bytes": 3757777,
-          "sha256": "d610a62be78763f80a1ddefb088e8a61cfd2a54111082f6b9024e9f7f6347c1e"
+          "bytes": 3757330,
+          "sha256": "442b3c1b7722ae0f7cc4f310bc460f33be8fb86754446b07fdfbb16bb0282a73"
         },
         "adjacency": {
           "asset": "rrc00_AS24482_adjacency.tsv.gz",
-          "bytes": 704769,
-          "sha256": "50f65b304876fcbcd9393fd1e1e9adb95ef782c306c3b9eaeb5c90761c3c7102"
+          "bytes": 704689,
+          "sha256": "48487d09abd6e039b4092401220650ee35b6ed2d3a9c626e7199c9ee711bd32a"
         }
       },
       "display_name": "SG.GS",
-      "collector_location": "Amsterdam"
+      "collector_location": "Amsterdam (multihop)"
     },
     {
       "name": "rrc06_AS4777",
       "collector": "rrc06",
       "peer_asn": 4777,
-      "as_of": "2026-11-27T09:50:00+05:30",
+      "as_of": "2026-11-27T10:35:00+05:30",
       "meta": "rrc06_AS4777_meta.json",
       "files": {
         "routes": {
           "asset": "rrc06_AS4777_routes.tsv.gz",
-          "bytes": 13652962,
-          "sha256": "4626206d37d8c53ff82a252ef857d3183885b414cfcacb834277d5c86c374a33"
+          "bytes": 13652170,
+          "sha256": "cfae7872b1f58fa41e1dc91165748c712bcbeb84e3b37676c853c3f3ca0ce606"
         },
         "paths": {
           "asset": "rrc06_AS4777_paths.tsv.gz",
-          "bytes": 4376734,
-          "sha256": "bc8bbd6852c921b85f9ca78e846d2c289be2f9a82ddde324347033e01f653fe7"
+          "bytes": 4375918,
+          "sha256": "85ad26ec13cbffcd7eb443b2b4f3325e4f7b4222856e7827e9bebee422d4580a"
         },
         "adjacency": {
           "asset": "rrc06_AS4777_adjacency.tsv.gz",
-          "bytes": 709177,
-          "sha256": "36a1998032ca6d5f8372d6cecb3ac077787a6d53bfde42c71c79c4748c01878c"
+          "bytes": 709115,
+          "sha256": "ce92fd6acc2fd148087d3a54beb00502bda4f6b5496b9af99d61f39a4316c9ec"
         }
       },
       "display_name": "APNIC Colo",
-      "collector_location": "Tokyo"
+      "collector_location": "Tokyo (DIX-IE / JPIX)"
     },
     {
       "name": "rrc23_AS3491",
       "collector": "rrc23",
       "peer_asn": 3491,
-      "as_of": "2026-11-27T09:45:00+05:30",
+      "as_of": "2026-11-27T10:30:00+05:30",
       "meta": "rrc23_AS3491_meta.json",
       "files": {
         "routes": {
           "asset": "rrc23_AS3491_routes.tsv.gz",
-          "bytes": 17368913,
-          "sha256": "bb8f81067b641c368b548343af4061b6720895e8c3b7cd50c4e2038cc57f0056"
+          "bytes": 17371387,
+          "sha256": "6d4b95b4a93cdab68be712d0c244c94b6270f62028edb0114fb195eb163a7d5c"
         },
         "paths": {
           "asset": "rrc23_AS3491_paths.tsv.gz",
-          "bytes": 3949439,
-          "sha256": "fbd83d77d09299b45d73516c3c389d4aca9bcc43512237d7b679b39453cbd935"
+          "bytes": 3949704,
+          "sha256": "2397b587a5bc63452234f009f29385b92f7d4f10d3fe7acad6b9d246e8d53665"
         },
         "adjacency": {
           "asset": "rrc23_AS3491_adjacency.tsv.gz",
-          "bytes": 706328,
-          "sha256": "8909fe16682aaf5a0bbad35214b6cea306684b5892af21b5ad5d4164b96fc56a"
+          "bytes": 706391,
+          "sha256": "6da608c49bbbc30e15fbd85009978f07299048b03edbb235216a6ec2e642fc44"
         }
       },
       "display_name": "PCCW Global",
-      "collector_location": "Singapore"
+      "collector_location": "Singapore (Equinix)"
     },
     {
       "name": "rrc03_AS6453",
       "collector": "rrc03",
       "peer_asn": 6453,
-      "as_of": "2026-11-27T09:50:00+05:30",
+      "as_of": "2026-11-27T10:35:00+05:30",
       "meta": "rrc03_AS6453_meta.json",
       "files": {
         "routes": {
           "asset": "rrc03_AS6453_routes.tsv.gz",
-          "bytes": 13613524,
-          "sha256": "fb5fc19974cb3822d02b009c9fd1e205c522e239b2ab1d4ced935f5894972966"
+          "bytes": 13613943,
+          "sha256": "43a252de8ad87c9dc2537583c0f80f2b70f585c0c868f6bcd588bc3a275083e0"
         },
         "paths": {
           "asset": "rrc03_AS6453_paths.tsv.gz",
-          "bytes": 4023866,
-          "sha256": "682d5031be32c60cf52cc85108bae1df026217ec7c0a65b07ba2884c57843d85"
+          "bytes": 4023042,
+          "sha256": "95966d376dadf1dc8634c5d340ae785ffe46810de69335568512213db8aa2910"
         },
         "adjacency": {
           "asset": "rrc03_AS6453_adjacency.tsv.gz",
-          "bytes": 707643,
-          "sha256": "7f93e59cd172c0a565397be96b1c3432be731330b8e4b84a00b53259cfebf999"
+          "bytes": 707605,
+          "sha256": "44a1ec3e25825ef9bfd068918cf65bb77e60eb366b2f8c9e97c187ed1304bbba"
         }
       },
       "display_name": "Tata Communications",
-      "collector_location": "Amsterdam"
+      "collector_location": "Amsterdam (AMS-IX / NL-IX)"
     },
     {
       "name": "rrc25_AS1221",
       "collector": "rrc25",
       "peer_asn": 1221,
-      "as_of": "2026-11-27T09:50:00+05:30",
+      "as_of": "2026-11-27T10:35:00+05:30",
       "meta": "rrc25_AS1221_meta.json",
       "files": {
         "routes": {
           "asset": "rrc25_AS1221_routes.tsv.gz",
-          "bytes": 12864220,
-          "sha256": "b69b1b21827afc16e4882a22e3617126a57e64997cbd2c5a01c7618057348c71"
+          "bytes": 12864606,
+          "sha256": "c9df103c2ae40c8ae5306480821f52928ce068231d06ef5c7015a73aa6180b44"
         },
         "paths": {
           "asset": "rrc25_AS1221_paths.tsv.gz",
-          "bytes": 4361238,
-          "sha256": "b38453391b497b2ce8ae20bf6c428c65934bfa0ab3b155d797daf9736e95bbc6"
+          "bytes": 4361917,
+          "sha256": "7905ea6672b33edb5efd6ef430a1df70235ca332c47f11c830abc46af42a586d"
         },
         "adjacency": {
           "asset": "rrc25_AS1221_adjacency.tsv.gz",
-          "bytes": 725773,
-          "sha256": "5808d5319daf5e36f7edc962e3f046c89d4095dc55c23b5e54a590b5a95dbb21"
+          "bytes": 725812,
+          "sha256": "34f17b9b53c44e81b471216d22393bca3dae190941442c51942efff886e95d3f"
         }
       },
       "display_name": "Telstra",
-      "collector_location": "Amsterdam"
+      "collector_location": "Amsterdam (multihop)"
     }
   ]
 }
