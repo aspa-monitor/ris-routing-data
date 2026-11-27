@@ -4,8 +4,9 @@
 # peer on an existing collector is cheap; a new collector adds a whole bview (~400 MB) per fresh run.
 # Collectors are RIPE RIS unless [collectors.<name>] says archive = "routeviews".
 # Session IPs and prefix counts: python -m pipeline.ris.list_peers <collector>
-# display_name (short peer name) and the collector location are copied into meta.json and
-# manifest.json for display; a new source should bring its own display_name.
+# display_name (short peer name), the collector location and an optional note (one plain-text
+# sentence of context) are copied into meta.json and manifest.json for display; a new source
+# should bring its own display_name.
 
 [ris]
 base_url = "https://data.ris.ripe.net"
@@ -134,5 +135,6 @@ peer_ips = ["196.60.8.215", "2001:43f8:6d0::215"]
 collector = "route-views8"
 peer_asn = 151704          # Bharat Datacenter (India)
 display_name = "Bharat Datacenter"
-# About 91% of its routes go through Bharti Airtel (AS9498): the closest to an Airtel view.
+# About 91% of its routes go through Bharti Airtel (AS9498) (Nov 2026): the closest to an Airtel view.
+note = "Most of its routes go via Bharti Airtel (AS9498), so it is effectively an India / Airtel view."
 peer_ips = ["85.209.161.5", "2a0b:4e07:1c00:2::1"]

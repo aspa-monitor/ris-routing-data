@@ -151,13 +151,16 @@ class ManifestTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             root = Path(d)
             a = self._snap(root, "rrc00_AS7018", {"collector": "rrc00", "peer_asn": 7018,
-                                                 "display_name": "AT&T", "collector_location": "Amsterdam"})
+                                                 "display_name": "AT&T", "collector_location": "Amsterdam",
+                                                 "note": "A note.", })
             b = self._snap(root, "rrc06_AS2497", {"collector": "rrc06", "peer_asn": 2497})  # older meta
             m = package([a, b], root / "dist", root / "latest")
         self.assertEqual(m["schema_version"], 1)
         first, second = m["sources"]
-        self.assertEqual((first["display_name"], first["collector_location"]), ("AT&T", "Amsterdam"))
+        self.assertEqual((first["display_name"], first["collector_location"], first["note"]),
+                         ("AT&T", "Amsterdam", "A note."))
         self.assertNotIn("display_name", second)
+        self.assertNotIn("note", second)
         self.assertNotIn("collector_location", second)
 
     def test_removed_source_leaves_no_meta(self):
