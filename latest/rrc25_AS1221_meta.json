@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-27T10:35:00+05:30",
+  "as_of": "2026-11-27T10:45:00+05:30",
   "run": {
     "mode": "continue",
-    "reason": "saved state as of 2026-11-27 09:50 IST",
+    "reason": "saved state as of 2026-11-27 10:35 IST",
     "collector_sources": [
       "rrc25_AS1221"
     ]
@@ -22,16 +22,16 @@
     "bview_routes": 1335123
   },
   "updates": {
-    "first_file": "https://data.ris.ripe.net/rrc25/2026.11/updates.20261127.0420.gz",
-    "last_file": "https://data.ris.ripe.net/rrc25/2026.11/updates.20261127.0500.gz",
-    "files": 9,
+    "first_file": "https://data.ris.ripe.net/rrc25/2026.11/updates.20261127.0505.gz",
+    "last_file": "https://data.ris.ripe.net/rrc25/2026.11/updates.20261127.0510.gz",
+    "files": 2,
     "missing_files": [],
     "stats": {
-      "withdrawals": 2044,
-      "announce_replace": 14198,
-      "announce_new_prefix": 2014,
-      "announce_duplicate": 10285,
-      "files": 9
+      "announce_new_prefix": 421,
+      "announce_duplicate": 2346,
+      "announce_replace": 4853,
+      "withdrawals": 439,
+      "files": 2
     },
     "applied": true
   },
@@ -41,24 +41,24 @@
     "load_bview, download_updates_* and apply_updates_* timings cover all collector_sources (one shared pass); write and save_state are for this source."
   ],
   "timing_seconds": {
-    "download_updates_run": 3.4,
-    "apply_updates_run": 8.1,
-    "write": 13.9,
-    "save_state": 2.1,
-    "total": 34.1
+    "download_updates_run": 1.6,
+    "apply_updates_run": 1.3,
+    "write": 10.7,
+    "save_state": 1.6,
+    "total": 20.8
   },
-  "generated_at": "2026-11-27T10:40:16+05:30",
+  "generated_at": "2026-11-27T10:54:13+05:30",
   "counts": {
-    "routes": 1335257,
+    "routes": 1335239,
     "routes_by_session": {
-      "2001:8000:100::30:136 (IPv6)": 259754,
-      "203.62.252.13 (IPv4)": 1075503
+      "2001:8000:100::30:136 (IPv6)": 259744,
+      "203.62.252.13 (IPv4)": 1075495
     },
-    "unique_raw_paths": 169118,
-    "unique_clean_paths": 155954,
-    "origin_asns": 86840,
-    "adjacencies": 135986,
-    "asns_with_observed_upstream": 87139,
+    "unique_raw_paths": 169112,
+    "unique_clean_paths": 155946,
+    "origin_asns": 86838,
+    "adjacencies": 135974,
+    "asns_with_observed_upstream": 87137,
     "routes_with_any_flag": 726
   },
   "flags": {
@@ -97,22 +97,22 @@
   },
   "path_length_by_routes": {
     "1": 277,
-    "2": 18205,
-    "3": 105386,
-    "4": 532049,
-    "5": 503098,
-    "6": 150327,
-    "7": 20135,
-    "8": 4315,
-    "9": 1259,
+    "2": 18203,
+    "3": 105403,
+    "4": 532113,
+    "5": 503157,
+    "6": 150193,
+    "7": 20123,
+    "8": 4307,
+    "9": 1257,
     "10": 192,
     "11": 6,
     "12": 7,
     "26": 1
   },
   "files_bytes": {
-    "routes.tsv.gz": 12864606,
-    "paths.tsv.gz": 4361917,
-    "adjacency.tsv.gz": 725812
+    "routes.tsv.gz": 12863750,
+    "paths.tsv.gz": 4361590,
+    "adjacency.tsv.gz": 725708
   }
 }
