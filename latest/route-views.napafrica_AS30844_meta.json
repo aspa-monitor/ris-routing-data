@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-27T18:45:00+05:30",
+  "as_of": "2026-11-27T19:45:00+05:30",
   "run": {
     "mode": "continue",
-    "reason": "saved state as of 2026-11-27 17:45 IST",
+    "reason": "saved state as of 2026-11-27 18:45 IST",
     "collector_sources": [
       "route-views.napafrica_AS37468",
       "route-views.napafrica_AS30844"
@@ -25,15 +25,15 @@
     "bview_routes": 1335324
   },
   "updates": {
-    "first_file": "https://archive.routeviews.org/route-views.napafrica/bgpdata/2026.11/UPDATES/updates.20261127.1215.bz2",
-    "last_file": "https://archive.routeviews.org/route-views.napafrica/bgpdata/2026.11/UPDATES/updates.20261127.1300.bz2",
+    "first_file": "https://archive.routeviews.org/route-views.napafrica/bgpdata/2026.11/UPDATES/updates.20261127.1315.bz2",
+    "last_file": "https://archive.routeviews.org/route-views.napafrica/bgpdata/2026.11/UPDATES/updates.20261127.1400.bz2",
     "files": 4,
     "missing_files": [],
     "stats": {
-      "withdrawals": 2268,
-      "announce_new_prefix": 2390,
-      "announce_replace": 19421,
-      "announce_duplicate": 6863,
+      "withdrawals": 2595,
+      "announce_new_prefix": 2367,
+      "announce_replace": 16766,
+      "announce_duplicate": 19878,
       "files": 4
     },
     "applied": true
@@ -44,25 +44,25 @@
     "load_bview, download_updates_* and apply_updates_* timings cover all collector_sources (one shared pass); write and save_state are for this source."
   ],
   "timing_seconds": {
-    "download_updates_run": 2.2,
-    "apply_updates_run": 10.7,
-    "write": 10.3,
-    "save_state": 1.8,
-    "total": 50.3
+    "download_updates_run": 2.1,
+    "apply_updates_run": 9.5,
+    "write": 11.2,
+    "save_state": 1.9,
+    "total": 51.6
   },
-  "generated_at": "2026-11-27T18:55:48+05:30",
+  "generated_at": "2026-11-27T19:55:59+05:30",
   "counts": {
-    "routes": 1335348,
+    "routes": 1335120,
     "routes_by_session": {
-      "196.60.8.215 (IPv4)": 1079964,
-      "2001:43f8:6d0::215 (IPv6)": 255384
+      "196.60.8.215 (IPv4)": 1079973,
+      "2001:43f8:6d0::215 (IPv6)": 255147
     },
-    "unique_raw_paths": 169185,
-    "unique_clean_paths": 155205,
-    "origin_asns": 86846,
-    "adjacencies": 134141,
-    "asns_with_observed_upstream": 87117,
-    "routes_with_any_flag": 862
+    "unique_raw_paths": 169117,
+    "unique_clean_paths": 155120,
+    "origin_asns": 86843,
+    "adjacencies": 134113,
+    "asns_with_observed_upstream": 87114,
+    "routes_with_any_flag": 863
   },
   "flags": {
     "as_set": {
@@ -74,8 +74,8 @@
       "routes": 0
     },
     "loop": {
-      "paths": 151,
-      "routes": 533
+      "paths": 152,
+      "routes": 534
     },
     "private": {
       "paths": 39,
@@ -100,21 +100,21 @@
   },
   "path_length_by_routes": {
     "1": 318,
-    "2": 103368,
-    "3": 555954,
-    "4": 476027,
-    "5": 156109,
-    "6": 32445,
-    "7": 8069,
-    "8": 2683,
-    "9": 340,
-    "10": 28,
-    "11": 6,
+    "2": 103354,
+    "3": 555870,
+    "4": 475956,
+    "5": 156280,
+    "6": 32192,
+    "7": 8057,
+    "8": 2719,
+    "9": 343,
+    "10": 26,
+    "11": 4,
     "26": 1
   },
   "files_bytes": {
-    "routes.tsv.gz": 13038514,
-    "paths.tsv.gz": 4262791,
-    "adjacency.tsv.gz": 723572
+    "routes.tsv.gz": 13037058,
+    "paths.tsv.gz": 4261127,
+    "adjacency.tsv.gz": 723514
   }
 }
