@@ -24,6 +24,7 @@ Each source is one peer AS on one collector, named `<collector>_AS<peer>` (`conf
 | `rrc23_AS3491` | PCCW Global (Hong Kong) | IPv4 + IPv6 |
 | `rrc03_AS6453` | Tata Communications | IPv4 + IPv6 |
 | `rrc25_AS1221` | Telstra (Australia) | IPv4 + IPv6 |
+| `rrc26_AS200612` | Gulf Bridge International (Middle East) | IPv4 + IPv6 |
 | `route-views.eqix_AS6939` | Hurricane Electric | IPv4 + IPv6 |
 | `route-views.napafrica_AS37468` | Angola Cables | IPv4 + IPv6 |
 | `route-views.napafrica_AS30844` | Liquid Telecom | IPv4 + IPv6 |
@@ -31,7 +32,7 @@ Each source is one peer AS on one collector, named `<collector>_AS<peer>` (`conf
 
 `rrc00` and `rrc25` are RIPE's multihop collectors in Amsterdam (peers connect to them over the Internet from
 anywhere); `rrc03` is at AMS-IX / NL-IX in Amsterdam, `rrc06` at DIX-IE / JPIX in Tokyo and `rrc23` at Equinix Singapore
-(`[collectors]` in the config). The `route-views*` collectors are RouteViews: `route-views.eqix` at Equinix
+and `rrc26` at UAE-IX in Dubai (`[collectors]` in the config). The `route-views*` collectors are RouteViews: `route-views.eqix` at Equinix
 Ashburn, `route-views.napafrica` at NAPAfrica Johannesburg, and `route-views8`, multihop in Eugene, Oregon.
 Hurricane Electric and Liquid are taken from RouteViews because on RIS collectors they send only part of their
 table (HE ~170k IPv4 peering routes, Liquid ~4k).
