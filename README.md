@@ -25,7 +25,9 @@ Each source is one peer AS on one RIS collector, named `<collector>_AS<peer>` (`
 | `rrc03_AS6453` | Tata Communications | IPv4 + IPv6 |
 | `rrc25_AS1221` | Telstra (Australia) | IPv4 + IPv6 |
 
-`rrc00` and `rrc25` are RIPE's multihop collectors in Amsterdam; `rrc03` is at AMS-IX (Amsterdam), `rrc06` in Tokyo, `rrc23` in Singapore (`[collectors]` in the config). Read the list of sources from
+`rrc00` and `rrc25` are RIPE's multihop collectors in Amsterdam (peers connect to them over the Internet from
+anywhere); `rrc03` is at AMS-IX / NL-IX in Amsterdam, `rrc06` at DIX-IE / JPIX in Tokyo and `rrc23` at Equinix Singapore
+(`[collectors]` in the config). Read the list of sources from
 `manifest.json`, not from this table: sources may be added.
 
 ## Getting the data
@@ -42,7 +44,7 @@ Timestamped releases `snapshot-YYYYMMDD-HHMM-IST` are made once per bview (the f
 05:30, 13:30 and 21:30 IST, so 3 a day) and kept for 7 days; only `latest` is updated every hour. `latest/` in this repo holds the newest
 `manifest.json` and meta files. `manifest.json` lists every asset with size and SHA-256, plus `schema_version`.
 Each `sources[]` entry also has `display_name` (short peer name, e.g. `AT&T`) and `collector_location`
-(the collector's city, e.g. `Amsterdam`), both from `config/pipeline.toml`. They are optional and for display
+(the collector's city and exchange point, e.g. `Amsterdam (AMS-IX / NL-IX)`, or `multihop`), both from `config/pipeline.toml`. They are optional and for display
 only: fall back to the collector and peer AS if either is missing. The same two fields are in each `meta.json` `source`.
 
 ## Files

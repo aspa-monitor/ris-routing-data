@@ -16,21 +16,22 @@ output_dir = "output"
 min_ipv4_prefixes = 800000
 min_ipv6_prefixes = 150000
 
-# Where each RIS collector is (shown by the portal).
+# Where each RIS collector is (shown by the portal): city, then the exchange point it sits at,
+# or "multihop" for collectors that peers reach over the Internet from anywhere (RIPEstat rrc-info).
 [collectors.rrc00]
-location = "Amsterdam"
+location = "Amsterdam (multihop)"
 
 [collectors.rrc03]
-location = "Amsterdam"
+location = "Amsterdam (AMS-IX / NL-IX)"
 
 [collectors.rrc06]
-location = "Tokyo"
+location = "Tokyo (DIX-IE / JPIX)"
 
 [collectors.rrc23]
-location = "Singapore"
+location = "Singapore (Equinix)"
 
 [collectors.rrc25]
-location = "Amsterdam"
+location = "Amsterdam (multihop)"
 
 [[sources]]
 collector = "rrc00"
@@ -77,7 +78,7 @@ peer_asn = 3491            # PCCW Global (Hong Kong)
 display_name = "PCCW Global"
 peer_ips = ["27.111.228.43", "2001:de8:4::3491:1"]
 
-# rrc03: Amsterdam (AMS-IX)
+# rrc03: Amsterdam (AMS-IX / NL-IX)
 [[sources]]
 collector = "rrc03"
 peer_asn = 6453            # Tata Communications (hands Indian routes to Tata India AS4755 and Bharti)
