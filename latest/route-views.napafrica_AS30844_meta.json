@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-27T22:00:00+05:30",
+  "as_of": "2026-11-27T22:45:00+05:30",
   "run": {
-    "mode": "fresh",
-    "reason": "new bview 2026-11-27 21:30 IST",
+    "mode": "continue",
+    "reason": "saved state as of 2026-11-27 22:00 IST",
     "collector_sources": [
       "route-views.napafrica_AS37468",
       "route-views.napafrica_AS30844"
@@ -25,71 +25,57 @@
     "bview_routes": 1335566
   },
   "updates": {
-    "first_file": "https://archive.routeviews.org/route-views.napafrica/bgpdata/2026.11/UPDATES/updates.20261127.1600.bz2",
-    "last_file": "https://archive.routeviews.org/route-views.napafrica/bgpdata/2026.11/UPDATES/updates.20261127.1615.bz2",
-    "files": 2,
+    "first_file": "https://archive.routeviews.org/route-views.napafrica/bgpdata/2026.11/UPDATES/updates.20261127.1630.bz2",
+    "last_file": "https://archive.routeviews.org/route-views.napafrica/bgpdata/2026.11/UPDATES/updates.20261127.1700.bz2",
+    "files": 3,
     "missing_files": [],
     "stats": {
-      "withdrawals": 1452,
-      "announce_new_prefix": 1064,
-      "announce_replace": 14495,
-      "announce_duplicate": 2532,
-      "files": 2
+      "withdrawals": 1613,
+      "announce_new_prefix": 1875,
+      "announce_replace": 14555,
+      "announce_duplicate": 11687,
+      "files": 3
     },
     "applied": true
   },
-  "self_check": {
-    "previous_bview": "2026-11-27T13:30:00+05:30",
-    "compared_at": "2026-11-27T21:30:00+05:30",
-    "routes_built": 1335566,
-    "routes_bview": 1335566,
-    "identical": 1335565,
-    "identical_pct": 99.9999,
-    "only_in_built": 0,
-    "only_in_bview": 0,
-    "path_differs": 1,
-    "communities_differ": 0
-  },
+  "self_check": null,
   "notes": [
     "BGP session resets are not detected: routes withdrawn while a session was down may linger until the next bview (at most 8 hours).",
     "load_bview, download_updates_* and apply_updates_* timings cover all collector_sources (one shared pass); write and save_state are for this source."
   ],
   "timing_seconds": {
-    "download_updates_self_check": 3.3,
-    "apply_updates_self_check": 11.0,
-    "load_bview": 100.6,
-    "download_updates_run": 3.6,
-    "apply_updates_run": 8.2,
-    "write": 16.7,
-    "save_state": 2.4,
-    "total": 230.3
+    "download_updates_run": 2.7,
+    "apply_updates_run": 8.3,
+    "write": 14.9,
+    "save_state": 2.1,
+    "total": 62.7
   },
-  "generated_at": "2026-11-27T22:10:18+05:30",
+  "generated_at": "2026-11-27T22:57:12+05:30",
   "counts": {
-    "routes": 1335178,
+    "routes": 1335440,
     "routes_by_session": {
-      "196.60.8.215 (IPv4)": 1079922,
-      "2001:43f8:6d0::215 (IPv6)": 255256
+      "196.60.8.215 (IPv4)": 1080115,
+      "2001:43f8:6d0::215 (IPv6)": 255325
     },
-    "unique_raw_paths": 169162,
-    "unique_clean_paths": 155169,
-    "origin_asns": 86830,
-    "adjacencies": 134156,
-    "asns_with_observed_upstream": 87100,
+    "unique_raw_paths": 169170,
+    "unique_clean_paths": 155193,
+    "origin_asns": 86848,
+    "adjacencies": 134168,
+    "asns_with_observed_upstream": 87117,
     "routes_with_any_flag": 862
   },
   "flags": {
     "as_set": {
-      "paths": 109,
-      "routes": 209
+      "paths": 108,
+      "routes": 208
     },
     "confed": {
       "paths": 0,
       "routes": 0
     },
     "loop": {
-      "paths": 150,
-      "routes": 532
+      "paths": 151,
+      "routes": 533
     },
     "private": {
       "paths": 39,
@@ -114,21 +100,21 @@
   },
   "path_length_by_routes": {
     "1": 318,
-    "2": 103341,
+    "2": 103346,
     "3": 555217,
-    "4": 474166,
-    "5": 159010,
-    "6": 32020,
-    "7": 8020,
-    "8": 2709,
-    "9": 347,
-    "10": 25,
+    "4": 474359,
+    "5": 159237,
+    "6": 31898,
+    "7": 7972,
+    "8": 2721,
+    "9": 344,
+    "10": 23,
     "11": 4,
     "26": 1
   },
   "files_bytes": {
-    "routes.tsv.gz": 13041426,
-    "paths.tsv.gz": 4261645,
-    "adjacency.tsv.gz": 723560
+    "routes.tsv.gz": 13045126,
+    "paths.tsv.gz": 4262028,
+    "adjacency.tsv.gz": 723696
   }
 }
