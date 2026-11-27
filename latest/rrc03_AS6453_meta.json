@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-27T12:50:00+05:30",
+  "as_of": "2026-11-27T13:55:00+05:30",
   "run": {
-    "mode": "continue",
-    "reason": "saved state as of 2026-11-27 11:50 IST",
+    "mode": "fresh",
+    "reason": "new bview 2026-11-27 13:30 IST",
     "collector_sources": [
       "rrc03_AS6453"
     ]
@@ -17,48 +17,62 @@
     ],
     "display_name": "Tata Communications",
     "collector_location": "Amsterdam (AMS-IX / NL-IX)",
-    "bview_url": "https://data.ris.ripe.net/rrc03/2026.11/bview.20261127.0000.gz",
-    "bview_time": "2026-11-27T05:30:00+05:30",
-    "bview_routes": 1324026
+    "bview_url": "https://data.ris.ripe.net/rrc03/2026.11/bview.20261127.0800.gz",
+    "bview_time": "2026-11-27T13:30:00+05:30",
+    "bview_routes": 1321864
   },
   "updates": {
-    "first_file": "https://data.ris.ripe.net/rrc03/2026.11/updates.20261127.0620.gz",
-    "last_file": "https://data.ris.ripe.net/rrc03/2026.11/updates.20261127.0715.gz",
-    "files": 12,
+    "first_file": "https://data.ris.ripe.net/rrc03/2026.11/updates.20261127.0800.gz",
+    "last_file": "https://data.ris.ripe.net/rrc03/2026.11/updates.20261127.0820.gz",
+    "files": 5,
     "missing_files": [],
     "stats": {
-      "withdrawals": 39092,
-      "announce_replace": 95405,
-      "announce_new_prefix": 39173,
-      "announce_duplicate": 845,
-      "files": 12
+      "announce_replace": 55384,
+      "withdrawals": 23373,
+      "announce_new_prefix": 23498,
+      "announce_duplicate": 268,
+      "files": 5
     },
     "applied": true
   },
-  "self_check": null,
+  "self_check": {
+    "previous_bview": "2026-11-27T05:30:00+05:30",
+    "compared_at": "2026-11-27T13:30:00+05:30",
+    "routes_built": 1321864,
+    "routes_bview": 1321864,
+    "identical": 1321864,
+    "identical_pct": 100.0,
+    "only_in_built": 0,
+    "only_in_bview": 0,
+    "path_differs": 0,
+    "communities_differ": 0
+  },
   "notes": [
     "BGP session resets are not detected: routes withdrawn while a session was down may linger until the next bview (at most 8 hours).",
     "load_bview, download_updates_* and apply_updates_* timings cover all collector_sources (one shared pass); write and save_state are for this source."
   ],
   "timing_seconds": {
-    "download_updates_run": 2.8,
-    "apply_updates_run": 6.4,
-    "write": 11.7,
-    "save_state": 1.9,
-    "total": 28.6
+    "download_updates_self_check": 9.4,
+    "apply_updates_self_check": 4.2,
+    "load_bview": 55.9,
+    "download_updates_run": 2.4,
+    "apply_updates_run": 2.8,
+    "write": 12.5,
+    "save_state": 2.2,
+    "total": 122.2
   },
-  "generated_at": "2026-11-27T12:54:22+05:30",
+  "generated_at": "2026-11-27T14:01:14+05:30",
   "counts": {
-    "routes": 1321891,
+    "routes": 1321989,
     "routes_by_session": {
-      "2001:7f8:1::a500:6453:1 (IPv6)": 248375,
-      "80.249.209.167 (IPv4)": 1073516
+      "2001:7f8:1::a500:6453:1 (IPv6)": 248379,
+      "80.249.209.167 (IPv4)": 1073610
     },
-    "unique_raw_paths": 159191,
-    "unique_clean_paths": 143718,
-    "origin_asns": 86665,
-    "adjacencies": 131239,
-    "asns_with_observed_upstream": 86956,
+    "unique_raw_paths": 159190,
+    "unique_clean_paths": 143715,
+    "origin_asns": 86663,
+    "adjacencies": 131226,
+    "asns_with_observed_upstream": 86955,
     "routes_with_any_flag": 675
   },
   "flags": {
@@ -97,20 +111,20 @@
   },
   "path_length_by_routes": {
     "1": 141,
-    "2": 129741,
-    "3": 624932,
-    "4": 428111,
-    "5": 117382,
-    "6": 16473,
-    "7": 4154,
-    "8": 841,
+    "2": 129727,
+    "3": 624998,
+    "4": 428100,
+    "5": 117406,
+    "6": 16502,
+    "7": 4152,
+    "8": 847,
     "9": 100,
     "10": 15,
     "25": 1
   },
   "files_bytes": {
-    "routes.tsv.gz": 13614719,
-    "paths.tsv.gz": 4024217,
-    "adjacency.tsv.gz": 707809
+    "routes.tsv.gz": 13615622,
+    "paths.tsv.gz": 4024474,
+    "adjacency.tsv.gz": 707753
   }
 }
