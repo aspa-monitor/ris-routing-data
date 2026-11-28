@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-11-28T20:50:00+05:30",
+  "run": {
+    "mode": "fresh",
+    "reason": "no saved state",
+    "collector_sources": [
+      "rrc03_AS6453",
+      "rrc03_AS3320"
+    ]
+  },
+  "source": {
+    "collector": "rrc03",
+    "archive": "ris",
+    "peer_asn": 3320,
+    "peer_ips": [
+      "80.249.209.211",
+      "2001:7f8:1::a500:3320:1"
+    ],
+    "display_name": "Deutsche Telekom",
+    "note": null,
+    "region": "Western Europe",
+    "collector_location": "Amsterdam (AMS-IX / NL-IX)",
+    "bview_url": "https://data.ris.ripe.net/rrc03/2026.11/bview.20261128.0800.gz",
+    "bview_time": "2026-11-28T13:30:00+05:30",
+    "bview_routes": 1301214
+  },
+  "updates": {
+    "first_file": "https://data.ris.ripe.net/rrc03/2026.11/updates.20261128.0800.gz",
+    "last_file": "https://data.ris.ripe.net/rrc03/2026.11/updates.20261128.1515.gz",
+    "files": 88,
+    "missing_files": [],
+    "stats": {
+      "withdrawals": 18822,
+      "announce_new_prefix": 18853,
+      "announce_replace": 606388,
+      "announce_duplicate": 19675,
+      "files": 88
+    },
+    "applied": true
+  },
+  "self_check": null,
+  "notes": [
+    "BGP session resets are not detected: routes withdrawn while a session was down may linger until the next bview (at most 8 hours).",
+    "load_bview, download_updates_* and apply_updates_* timings cover all collector_sources (one shared pass); write and save_state are for this source."
+  ],
+  "timing_seconds": {
+    "load_bview": 75.9,
+    "download_updates_run": 15.8,
+    "apply_updates_run": 54.6,
+    "write": 15.9,
+    "save_state": 2.4,
+    "total": 203.4
+  },
+  "generated_at": "2026-11-28T20:57:48+05:30",
+  "counts": {
+    "routes": 1301245,
+    "routes_by_session": {
+      "2001:7f8:1::a500:3320:1 (IPv6)": 227830,
+      "80.249.209.211 (IPv4)": 1073415
+    },
+    "unique_raw_paths": 157428,
+    "unique_clean_paths": 146579,
+    "origin_asns": 86244,
+    "adjacencies": 131326,
+    "asns_with_observed_upstream": 86584,
+    "routes_with_any_flag": 628
+  },
+  "flags": {
+    "as_set": {
+      "paths": 89,
+      "routes": 185
+    },
+    "confed": {
+      "paths": 0,
+      "routes": 0
+    },
+    "loop": {
+      "paths": 119,
+      "routes": 419
+    },
+    "private": {
+      "paths": 0,
+      "routes": 0
+    },
+    "reserved": {
+      "paths": 11,
+      "routes": 29
+    },
+    "as_trans": {
+      "paths": 0,
+      "routes": 0
+    },
+    "peer_mismatch": {
+      "paths": 0,
+      "routes": 0
+    },
+    "empty": {
+      "paths": 0,
+      "routes": 0
+    }
+  },
+  "path_length_by_routes": {
+    "1": 979,
+    "2": 54622,
+    "3": 555639,
+    "4": 496689,
+    "5": 166059,
+    "6": 21335,
+    "7": 4496,
+    "8": 1223,
+    "9": 186,
+    "10": 13,
+    "12": 3,
+    "25": 1
+  },
+  "files_bytes": {
+    "routes.tsv.gz": 15206226,
+    "paths.tsv.gz": 3921997,
+    "adjacency.tsv.gz": 701841
+  }
+}
