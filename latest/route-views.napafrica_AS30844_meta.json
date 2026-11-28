@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-28T14:45:00+05:30",
+  "as_of": "2026-11-28T15:45:00+05:30",
   "run": {
     "mode": "continue",
-    "reason": "saved state as of 2026-11-28 14:00 IST",
+    "reason": "saved state as of 2026-11-28 14:45 IST",
     "collector_sources": [
       "route-views.napafrica_AS37468",
       "route-views.napafrica_AS30844"
@@ -19,22 +19,23 @@
     ],
     "display_name": "Liquid Telecom",
     "note": null,
+    "region": "Southern Africa",
     "collector_location": "Johannesburg (NAPAfrica)",
     "bview_url": "https://archive.routeviews.org/route-views.napafrica/bgpdata/2026.11/RIBS/rib.20261128.0800.bz2",
     "bview_time": "2026-11-28T13:30:00+05:30",
     "bview_routes": 1335319
   },
   "updates": {
-    "first_file": "https://archive.routeviews.org/route-views.napafrica/bgpdata/2026.11/UPDATES/updates.20261128.0830.bz2",
-    "last_file": "https://archive.routeviews.org/route-views.napafrica/bgpdata/2026.11/UPDATES/updates.20261128.0900.bz2",
-    "files": 3,
+    "first_file": "https://archive.routeviews.org/route-views.napafrica/bgpdata/2026.11/UPDATES/updates.20261128.0915.bz2",
+    "last_file": "https://archive.routeviews.org/route-views.napafrica/bgpdata/2026.11/UPDATES/updates.20261128.1000.bz2",
+    "files": 4,
     "missing_files": [],
     "stats": {
-      "withdrawals": 1963,
-      "announce_new_prefix": 1800,
-      "announce_replace": 10649,
-      "announce_duplicate": 3764,
-      "files": 3
+      "withdrawals": 2618,
+      "announce_duplicate": 6822,
+      "announce_replace": 17136,
+      "announce_new_prefix": 2844,
+      "files": 4
     },
     "applied": true
   },
@@ -44,25 +45,25 @@
     "load_bview, download_updates_* and apply_updates_* timings cover all collector_sources (one shared pass); write and save_state are for this source."
   ],
   "timing_seconds": {
-    "download_updates_run": 2.5,
+    "download_updates_run": 2.0,
     "apply_updates_run": 8.2,
-    "write": 14.6,
-    "save_state": 2.0,
-    "total": 61.3
+    "write": 10.1,
+    "save_state": 1.8,
+    "total": 46.2
   },
-  "generated_at": "2026-11-28T14:56:59+05:30",
+  "generated_at": "2026-11-28T15:55:29+05:30",
   "counts": {
-    "routes": 1335185,
+    "routes": 1335411,
     "routes_by_session": {
-      "196.60.8.215 (IPv4)": 1080087,
-      "2001:43f8:6d0::215 (IPv6)": 255098
+      "196.60.8.215 (IPv4)": 1080118,
+      "2001:43f8:6d0::215 (IPv6)": 255293
     },
-    "unique_raw_paths": 169138,
-    "unique_clean_paths": 155181,
-    "origin_asns": 86835,
-    "adjacencies": 134141,
-    "asns_with_observed_upstream": 87104,
-    "routes_with_any_flag": 861
+    "unique_raw_paths": 169164,
+    "unique_clean_paths": 155207,
+    "origin_asns": 86841,
+    "adjacencies": 134152,
+    "asns_with_observed_upstream": 87109,
+    "routes_with_any_flag": 862
   },
   "flags": {
     "as_set": {
@@ -74,8 +75,8 @@
       "routes": 0
     },
     "loop": {
-      "paths": 151,
-      "routes": 533
+      "paths": 152,
+      "routes": 534
     },
     "private": {
       "paths": 39,
@@ -100,21 +101,21 @@
   },
   "path_length_by_routes": {
     "1": 318,
-    "2": 102746,
-    "3": 556160,
-    "4": 478074,
-    "5": 155109,
-    "6": 31675,
-    "7": 8050,
-    "8": 2676,
-    "9": 349,
+    "2": 102720,
+    "3": 556493,
+    "4": 477883,
+    "5": 155238,
+    "6": 31665,
+    "7": 8058,
+    "8": 2657,
+    "9": 351,
     "10": 23,
     "11": 4,
     "26": 1
   },
   "files_bytes": {
-    "routes.tsv.gz": 13061308,
-    "paths.tsv.gz": 4260423,
-    "adjacency.tsv.gz": 723571
+    "routes.tsv.gz": 13063110,
+    "paths.tsv.gz": 4261533,
+    "adjacency.tsv.gz": 723574
   }
 }
