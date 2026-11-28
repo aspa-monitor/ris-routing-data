@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-28T05:50:00+05:30",
+  "as_of": "2026-11-28T06:45:00+05:30",
   "run": {
-    "mode": "fresh",
-    "reason": "new bview 2026-11-28 05:30 IST",
+    "mode": "continue",
+    "reason": "saved state as of 2026-11-28 05:50 IST",
     "collector_sources": [
       "rrc00_AS7018",
       "rrc00_AS3549",
@@ -27,56 +27,42 @@
     "bview_routes": 1074204
   },
   "updates": {
-    "first_file": "https://data.ris.ripe.net/rrc00/2026.11/updates.20261128.0000.gz",
-    "last_file": "https://data.ris.ripe.net/rrc00/2026.11/updates.20261128.0015.gz",
-    "files": 4,
+    "first_file": "https://data.ris.ripe.net/rrc00/2026.11/updates.20261128.0020.gz",
+    "last_file": "https://data.ris.ripe.net/rrc00/2026.11/updates.20261128.0110.gz",
+    "files": 11,
     "missing_files": [],
     "stats": {
-      "announce_replace": 3941,
-      "announce_new_prefix": 720,
-      "withdrawals": 735,
-      "announce_duplicate": 163,
-      "files": 4
+      "withdrawals": 1772,
+      "announce_replace": 8259,
+      "announce_new_prefix": 1742,
+      "announce_duplicate": 387,
+      "files": 11
     },
     "applied": true
   },
-  "self_check": {
-    "previous_bview": "2026-11-27T21:30:00+05:30",
-    "compared_at": "2026-11-28T05:30:00+05:30",
-    "routes_built": 1074204,
-    "routes_bview": 1074204,
-    "identical": 1074204,
-    "identical_pct": 100.0,
-    "only_in_built": 0,
-    "only_in_bview": 0,
-    "path_differs": 0,
-    "communities_differ": 0
-  },
+  "self_check": null,
   "notes": [
     "BGP session resets are not detected: routes withdrawn while a session was down may linger until the next bview (at most 8 hours).",
     "load_bview, download_updates_* and apply_updates_* timings cover all collector_sources (one shared pass); write and save_state are for this source."
   ],
   "timing_seconds": {
-    "download_updates_self_check": 1.4,
-    "apply_updates_self_check": 6.5,
-    "load_bview": 135.7,
-    "download_updates_run": 1.5,
-    "apply_updates_run": 4.7,
-    "write": 14.8,
-    "save_state": 2.2,
-    "total": 256.8
+    "download_updates_run": 2.6,
+    "apply_updates_run": 9.9,
+    "write": 13.9,
+    "save_state": 1.7,
+    "total": 91.5
   },
-  "generated_at": "2026-11-28T05:55:16+05:30",
+  "generated_at": "2026-11-28T06:52:32+05:30",
   "counts": {
-    "routes": 1074189,
+    "routes": 1074159,
     "routes_by_session": {
-      "208.51.134.248 (IPv4)": 1074189
+      "208.51.134.248 (IPv4)": 1074159
     },
-    "unique_raw_paths": 130481,
-    "unique_clean_paths": 120113,
-    "origin_asns": 79075,
-    "adjacencies": 115908,
-    "asns_with_observed_upstream": 79657,
+    "unique_raw_paths": 130505,
+    "unique_clean_paths": 120141,
+    "origin_asns": 79078,
+    "adjacencies": 115933,
+    "asns_with_observed_upstream": 79660,
     "routes_with_any_flag": 588
   },
   "flags": {
@@ -116,19 +102,19 @@
   "path_length_by_routes": {
     "1": 724,
     "2": 2975,
-    "3": 169631,
-    "4": 485375,
-    "5": 324818,
-    "6": 74912,
-    "7": 12576,
-    "8": 2773,
+    "3": 169582,
+    "4": 485441,
+    "5": 324741,
+    "6": 74919,
+    "7": 12593,
+    "8": 2779,
     "9": 353,
     "10": 49,
     "11": 3
   },
   "files_bytes": {
-    "routes.tsv.gz": 14920406,
-    "paths.tsv.gz": 3362297,
-    "adjacency.tsv.gz": 598852
+    "routes.tsv.gz": 14921741,
+    "paths.tsv.gz": 3362961,
+    "adjacency.tsv.gz": 598955
   }
 }
