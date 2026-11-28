@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-28T12:45:00+05:30",
+  "as_of": "2026-11-28T14:00:00+05:30",
   "run": {
-    "mode": "continue",
-    "reason": "saved state as of 2026-11-28 11:45 IST",
+    "mode": "fresh",
+    "reason": "new bview 2026-11-28 13:30 IST",
     "collector_sources": [
       "route-views8_AS151704",
       "route-views8_AS174"
@@ -19,48 +19,62 @@
     "display_name": "Cogent",
     "note": null,
     "collector_location": "Eugene, Oregon (multihop)",
-    "bview_url": "https://archive.routeviews.org/route-views8/bgpdata/2026.11/RIBS/rib.20261128.0000.bz2",
-    "bview_time": "2026-11-28T05:30:00+05:30",
-    "bview_routes": 1067766
+    "bview_url": "https://archive.routeviews.org/route-views8/bgpdata/2026.11/RIBS/rib.20261128.0800.bz2",
+    "bview_time": "2026-11-28T13:30:00+05:30",
+    "bview_routes": 1067599
   },
   "updates": {
-    "first_file": "https://archive.routeviews.org/route-views8/bgpdata/2026.11/UPDATES/updates.20261128.0615.bz2",
-    "last_file": "https://archive.routeviews.org/route-views8/bgpdata/2026.11/UPDATES/updates.20261128.0700.bz2",
-    "files": 4,
+    "first_file": "https://archive.routeviews.org/route-views8/bgpdata/2026.11/UPDATES/updates.20261128.0800.bz2",
+    "last_file": "https://archive.routeviews.org/route-views8/bgpdata/2026.11/UPDATES/updates.20261128.0815.bz2",
+    "files": 2,
     "missing_files": [],
     "stats": {
-      "withdrawals": 8295,
-      "announce_duplicate": 48574,
-      "announce_replace": 20675,
-      "announce_new_prefix": 9272,
-      "files": 4
+      "withdrawals": 6854,
+      "announce_duplicate": 25148,
+      "announce_replace": 14588,
+      "announce_new_prefix": 6899,
+      "files": 2
     },
     "applied": true
   },
-  "self_check": null,
+  "self_check": {
+    "previous_bview": "2026-11-28T05:30:00+05:30",
+    "compared_at": "2026-11-28T13:30:00+05:30",
+    "routes_built": 1067599,
+    "routes_bview": 1067599,
+    "identical": 1067599,
+    "identical_pct": 100.0,
+    "only_in_built": 0,
+    "only_in_bview": 0,
+    "path_differs": 0,
+    "communities_differ": 0
+  },
   "notes": [
     "BGP session resets are not detected: routes withdrawn while a session was down may linger until the next bview (at most 8 hours).",
     "load_bview, download_updates_* and apply_updates_* timings cover all collector_sources (one shared pass); write and save_state are for this source."
   ],
   "timing_seconds": {
-    "download_updates_run": 2.6,
-    "apply_updates_run": 9.3,
-    "write": 11.4,
-    "save_state": 1.5,
-    "total": 57.9
+    "download_updates_self_check": 2.9,
+    "apply_updates_self_check": 7.4,
+    "load_bview": 90.5,
+    "download_updates_run": 2.7,
+    "apply_updates_run": 4.6,
+    "write": 13.2,
+    "save_state": 1.8,
+    "total": 198.1
   },
-  "generated_at": "2026-11-28T12:58:11+05:30",
+  "generated_at": "2026-11-28T14:13:58+05:30",
   "counts": {
-    "routes": 1068544,
+    "routes": 1067644,
     "routes_by_session": {
-      "149.6.36.21 (IPv4)": 1068544
+      "149.6.36.21 (IPv4)": 1067644
     },
-    "unique_raw_paths": 128872,
-    "unique_clean_paths": 118089,
-    "origin_asns": 79006,
-    "adjacencies": 115261,
-    "asns_with_observed_upstream": 79574,
-    "routes_with_any_flag": 619
+    "unique_raw_paths": 128844,
+    "unique_clean_paths": 118060,
+    "origin_asns": 79002,
+    "adjacencies": 115253,
+    "asns_with_observed_upstream": 79573,
+    "routes_with_any_flag": 618
   },
   "flags": {
     "as_set": {
@@ -72,8 +86,8 @@
       "routes": 0
     },
     "loop": {
-      "paths": 125,
-      "routes": 423
+      "paths": 124,
+      "routes": 422
     },
     "private": {
       "paths": 1,
@@ -98,19 +112,19 @@
   },
   "path_length_by_routes": {
     "1": 2042,
-    "2": 207859,
-    "3": 483476,
-    "4": 281803,
-    "5": 76031,
-    "6": 12264,
-    "7": 3807,
-    "8": 1087,
+    "2": 206918,
+    "3": 484391,
+    "4": 281771,
+    "5": 75217,
+    "6": 12252,
+    "7": 3793,
+    "8": 1086,
     "9": 165,
-    "10": 10
+    "10": 9
   },
   "files_bytes": {
-    "routes.tsv.gz": 10997217,
-    "paths.tsv.gz": 3234544,
-    "adjacency.tsv.gz": 596059
+    "routes.tsv.gz": 10995393,
+    "paths.tsv.gz": 3233843,
+    "adjacency.tsv.gz": 596064
   }
 }

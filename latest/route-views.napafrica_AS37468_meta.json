@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-28T12:45:00+05:30",
+  "as_of": "2026-11-28T14:00:00+05:30",
   "run": {
-    "mode": "continue",
-    "reason": "saved state as of 2026-11-28 11:45 IST",
+    "mode": "fresh",
+    "reason": "new bview 2026-11-28 13:30 IST",
     "collector_sources": [
       "route-views.napafrica_AS37468",
       "route-views.napafrica_AS30844"
@@ -20,47 +20,61 @@
     "display_name": "Angola Cables",
     "note": null,
     "collector_location": "Johannesburg (NAPAfrica)",
-    "bview_url": "https://archive.routeviews.org/route-views.napafrica/bgpdata/2026.11/RIBS/rib.20261128.0000.bz2",
-    "bview_time": "2026-11-28T05:30:00+05:30",
-    "bview_routes": 1340082
+    "bview_url": "https://archive.routeviews.org/route-views.napafrica/bgpdata/2026.11/RIBS/rib.20261128.0800.bz2",
+    "bview_time": "2026-11-28T13:30:00+05:30",
+    "bview_routes": 1340077
   },
   "updates": {
-    "first_file": "https://archive.routeviews.org/route-views.napafrica/bgpdata/2026.11/UPDATES/updates.20261128.0615.bz2",
-    "last_file": "https://archive.routeviews.org/route-views.napafrica/bgpdata/2026.11/UPDATES/updates.20261128.0700.bz2",
-    "files": 4,
+    "first_file": "https://archive.routeviews.org/route-views.napafrica/bgpdata/2026.11/UPDATES/updates.20261128.0800.bz2",
+    "last_file": "https://archive.routeviews.org/route-views.napafrica/bgpdata/2026.11/UPDATES/updates.20261128.0815.bz2",
+    "files": 2,
     "missing_files": [],
     "stats": {
-      "announce_replace": 260938,
-      "announce_new_prefix": 17207,
-      "withdrawals": 17514,
-      "announce_duplicate": 1792,
-      "files": 4
+      "announce_duplicate": 1006,
+      "announce_replace": 137961,
+      "announce_new_prefix": 8320,
+      "withdrawals": 8397,
+      "files": 2
     },
     "applied": true
   },
-  "self_check": null,
+  "self_check": {
+    "previous_bview": "2026-11-28T05:30:00+05:30",
+    "compared_at": "2026-11-28T13:30:00+05:30",
+    "routes_built": 1340077,
+    "routes_bview": 1340077,
+    "identical": 1333914,
+    "identical_pct": 99.5401,
+    "only_in_built": 0,
+    "only_in_bview": 0,
+    "path_differs": 1,
+    "communities_differ": 6162
+  },
   "notes": [
     "BGP session resets are not detected: routes withdrawn while a session was down may linger until the next bview (at most 8 hours).",
     "load_bview, download_updates_* and apply_updates_* timings cover all collector_sources (one shared pass); write and save_state are for this source."
   ],
   "timing_seconds": {
-    "download_updates_run": 3.3,
-    "apply_updates_run": 15.8,
-    "write": 16.8,
-    "save_state": 2.1,
-    "total": 52.5
+    "download_updates_self_check": 3.2,
+    "apply_updates_self_check": 9.6,
+    "load_bview": 102.1,
+    "download_updates_run": 3.2,
+    "apply_updates_run": 9.7,
+    "write": 17.9,
+    "save_state": 2.6,
+    "total": 211.2
   },
-  "generated_at": "2026-11-28T12:56:56+05:30",
+  "generated_at": "2026-11-28T14:10:18+05:30",
   "counts": {
-    "routes": 1339958,
+    "routes": 1340000,
     "routes_by_session": {
-      "196.60.8.60 (IPv4)": 1084172,
-      "2001:43f8:6d0::60 (IPv6)": 255786
+      "196.60.8.60 (IPv4)": 1084289,
+      "2001:43f8:6d0::60 (IPv6)": 255711
     },
-    "unique_raw_paths": 172475,
-    "unique_clean_paths": 158061,
-    "origin_asns": 86806,
-    "adjacencies": 135231,
+    "unique_raw_paths": 172538,
+    "unique_clean_paths": 158100,
+    "origin_asns": 86805,
+    "adjacencies": 135244,
     "asns_with_observed_upstream": 87110,
     "routes_with_any_flag": 717
   },
@@ -100,22 +114,22 @@
   },
   "path_length_by_routes": {
     "1": 15,
-    "2": 127359,
-    "3": 489634,
-    "4": 468129,
-    "5": 195972,
-    "6": 47315,
-    "7": 8217,
+    "2": 127585,
+    "3": 489485,
+    "4": 468357,
+    "5": 195847,
+    "6": 47202,
+    "7": 8193,
     "8": 2728,
     "9": 569,
-    "10": 16,
+    "10": 15,
     "11": 2,
     "26": 1,
     "28": 1
   },
   "files_bytes": {
-    "routes.tsv.gz": 18229231,
-    "paths.tsv.gz": 4377219,
-    "adjacency.tsv.gz": 730492
+    "routes.tsv.gz": 18298140,
+    "paths.tsv.gz": 4378376,
+    "adjacency.tsv.gz": 730587
   }
 }
