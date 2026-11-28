@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-28T05:00:00+05:30",
+  "as_of": "2026-11-28T06:00:00+05:30",
   "run": {
-    "mode": "continue",
-    "reason": "saved state as of 2026-11-28 04:45 IST",
+    "mode": "fresh",
+    "reason": "new bview 2026-11-28 05:30 IST",
     "collector_sources": [
       "route-views8_AS151704"
     ]
@@ -19,48 +19,62 @@
     "display_name": "Bharat Datacenter",
     "note": "Most of its routes go via Bharti Airtel (AS9498), so it is effectively an India / Airtel view.",
     "collector_location": "Eugene, Oregon (multihop)",
-    "bview_url": "https://archive.routeviews.org/route-views8/bgpdata/2026.11/RIBS/rib.20261127.1600.bz2",
-    "bview_time": "2026-11-27T21:30:00+05:30",
-    "bview_routes": 1364548
+    "bview_url": "https://archive.routeviews.org/route-views8/bgpdata/2026.11/RIBS/rib.20261128.0000.bz2",
+    "bview_time": "2026-11-28T05:30:00+05:30",
+    "bview_routes": 1365100
   },
   "updates": {
-    "first_file": "https://archive.routeviews.org/route-views8/bgpdata/2026.11/UPDATES/updates.20261127.2315.bz2",
-    "last_file": "https://archive.routeviews.org/route-views8/bgpdata/2026.11/UPDATES/updates.20261127.2315.bz2",
-    "files": 1,
+    "first_file": "https://archive.routeviews.org/route-views8/bgpdata/2026.11/UPDATES/updates.20261128.0000.bz2",
+    "last_file": "https://archive.routeviews.org/route-views8/bgpdata/2026.11/UPDATES/updates.20261128.0015.bz2",
+    "files": 2,
     "missing_files": [],
     "stats": {
-      "announce_replace": 24199,
-      "withdrawals": 1021,
-      "announce_new_prefix": 1022,
-      "announce_duplicate": 105,
-      "files": 1
+      "announce_replace": 42467,
+      "announce_new_prefix": 2396,
+      "withdrawals": 2571,
+      "announce_duplicate": 155,
+      "files": 2
     },
     "applied": true
   },
-  "self_check": null,
+  "self_check": {
+    "previous_bview": "2026-11-27T21:30:00+05:30",
+    "compared_at": "2026-11-28T05:30:00+05:30",
+    "routes_built": 1365115,
+    "routes_bview": 1365100,
+    "identical": 25734,
+    "identical_pct": 1.8851,
+    "only_in_built": 15,
+    "only_in_bview": 0,
+    "path_differs": 0,
+    "communities_differ": 1339366
+  },
   "notes": [
     "BGP session resets are not detected: routes withdrawn while a session was down may linger until the next bview (at most 8 hours).",
     "load_bview, download_updates_* and apply_updates_* timings cover all collector_sources (one shared pass); write and save_state are for this source."
   ],
   "timing_seconds": {
-    "download_updates_run": 2.4,
-    "apply_updates_run": 1.9,
-    "write": 11.8,
-    "save_state": 1.8,
-    "total": 25.4
+    "download_updates_self_check": 2.5,
+    "apply_updates_self_check": 3.6,
+    "load_bview": 65.6,
+    "download_updates_run": 2.6,
+    "apply_updates_run": 3.5,
+    "write": 14.4,
+    "save_state": 2.1,
+    "total": 131.6
   },
-  "generated_at": "2026-11-28T05:04:31+05:30",
+  "generated_at": "2026-11-28T06:10:07+05:30",
   "counts": {
-    "routes": 1364897,
+    "routes": 1364925,
     "routes_by_session": {
-      "2a0b:4e07:1c00:2::1 (IPv6)": 265357,
-      "85.209.161.5 (IPv4)": 1099540
+      "2a0b:4e07:1c00:2::1 (IPv6)": 265394,
+      "85.209.161.5 (IPv4)": 1099531
     },
-    "unique_raw_paths": 178050,
-    "unique_clean_paths": 166297,
-    "origin_asns": 86946,
-    "adjacencies": 139650,
-    "asns_with_observed_upstream": 87216,
+    "unique_raw_paths": 178015,
+    "unique_clean_paths": 166270,
+    "origin_asns": 86947,
+    "adjacencies": 139626,
+    "asns_with_observed_upstream": 87217,
     "routes_with_any_flag": 823
   },
   "flags": {
@@ -99,22 +113,22 @@
   },
   "path_length_by_routes": {
     "1": 31,
-    "2": 20589,
-    "3": 174350,
-    "4": 519305,
-    "5": 466451,
-    "6": 144403,
-    "7": 31401,
-    "8": 5502,
-    "9": 2254,
+    "2": 20593,
+    "3": 174621,
+    "4": 520099,
+    "5": 466368,
+    "6": 143619,
+    "7": 31167,
+    "8": 5555,
+    "9": 2261,
     "10": 583,
     "11": 26,
     "12": 1,
     "26": 1
   },
   "files_bytes": {
-    "routes.tsv.gz": 15688002,
-    "paths.tsv.gz": 4590620,
-    "adjacency.tsv.gz": 742900
+    "routes.tsv.gz": 15514135,
+    "paths.tsv.gz": 4588758,
+    "adjacency.tsv.gz": 742593
   }
 }
