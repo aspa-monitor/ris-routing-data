@@ -181,3 +181,11 @@ display_name = "GTT"
 region = "Northern America"
 # Separate sessions per address family; ~31% of its routes take paths no other source shows (Nov 2026).
 peer_ips = ["195.66.224.32", "2001:7f8:4::cb9:1"]
+
+[[sources]]
+collector = "rrc03"
+peer_asn = 3320            # Deutsche Telekom
+display_name = "Deutsche Telekom"
+region = "Western Europe"
+# Separate sessions per address family; its IPv6 table is a little smaller than most (~228k, Nov 2026).
+peer_ips = ["80.249.209.211", "2001:7f8:1::a500:3320:1"]

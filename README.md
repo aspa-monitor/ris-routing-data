@@ -26,6 +26,7 @@ Each source is one peer AS on one collector, named `<collector>_AS<peer>` (`conf
 | `rrc25_AS1221` | Telstra (Australia) | IPv4 + IPv6 |
 | `rrc26_AS200612` | Gulf Bridge International (Middle East) | IPv4 + IPv6 |
 | `rrc01_AS3257` | GTT Communications | IPv4 + IPv6 |
+| `rrc03_AS3320` | Deutsche Telekom | IPv4 + IPv6 |
 | `route-views.eqix_AS6939` | Hurricane Electric | IPv4 + IPv6 |
 | `route-views.napafrica_AS37468` | Angola Cables | IPv4 + IPv6 |
 | `route-views.napafrica_AS30844` | Liquid Telecom | IPv4 + IPv6 |
