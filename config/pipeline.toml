@@ -26,6 +26,9 @@ min_ipv6_prefixes = 150000
 [collectors.rrc00]
 location = "Amsterdam (multihop)"
 
+[collectors.rrc01]
+location = "London (LINX / LONAP)"
+
 [collectors.rrc03]
 location = "Amsterdam (AMS-IX / NL-IX)"
 
@@ -155,3 +158,10 @@ peer_asn = 174             # Cogent Communications
 display_name = "Cogent"
 # IPv4 only: Cogent sends no IPv6 table to any RIS or RouteViews collector (Nov 2026).
 peer_ips = ["149.6.36.21"]
+
+[[sources]]
+collector = "rrc01"
+peer_asn = 3257            # GTT Communications
+display_name = "GTT"
+# Separate sessions per address family; ~31% of its routes take paths no other source shows (Nov 2026).
+peer_ips = ["195.66.224.32", "2001:7f8:4::cb9:1"]
