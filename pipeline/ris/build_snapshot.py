@@ -315,6 +315,7 @@ def run_collector(cfg: dict, collector: str, sources: list[dict], mrt_arg: str |
             "run": {"mode": j["mode"], "reason": j["reason"], "collector_sources": names},
             "source": {"collector": collector, "archive": archive.kind, "peer_asn": peer_asn, "peer_ips": peer_ips,
                        "display_name": source.get("display_name"), "note": source.get("note"),
+                       "region": source.get("region"),
                        "collector_location": cfg.get("collectors", {}).get(collector, {}).get("location"),
                        "bview_url": bview_url, "bview_time": ist_iso(bview_ts),
                        "bview_routes": j.get("bview_routes")},

@@ -47,7 +47,7 @@ def package(snapshots: list[Path], dist: Path, latest: Path) -> dict:
         entry = {"name": name, "collector": meta["source"]["collector"],
                  "peer_asn": meta["source"]["peer_asn"], "as_of": meta["as_of"],
                  "meta": meta_name, "files": files}
-        for key in ("display_name", "collector_location", "note"):  # optional, for display only
+        for key in ("display_name", "collector_location", "note", "region"):  # optional, for display only
             if meta["source"].get(key):
                 entry[key] = meta["source"][key]
         sources.append(entry)

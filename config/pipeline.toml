@@ -62,6 +62,7 @@ location = "Eugene, Oregon (multihop)"
 collector = "rrc00"
 peer_asn = 7018            # AT&T
 display_name = "AT&T"
+region = "Northern America"
 # AT&T uses separate sessions per address family.
 peer_ips = ["12.0.1.63", "2001:1890:111d:1::63"]
 
@@ -69,24 +70,28 @@ peer_ips = ["12.0.1.63", "2001:1890:111d:1::63"]
 collector = "rrc00"
 peer_asn = 3549            # Lumen (Level 3)
 display_name = "Lumen / Level 3"
+region = "Northern America"
 peer_ips = ["208.51.134.248"]            # no full IPv6 feed to rrc00
 
 [[sources]]
 collector = "rrc00"
 peer_asn = 3333            # RIPE NCC
 display_name = "RIPE NCC"
+region = "Western Europe"
 peer_ips = ["193.0.0.56"]                # one session carries IPv4 and IPv6
 
 [[sources]]
 collector = "rrc00"
 peer_asn = 4608            # APNIC Services
 display_name = "APNIC"
+region = "Australia and New Zealand"
 peer_ips = ["203.119.104.1"]             # no full IPv6 feed to rrc00
 
 [[sources]]
 collector = "rrc00"
 peer_asn = 24482           # SG.GS (Singapore)
 display_name = "SG.GS"
+region = "South-eastern Asia"
 peer_ips = ["203.175.175.15", "2405:4200:100::15"]
 
 # rrc06: Tokyo (DIX-IE)
@@ -94,6 +99,7 @@ peer_ips = ["203.175.175.15", "2405:4200:100::15"]
 collector = "rrc06"
 peer_asn = 4777            # APNIC-COLO
 display_name = "APNIC Colo"
+region = "Eastern Asia"
 peer_ips = ["202.249.2.20", "2001:200:0:fe00::12a9:0"]
 
 # rrc23: Singapore
@@ -101,6 +107,7 @@ peer_ips = ["202.249.2.20", "2001:200:0:fe00::12a9:0"]
 collector = "rrc23"
 peer_asn = 3491            # PCCW Global (Hong Kong)
 display_name = "PCCW Global"
+region = "Eastern Asia"
 peer_ips = ["27.111.228.43", "2001:de8:4::3491:1"]
 
 # rrc03: Amsterdam (AMS-IX / NL-IX)
@@ -108,6 +115,7 @@ peer_ips = ["27.111.228.43", "2001:de8:4::3491:1"]
 collector = "rrc03"
 peer_asn = 6453            # Tata Communications (hands Indian routes to Tata India AS4755 and Bharti)
 display_name = "Tata Communications"
+region = "Southern Asia"
 peer_ips = ["80.249.209.167", "2001:7f8:1::a500:6453:1"]
 
 # rrc25: Amsterdam (multihop)
@@ -115,12 +123,14 @@ peer_ips = ["80.249.209.167", "2001:7f8:1::a500:6453:1"]
 collector = "rrc25"
 peer_asn = 1221            # Telstra (Australia)
 display_name = "Telstra"
+region = "Australia and New Zealand"
 peer_ips = ["203.62.252.13", "2001:8000:100::30:136"]
 
 [[sources]]
 collector = "route-views.eqix"
 peer_asn = 6939            # Hurricane Electric
 display_name = "Hurricane Electric"
+region = "Northern America"
 # Full IPv4 + IPv6 here; on RIS collectors HE sends only its ~170k IPv4 peering routes.
 peer_ips = ["206.126.236.37", "2001:504:0:2::6939:1"]
 
@@ -128,12 +138,14 @@ peer_ips = ["206.126.236.37", "2001:504:0:2::6939:1"]
 collector = "route-views.napafrica"
 peer_asn = 37468           # Angola Cables
 display_name = "Angola Cables"
+region = "Middle Africa"
 peer_ips = ["196.60.8.60", "2001:43f8:6d0::60"]
 
 [[sources]]
 collector = "route-views.napafrica"
 peer_asn = 30844           # Liquid Telecom
 display_name = "Liquid Telecom"
+region = "Southern Africa"
 # On RIS rrc19 the same session sends only ~4k customer routes; RouteViews gets the full table.
 peer_ips = ["196.60.8.215", "2001:43f8:6d0::215"]
 
@@ -141,6 +153,7 @@ peer_ips = ["196.60.8.215", "2001:43f8:6d0::215"]
 collector = "route-views8"
 peer_asn = 151704          # Bharat Datacenter (India)
 display_name = "Bharat Datacenter"
+region = "Southern Asia"
 # About 91% of its routes go through Bharti Airtel (AS9498) (Nov 2026): the closest to an Airtel view.
 note = "Most of its routes go via Bharti Airtel (AS9498), so it is effectively an India / Airtel view."
 peer_ips = ["85.209.161.5", "2a0b:4e07:1c00:2::1"]
@@ -149,6 +162,7 @@ peer_ips = ["85.209.161.5", "2a0b:4e07:1c00:2::1"]
 collector = "rrc26"
 peer_asn = 200612          # Gulf Bridge International (Middle East)
 display_name = "Gulf Bridge"
+region = "Western Asia"
 # Separate sessions per address family; full IPv4 and IPv6 tables (Nov 2026).
 peer_ips = ["185.1.8.50", "2001:7f8:73:0:3:fa4:0:1"]
 
@@ -156,6 +170,7 @@ peer_ips = ["185.1.8.50", "2001:7f8:73:0:3:fa4:0:1"]
 collector = "route-views8"
 peer_asn = 174             # Cogent Communications
 display_name = "Cogent"
+region = "Northern America"
 # IPv4 only: Cogent sends no IPv6 table to any RIS or RouteViews collector (Nov 2026).
 peer_ips = ["149.6.36.21"]
 
@@ -163,5 +178,6 @@ peer_ips = ["149.6.36.21"]
 collector = "rrc01"
 peer_asn = 3257            # GTT Communications
 display_name = "GTT"
+region = "Northern America"
 # Separate sessions per address family; ~31% of its routes take paths no other source shows (Nov 2026).
 peer_ips = ["195.66.224.32", "2001:7f8:4::cb9:1"]

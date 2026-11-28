@@ -14,6 +14,14 @@ from pipeline.ris.build_snapshot import group_by_collector, prune_states, update
 from pipeline.ris.publish import package
 from pipeline.ris.rib import Target, apply_updates_multi, load_bview_multi
 
+# UN M49 sub-regions, spelled as the portal expects them (manifest `region`).
+M49_SUBREGIONS = {
+    "Southern Asia", "South-eastern Asia", "Eastern Asia", "Central Asia", "Western Asia",
+    "Australia and New Zealand", "Melanesia", "Micronesia", "Polynesia",
+    "Northern Europe", "Western Europe", "Southern Europe", "Eastern Europe",
+    "Northern America", "Central America", "Caribbean", "South America",
+    "Northern Africa", "Western Africa", "Middle Africa", "Eastern Africa", "Southern Africa",
+}
 T0 = datetime(2026, 11, 23, 8, 0, tzinfo=timezone.utc)
 FIVE = timedelta(minutes=5)
 
@@ -136,6 +144,12 @@ class ConfigTest(unittest.TestCase):
             self.assertTrue(s.get("display_name"), s)
             self.assertTrue(cfg["collectors"][s["collector"]]["location"], s)
 
+    def test_regions_are_un_m49_subregions(self):
+        cfg = tomllib.loads(Path("config/pipeline.toml").read_text())
+        for s in cfg["sources"]:
+            if "region" in s:
+                self.assertIn(s["region"], M49_SUBREGIONS, s)
+
 
 class ManifestTest(unittest.TestCase):
     def _snap(self, root, name, source):
@@ -152,7 +166,7 @@ class ManifestTest(unittest.TestCase):
             root = Path(d)
             a = self._snap(root, "rrc00_AS7018", {"collector": "rrc00", "peer_asn": 7018,
                                                  "display_name": "AT&T", "collector_location": "Amsterdam",
-                                                 "note": "A note.", })
+                                                 "note": "A note.", "region": "Northern America"})
             b = self._snap(root, "rrc06_AS2497", {"collector": "rrc06", "peer_asn": 2497})  # older meta
             m = package([a, b], root / "dist", root / "latest")
         self.assertEqual(m["schema_version"], 1)
@@ -160,7 +174,9 @@ class ManifestTest(unittest.TestCase):
         self.assertEqual((first["display_name"], first["collector_location"], first["note"]),
                          ("AT&T", "Amsterdam", "A note."))
         self.assertNotIn("display_name", second)
+        self.assertEqual(first["region"], "Northern America")
         self.assertNotIn("note", second)
+        self.assertNotIn("region", second)
         self.assertNotIn("collector_location", second)
 
     def test_removed_source_leaves_no_meta(self):

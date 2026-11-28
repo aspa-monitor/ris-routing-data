@@ -58,7 +58,9 @@ oldest source's; each source has its own `as_of` (RouteViews sources usually lag
 Each `sources[]` entry also has `display_name` (short peer name, e.g. `AT&T`) and `collector_location`
 (the collector's city and exchange point, e.g. `Amsterdam (AMS-IX / NL-IX)`, or `multihop`), both from `config/pipeline.toml`. They are optional and for display
 only: fall back to the collector and peer AS if either is missing. Some sources also have `note`, one plain-text
-sentence of context (absent when there is none). The same fields are in each `meta.json` `source`.
+sentence of context (absent when there is none). Each source also has `region`, the UN M49 sub-region
+where the peer's network mainly operates (its home market, not the collector's location), e.g. `Northern America`
+or `Southern Asia`; it is optional too. The same fields are in each `meta.json` `source`.
 
 ## Files
 - `routes.tsv.gz`: afi, prefix, peer_ip, peer_asn, path_id, origin_asn, communities, otc, aggr_asn, aggr_ip, atomic, timestamp (last change)
