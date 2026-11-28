@@ -148,3 +148,10 @@ peer_asn = 200612          # Gulf Bridge International (Middle East)
 display_name = "Gulf Bridge"
 # Separate sessions per address family; full IPv4 and IPv6 tables (Nov 2026).
 peer_ips = ["185.1.8.50", "2001:7f8:73:0:3:fa4:0:1"]
+
+[[sources]]
+collector = "route-views8"
+peer_asn = 174             # Cogent Communications
+display_name = "Cogent"
+# IPv4 only: Cogent sends no IPv6 table to any RIS or RouteViews collector (Nov 2026).
+peer_ips = ["149.6.36.21"]

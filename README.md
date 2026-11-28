@@ -29,13 +29,14 @@ Each source is one peer AS on one collector, named `<collector>_AS<peer>` (`conf
 | `route-views.napafrica_AS37468` | Angola Cables | IPv4 + IPv6 |
 | `route-views.napafrica_AS30844` | Liquid Telecom | IPv4 + IPv6 |
 | `route-views8_AS151704` | Bharat Datacenter (India; ~91% of routes via Bharti Airtel) | IPv4 + IPv6 |
+| `route-views8_AS174` | Cogent | IPv4 only |
 
 `rrc00` and `rrc25` are RIPE's multihop collectors in Amsterdam (peers connect to them over the Internet from
 anywhere); `rrc03` is at AMS-IX / NL-IX in Amsterdam, `rrc06` at DIX-IE / JPIX in Tokyo and `rrc23` at Equinix Singapore
 and `rrc26` at UAE-IX in Dubai (`[collectors]` in the config). The `route-views*` collectors are RouteViews: `route-views.eqix` at Equinix
 Ashburn, `route-views.napafrica` at NAPAfrica Johannesburg, and `route-views8`, multihop in Eugene, Oregon.
 Hurricane Electric and Liquid are taken from RouteViews because on RIS collectors they send only part of their
-table (HE ~170k IPv4 peering routes, Liquid ~4k).
+table (HE ~170k IPv4 peering routes, Liquid ~4k). Cogent's only full feed is on `route-views8`.
 Read the list of sources from
 `manifest.json`, not from this table: sources may be added.
 
